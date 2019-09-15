@@ -1,7 +1,14 @@
 <template>
   <div class="compared">
     <div class="compared_top">
-      <span>儿童乐园预约及体验人数对比</span>
+      <span>“你好智能”累计体验人数：</span><span>
+      <ICountUp
+        :delay="delay"
+        :endVal="endVal"
+        :options="options"
+        @ready="onReady"
+      />
+    </span>
     </div>
     <!-- echart -->
     <div class="echarts-con" ref="echartsEl"></div>
@@ -10,15 +17,39 @@
 
 <script>
   import echarts from 'echarts';
+  import ICountUp from 'vue-countup-v2';
 
   export default {
+    data() {
+      return {
+        delay: 1000,
+        endVal: 120500,
+        options: {
+          useEasing: true,
+          useGrouping: true,
+          separator: ',',
+          decimal: '.',
+          prefix: '',
+          suffix: ''
+        }
+      }
+    },
+    components: {
+      ICountUp
+    },
+    methods:{
+      onReady: function(instance, CountUp) {
+        const that = this;
+        instance.update(that.endVal);
+      }
+    },
     mounted() {
-      const { echartsEl } = this.$refs;
+      const {echartsEl} = this.$refs;
 
       const myEcharts = echarts.init(echartsEl);
 
       const options = {
-        color: ['#DB5D09', '#7F55C4'],
+        color: ['#E5318B', '#4E65DF'],
         grid: {
           top: 100,
           bottom: 60,
@@ -35,7 +66,7 @@
           right: '10%',
           top: 0,
           selectedMode: false,
-          data: ['体验人数', '预约人数'],
+          data: ['当日体验', '临时体验'],
           orient: 'vertical',
         },
         xAxis: {
@@ -199,6 +230,7 @@
       font-weight: 800;
       color: #fff;
     }
+
     .echarts-con {
       width: 100%;
       height: 100%;

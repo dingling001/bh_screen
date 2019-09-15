@@ -3,7 +3,6 @@
     <transition enter-active-class="animated tada" leave-active-class="animated bounceOutRight">
       <full-screen-map v-show="show" class="bottom-map"></full-screen-map>
     </transition>
-
     <current-person-num class="vist-num" v-show="showCurrent"></current-person-num>
     <register-num class="register-num"></register-num>
     <age-distribution class="age-distribution"></age-distribution>
@@ -24,7 +23,6 @@ import SexRatio from '@/components/SexRatio';
 import OnlineRegisterNum from '@/components/OnlineRegisterNum';
 import WeekVisitNum from '@/components/WeekVisitNum';
 import AudienceOrigin from '@/components/AudienceOrigin';
-
 export default {
   name: 'home',
   components: {
