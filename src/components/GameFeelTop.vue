@@ -3,7 +3,6 @@
     <div class="child-age_top">
       <span>“你好智能”体验次数TOP5:</span>
     </div>
-
     <!-- echart -->
     <div class="echarts-con" ref="echartsEl"></div>
   </div>

@@ -11,6 +11,7 @@
     "core-js": "^2.6.5",
     "countup.js": "^2.0.4",
     "echarts": "^4.2.1",
+    "heatmapjs-vue": "0.0.4",
     "postcss-px2rem": "^0.3.0",
     "vue": "^2.6.10",
     "vue-countup": "^0.1.0",

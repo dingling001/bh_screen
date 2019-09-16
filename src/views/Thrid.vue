@@ -4,6 +4,9 @@
     <gamefeeltotal class="vist-num"></gamefeeltotal>
     <game-feel-top class="age-distribution"></game-feel-top>
     <gametop class="sex-ratio"></gametop>
+    <cinema-num class="register-num "></cinema-num>
+    <cinema-week-num class="online-register"></cinema-week-num>
+    <cinema-rank class="week-visit"></cinema-rank>
   </div>
 </template>
 
@@ -12,14 +15,20 @@
   import Gamefeeltotal from '@/components/Gamefeeltotal';
   import GameFeelTop from '@/components/GameFeelTop';
   import Gametop from '@/components/Gametop';
+  import CinemaNum from '@/components/CinemaNum';
+  import CinemaWeekNum from '@/components/CinemaWeekNum';
+  import CinemaRank from '@/components/CinemaRank';
 
   export default {
     components: {
       HotMap,
       Gamefeeltotal,
       GameFeelTop,
-      Gametop
-    },
+      Gametop,
+      CinemaNum,
+      CinemaWeekNum,
+      CinemaRank
+    }
   };
 </script>
 
@@ -56,7 +65,7 @@
       top: 0;
       right: 0;
       z-index: 2;
-
+      bottom: inherit;
       background-image: url('../assets/youzhezhao.png');
       background-size: cover;
       background-repeat: no-repeat;
@@ -89,10 +98,9 @@
 
     .online-register {
       position: absolute;
-      top: 395px;
+      top: 5.02rem;
       right: 0;
       z-index: 2;
-
       background-image: url('../assets/youzhezhao.png');
       background-size: cover;
       background-repeat: no-repeat;
