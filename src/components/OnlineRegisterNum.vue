@@ -24,35 +24,37 @@ export default {
         {
           type: 'image',
           left: '16%',
+          top:'40%',
           style: {
             // eslint-disable-next-line global-require
             image: require('../assets/PC.png'),
-            width: 90,
-            height: 90,
-
-            y: 110,
+            width: 29,
+            height: 25,
+            y: 55,
           },
         },
         {
           type: 'image',
           left: '46%',
+          top:'40%',
           style: {
             // eslint-disable-next-line global-require
             image: require('../assets/Other.png'),
-            width: 90,
-            height: 90,
-            y: 110,
+            width: 30,
+            height: 31,
+            y: 55,
           },
         },
         {
           type: 'image',
-          left: '76%',
+          left: '77%',
+          top:'40%',
           style: {
             // eslint-disable-next-line global-require
             image: require('../assets/Mobile.png'),
-            width: 90,
-            height: 90,
-            y: 110,
+            width: 25,
+            height: 28,
+            y: 55,
           },
         },
       ],
@@ -61,9 +63,10 @@ export default {
           show: true,
           text: 'PC端',
           left: '15%',
+
           textStyle: {
             color: 'rgba(255,255,255,0.7)',
-            fontSize: 25,
+            fontSize: 11,
             fontWeight: 'bold',
           },
         },
@@ -74,7 +77,7 @@ export default {
           textStyle: {
             color: 'rgba(255,255,255,0.7)',
             fontWeight: 'bold',
-            fontSize: 25,
+            fontSize: 11,
           },
         },
         {
@@ -84,7 +87,7 @@ export default {
           textStyle: {
             color: 'rgba(255,255,255,0.7)',
             fontWeight: 'bold',
-            fontSize: 25,
+            fontSize: 11,
           },
         },
       ],
@@ -93,12 +96,12 @@ export default {
           name: 'pc',
           type: 'pie',
           startAngle: 140,
-          radius: [180 / 2 - 4, 180 / 2],
-          center: ['20%', 150],
+          radius: [70 / 2 - 2, 70 / 2],
+          center: ['20%', 75],
           label: {
             show: true,
             position: 'outside',
-            padding: [130, -130, 0, 0],
+            padding: [50, -75, 0, 0],
             formatter(params) {
               if (params.data.name === 'show') {
                 return `{b|${params.data.number}}\n{a|${params.data.value}%}`;
@@ -108,16 +111,16 @@ export default {
             rich: {
               a: {
                 color: '#00B7EE',
-                lineHeight: '50',
+                lineHeight: '33',
                 fontWeight: 'bold',
                 align: 'center',
-                fontSize: 25,
+                fontSize: 13,
               },
               b: {
                 color: '#fff',
                 fontWeight: 'bold',
                 align: 'center',
-                fontSize: 25,
+                fontSize: 13,
               },
             },
           },
@@ -158,12 +161,12 @@ export default {
           name: 'other',
           type: 'pie',
           startAngle: 140,
-          radius: [180 / 2 - 4, 180 / 2],
-          center: ['50%', 150],
+          radius: [70 / 2 - 2, 70 / 2],
+          center: ['50%', 75],
           label: {
             show: true,
             position: 'outside',
-            padding: [130, -130, 0, 0],
+            padding: [50, -75, 0, 0],
             formatter(params) {
               if (params.data.name === 'show') {
                 return `{b|${params.data.number}}\n{a|${params.data.value}%}`;
@@ -173,16 +176,16 @@ export default {
             rich: {
               a: {
                 color: '#2FE4C3',
-                lineHeight: '50',
+                lineHeight: '33',
                 fontWeight: 'bold',
                 align: 'center',
-                fontSize: 25,
+                fontSize: 13,
               },
               b: {
                 color: '#fff',
                 fontWeight: 'bold',
                 align: 'center',
-                fontSize: 25,
+                fontSize: 13,
               },
             },
           },
@@ -223,12 +226,12 @@ export default {
           name: 'mobile',
           type: 'pie',
           startAngle: 140,
-          radius: [180 / 2 - 4, 180 / 2],
-          center: ['80%', 150],
+          radius: [70 / 2 - 2, 70 / 2],
+          center: ['80%', 75],
           label: {
             show: true,
             position: 'outside',
-            padding: [130, -130, 0, 0],
+            padding: [50, -75, 0, 0],
             formatter(params) {
               if (params.data.name === 'show') {
                 return `{b|${params.data.number}}\n{a|${params.data.value}%}`;
@@ -238,16 +241,16 @@ export default {
             rich: {
               a: {
                 color: '#EA68A2',
-                lineHeight: '50',
+                lineHeight: '33',
                 fontWeight: 'bold',
                 align: 'center',
-                fontSize: 25,
+                fontSize: 13,
               },
               b: {
                 color: '#fff',
                 fontWeight: 'bold',
                 align: 'center',
-                fontSize: 25,
+                fontSize: 13,
               },
             },
           },
@@ -298,8 +301,10 @@ export default {
   margin-bottom: 22px;
   display: flex;
   flex-flow: column nowrap;
-  width: 960 + 120px;
-  height: 452px;
+/*  width: 960 + 120px;
+  height: 452px;*/
+  width: 367px;
+  height: 240px;
   // background-color: #0e0e20;
 
   &_top {
@@ -308,12 +313,12 @@ export default {
     padding-left: 60px;
     width: 100%;
     text-align: left;
-    font-size: 29px;
+    font-size: 14px;
     font-weight: 800;
     color: #fff;
     > span {
       &:last-child {
-        font-size: 36px;
+        font-size: 17px;
       }
     }
   }

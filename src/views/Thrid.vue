@@ -1,12 +1,16 @@
 <template>
   <div class="home">
     <hot-map class="bottom-map"></hot-map>
-    <gamefeeltotal class="vist-num"></gamefeeltotal>
-    <game-feel-top class="age-distribution"></game-feel-top>
-    <gametop class="sex-ratio"></gametop>
-    <cinema-num class="register-num "></cinema-num>
-    <cinema-week-num class="online-register"></cinema-week-num>
-    <cinema-rank class="week-visit"></cinema-rank>
+    <div class="left">
+      <gamefeeltotal class="vist-num"></gamefeeltotal>
+      <game-feel-top class="age-distribution"></game-feel-top>
+      <gametop class="sex-ratio"></gametop>
+    </div>
+    <div class="right">
+      <!--      <cinema-num class="register-num "></cinema-num>-->
+      <!--      <cinema-week-num class="online-register"></cinema-week-num>-->
+      <!--      <cinema-rank class="week-visit"></cinema-rank>-->
+    </div>
   </div>
 </template>
 
@@ -27,8 +31,8 @@
       Gametop,
       CinemaNum,
       CinemaWeekNum,
-      CinemaRank
-    }
+      CinemaRank,
+    },
   };
 </script>
 
@@ -42,7 +46,7 @@
 
     .vist-num {
       position: absolute;
-      top: 0;
+      top: 54px;
       left: 0;
       z-index: 2;
       background-image: url('../assets/zuozhezhao.png');
@@ -58,6 +62,10 @@
       z-index: 1;
       width: 100%;
       height: 100%;
+      background-image: url("../assets/thrid_bg.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
     }
 
     .register-num {
@@ -74,7 +82,8 @@
 
     .age-distribution {
       position: absolute;
-      top: 480 + 22px;
+      /*<!--top: 480 + 22px;-->*/
+      top: 280px;
       left: 0;
       z-index: 2;
 

@@ -1,7 +1,7 @@
 <template>
   <div class="hot-map">
     <div class="center">
-      <p>当前馆内观众热力图</p>
+      <!--      <p>当前馆内观众热力图</p>-->
       <!--      <div class="heat-type" ></div>-->
       <div class="cont">
         <ul>
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  import Heatmap from 'heatmap.js'
+  import Heatmap from 'heatmap.js';
 
   export default {
     data() {
@@ -67,27 +67,27 @@
           {map: null},
           {map: null},
           {map: null},
-          {map: null}
+          {map: null},
         ],
-      }
+      };
     },
     mounted() {
-      this.initHotMap()
+      this.initHotMap();
     },
     methods: {
       initHotMap(dataarr) {
-        var vm = this;
-        var nuConfig = {
-          blur: .75,
-          maxOpacity: .5,
-          minOpacity: .1,
+        const vm = this;
+        const nuConfig = {
+          blur: 0.75,
+          maxOpacity: 0.5,
+          minOpacity: 0.1,
           gradient: {
             '.5': '#8CF13A',
             '.8': '#FF9F19',
-            '.95': '#F7563E'
-          }
+            '.95': '#F7563E',
+          },
         };
-        var data = [
+        const data = [
           {
             max: 100,
             min: 0,
@@ -95,19 +95,19 @@
               {
                 x: 200, // x coordinate of the datapoint, a number
                 y: 120, // y coordinate of the datapoint, a number
-                value: 80 // the value at datapoint(x, y)
+                value: 80, // the value at datapoint(x, y)
               },
               {
                 x: 250, // x coordinate of the datapoint, a number
                 y: 80, // y coordinate of the datapoint, a number
-                value: 40 // the value at datapoint(x, y)
+                value: 40, // the value at datapoint(x, y)
               },
               {
                 x: 350, // x coordinate of the datapoint, a number
                 y: 80, // y coordinate of the datapoint, a number
-                value: 100 // the value at datapoint(x, y)
-              }
-            ]
+                value: 100, // the value at datapoint(x, y)
+              },
+            ],
           },
           {
             max: 120,
@@ -116,19 +116,19 @@
               {
                 x: 300, // x coordinate of the datapoint, a number
                 y: 120, // y coordinate of the datapoint, a number
-                value: 90 // the value at datapoint(x, y)
+                value: 90, // the value at datapoint(x, y)
               },
               {
                 x: 250, // x coordinate of the datapoint, a number
                 y: 80, // y coordinate of the datapoint, a number
-                value: 40 // the value at datapoint(x, y)
+                value: 40, // the value at datapoint(x, y)
               },
               {
                 x: 350, // x coordinate of the datapoint, a number
                 y: 80, // y coordinate of the datapoint, a number
-                value: 100 // the value at datapoint(x, y)
-              }
-            ]
+                value: 100, // the value at datapoint(x, y)
+              },
+            ],
           },
           {
             max: 200,
@@ -137,19 +137,19 @@
               {
                 x: 200, // x coordinate of the datapoint, a number
                 y: 120, // y coordinate of the datapoint, a number
-                value: 180 // the value at datapoint(x, y)
+                value: 180, // the value at datapoint(x, y)
               },
               {
                 x: 250, // x coordinate of the datapoint, a number
                 y: 80, // y coordinate of the datapoint, a number
-                value: 40 // the value at datapoint(x, y)
+                value: 40, // the value at datapoint(x, y)
               },
               {
                 x: 350, // x coordinate of the datapoint, a number
                 y: 80, // y coordinate of the datapoint, a number
-                value: 100 // the value at datapoint(x, y)
-              }
-            ]
+                value: 100, // the value at datapoint(x, y)
+              },
+            ],
           },
           {
             max: 300,
@@ -158,53 +158,55 @@
               {
                 x: 200, // x coordinate of the datapoint, a number
                 y: 120, // y coordinate of the datapoint, a number
-                value: 10 // the value at datapoint(x, y)
+                value: 10, // the value at datapoint(x, y)
               },
               {
                 x: 250, // x coordinate of the datapoint, a number
                 y: 80, // y coordinate of the datapoint, a number
-                value: 140 // the value at datapoint(x, y)
+                value: 140, // the value at datapoint(x, y)
               },
               {
                 x: 350, // x coordinate of the datapoint, a number
                 y: 80, // y coordinate of the datapoint, a number
-                value: 100 // the value at datapoint(x, y)
-              }
-            ]
-          }
+                value: 100, // the value at datapoint(x, y)
+              },
+            ],
+          },
         ];
         // 热力图
-        vm.heatmap.forEach(function (a, i) {
-          var heatmapDom = document.querySelector('#chart4_' + (i + 1));
-          console.log(heatmapDom)
-          var scale = heatmapDom.clientWidth / 1400;
+        vm.heatmap.forEach((a, i) => {
+          const heatmapDom = document.querySelector(`#chart4_${i + 1}`);
+          console.log(heatmapDom);
+          const scale = heatmapDom.clientWidth / 1400;
           a.map = Heatmap.create(
             {
               container: heatmapDom,
               radius: 80 * scale,
-            }
+            },
           ).configure(nuConfig).setData(data[i]);
-        })
-      }
+        });
+      },
 
-    }
+    },
   };
 </script>
 
 <style lang="less" scoped>
   /** @format */
   .hot-map {
-    width: 100%;
-    height: 1536px;
+    /*width: 100%;*/
+    /*height: 1536px;*/
+    /*height: 768px;*/
 
     .center {
       position: relative;
-      width: 1680px;
+      width: 1366px;
       margin: 0 auto;
-      height: 1536px;
-      padding-top: 112px;
-      padding-left: 120px;
-      padding-right: 120px;
+      /*height: 1536px;*/
+      height: 768px;
+      /*padding-top: 112px;*/
+      /*padding-left: 120px;*/
+      /*padding-right: 120px;*/
 
       > p {
         position: absolute;
@@ -238,21 +240,23 @@
 
       li {
         width: 100%;
-        height: 324px;
+        height: 183px;
         /*margin-top: 1rem;*/
         position: relative;
-
-        &:first-child {
-          margin-top: 200px;
-        }
+        margin: 80px auto;
+        /*&:first-child {*/
+        /*  margin-top: 200px;*/
+        /*}*/
 
         .heattitle {
-          width: 8rem;
+          width: 518px;
           height: auto;
           position: absolute;
           top: 50%;
-          left: 2rem;
-          transform: translateY(-50%);
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+          margin-left: 26%;
 
           .r1 {
             width: 100%;
@@ -261,16 +265,16 @@
 
             .c1 {
               float: left;
-              margin-right: 0.5rem;
-              font-size: 36px;
+              margin-right: 10px;
+              font-size: 22px;
               color: #fff;
             }
 
             .c2 {
               float: left;
-              font-size: 22px;
+              font-size: 12px;
               font-weight: bold;
-              line-height: 50px;
+              line-height: 22px;
               color: #67B700;
             }
           }
@@ -282,17 +286,17 @@
 
             .c1 {
               float: left;
-              margin-right: 0.5rem;
-              font-size: 0.95rem;
-              line-height: 1.5rem;
+              margin-right: 10px;
+              font-size: 22px;
+              /*line-height: 1.5rem;*/
             }
 
             .c2 {
               float: left;
               padding-right: 1rem;
               position: relative;
-              font-size: 0.95rem;
-              line-height: 1.5rem;
+              font-size: 11px;
+              line-height: 22px;
               color: #67B700;
 
               &:after {
@@ -341,8 +345,8 @@
         }
 
         .heatchart {
-          width: 852px;
-          height: 324px;
+          width: 477px;
+          height: 183px;
           position: absolute;
           top: 0;
           left: 0;

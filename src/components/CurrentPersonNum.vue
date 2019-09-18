@@ -6,6 +6,7 @@
     </div>
     <!-- echart -->
     <div class="echarts-con" ref="echartsEl"></div>
+    <div class="hr"></div>
   </div>
 </template>
 
@@ -27,9 +28,9 @@ export default {
 
     const options = {
       grid: {
-        left: 110,
+        left: 59,
         top: 20,
-        right: 80,
+        right: 20,
         bottom: 40,
       },
 
@@ -48,7 +49,7 @@ export default {
         axisLabel: {
           show: true,
           interval: 'auto',
-          fontSize: 19,
+          fontSize: 10,
           fontWeight: 'bold',
           color: '#808080',
         },
@@ -69,7 +70,7 @@ export default {
         axisLabel: {
           showMinLabel: false,
           fontWeight: 'bold',
-          fontSize: 19,
+          fontSize: 10,
           color: '#808080',
         },
       },
@@ -102,11 +103,11 @@ export default {
                 },
                 {
                   offset: 0.3,
-                  color: 'rgba(29,188,157,0.5)', // 30% 处的颜色
+                  color: 'rgba(29,188,157,0.2)', // 30% 处的颜色
                 },
                 {
                   offset: 1,
-                  color: 'rgba(29,188,157,0.8)', // 100% 处的颜色
+                  color: 'rgba(29,188,157,0.5)', // 100% 处的颜色
                 },
               ],
             },
@@ -127,8 +128,8 @@ export default {
   margin-bottom: 22px;
   display: flex;
   flex-flow: column nowrap;
-  width: 960 + 120px;
-  height: 480px;
+  width: 367px;
+  height: 251px;
   // background-color: #0e0e20;
 
   &_top {
@@ -137,18 +138,24 @@ export default {
     padding-left: 60px;
     width: 100%;
     text-align: left;
-    font-size: 29px;
+    font-size: 14px;
     font-weight: 800;
     color: #fff;
     > span {
       &:last-child {
-        font-size: 43px;
+        font-size: 22px;
       }
     }
   }
   .echarts-con {
     width: 100%;
     height: 100%;
+  }
+  .hr{
+    width:422px;
+    height:11px;
+    background:#05141F;
+    opacity: .5;
   }
 }
 </style>

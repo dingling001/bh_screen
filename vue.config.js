@@ -60,7 +60,6 @@ module.exports = {
   },
 
   publicPath: process.env.BASE_URL,
-
   configureWebpack: (config) => {
     if (isProduction) {
       // externals里的模块不打包 配置cdn
@@ -71,7 +70,7 @@ module.exports = {
       // 为生产环境修改配置...
       // 上线压缩去除console等信息
       config.optimization.minimizer[0].options.terserOptions.compress.warnings = false;
-      config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true;
+      config.optimization.minimizer[0].options.terserOptions.compress.drop_console = false;
       config.optimization.minimizer[0].options.terserOptions.compress.drop_debugger = true;
       config.optimization.minimizer[0].options.terserOptions.compress.pure_funcs = ['console.log'];
       // 分析工具
@@ -127,7 +126,8 @@ module.exports = {
     } else {
       // 为开发环境修改配置...
       // externals里的模块不打包
-      Object.assign(config, {
+      console.log(isProduction)
+        Object.assign(config, {
         externals,
       });
     }

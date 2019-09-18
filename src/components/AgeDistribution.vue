@@ -10,713 +10,833 @@
 </template>
 
 <script>
-import echarts from 'echarts';
+  import echarts from 'echarts';
 
-export default {
-  mounted() {
-    const { echartsEl } = this.$refs;
-
-    const myEcharts = echarts.init(echartsEl);
-
-    const option = {
-      title: [
-        {
-          show: true,
-          text: '17岁及以下',
-          textAlign: 'center',
-          textStyle: {
-            color: '#808080',
-            fontSize: 22,
-            fontWeight: 'normal',
-            textAlign: 'center',
-          },
-          left: '30%',
-          top: 140,
-        },
-        {
-          show: true,
-          text: '18-24',
-          textAlign: 'center',
-          textStyle: {
-            color: '#808080',
-            fontSize: 22,
-            fontWeight: 'normal',
-            textAlign: 'center',
-          },
-          left: '50%',
-          top: 140,
-        },
-        {
-          show: true,
-          text: '25-30',
-          textAlign: 'center',
-          textStyle: {
-            color: '#808080',
-            fontSize: 22,
-            fontWeight: 'normal',
-            textAlign: 'center',
-          },
-          left: '70%',
-          top: 140,
-        },
-
-        {
-          show: true,
-          text: '31-35',
-          textAlign: 'center',
-          textStyle: {
-            color: '#808080',
-            fontSize: 22,
-            fontWeight: 'normal',
-            textAlign: 'center',
-          },
-          left: '20%',
-          bottom: 20,
-        },
-        {
-          show: true,
-          text: '36-40',
-          textAlign: 'center',
-          textStyle: {
-            color: '#808080',
-            fontSize: 22,
-            fontWeight: 'normal',
-            textAlign: 'center',
-          },
-          left: '40%',
-          bottom: 20,
-        },
-        {
-          show: true,
-          text: '41-64',
-          textAlign: 'center',
-          textStyle: {
-            color: '#808080',
-            fontSize: 22,
-            fontWeight: 'normal',
-            textAlign: 'center',
-          },
-          left: '60%',
-          bottom: 20,
-        },
-        {
-          show: true,
-          text: '65岁及以上',
-          textAlign: 'center',
-          textStyle: {
-            color: '#808080',
-            fontSize: 22,
-            fontWeight: 'normal',
-            textAlign: 'center',
-          },
-          left: '80%',
-          bottom: 20,
-        },
-      ],
-      series: [
-        {
-          type: 'pie',
-          clockWise: true,
-          radius: [53, 54],
-          startAngle: 90,
-          center: ['30%', 70],
-          itemStyle: {
-            normal: {
-              color: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#F1AA3A', // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: '#F7563E', // 100% 处的颜色
-                  },
-                ],
+  export default {
+    data() {
+      return {
+        myEcharts: null,
+      }
+    },
+    props: {
+      'age_user': {
+        type: Array,
+        default: []
+      }
+    },
+    mounted() {
+      const {echartsEl} = this.$refs;
+      this.myEcharts = echarts.init(echartsEl);
+      this.initData(this.age_user)
+      setInterval(()=>{
+        this.myEcharts.clear();
+        this.initData(this.age_user)
+      },3000)
+    },
+    methods: {
+      initData(titles) {
+        const title = [];
+        const serie = [];
+        var total = 0;
+        for (var i in titles) {
+          total += parseInt(titles[i].value);
+        }
+        if (titles && titles.length > 0) {
+          titles.forEach((item, index) => {
+            title.push({
+              show: true,
+              text: item.name,
+              textAlign: 'center',
+              textStyle: {
+                color: '#808080',
+                fontSize: 11,
+                fontWeight: 'normal',
+                textAlign: 'center',
               },
-              borderWidth: 5,
-              borderColor: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#F1AA3A', // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: '#F7563E', // 100% 处的颜色
-                  },
-                ],
-              },
-              label: {
-                show: false,
-              },
-              labelLine: {
-                show: false,
-              },
-            },
-          },
-          hoverAnimation: false,
-
-          data: [
-            {
-              value: 20.5,
-              label: {
-                formatter(params) {
-                  return `${Number(params.value).toFixed(2)}%`;
-                },
-                position: 'center',
-                show: true,
-                textStyle: {
-                  fontSize: '21',
-                  fontWeight: 'bold',
-                  color: '#fff',
-                },
-              },
-            },
-            {
-              value: 100 - 20.5,
+              left: index > 2 ? (20 + (index - 3) * 20) + '%' : (30 + index * 20) + '%',
+              top: index > 2 ? null : 65,
+              bottom: 0
+            })
+            serie.push({
+              type: 'pie',
+              clockWise: true,
+              radius: [27, 26],
+              startAngle: 90,
               itemStyle: {
-                color: '#535353',
-                borderWidth: 0,
-                emphasis: {
-                  show: false,
+                normal: {
+                  color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  borderWidth: 5,
+                  borderColor: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  label: {
+                    show: false,
+                  },
+                  labelLine: {
+                    show: false,
+                  },
                 },
               },
-            },
-          ],
-        },
-        {
-          type: 'pie',
-          clockWise: true,
-          radius: [53, 54],
-          startAngle: 90,
-          center: ['50%', 70],
-          itemStyle: {
-            normal: {
-              color: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#F1AA3A', // 0% 处的颜色
+              hoverAnimation: false,
+              center: [index > 2 ? ((index - 3) * 20 + 20) + '%' : (index * 20 + 30) + '%', index > 2 ? 115 : 35],
+              data: [
+                {
+                  value: item.value,
+                  label: {
+                    formatter(params) {
+                      return `${Number(params.value / total).toFixed(2) * 100}%`;
+                    },
+                    position: 'center',
+                    show: true,
+                    textStyle: {
+                      fontSize: '11',
+                      fontWeight: 'bold',
+                      color: '#fff',
+                    },
                   },
-                  {
-                    offset: 1,
-                    color: '#F7563E', // 100% 处的颜色
+                },
+                {
+                  value: total - parseInt(item.value),
+                  itemStyle: {
+                    color: '#535353',
+                    borderWidth: 0,
+                    emphasis: {
+                      show: false,
+                    },
                   },
-                ],
-              },
-              borderWidth: 5,
-              borderColor: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#F1AA3A', // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: '#F7563E', // 100% 处的颜色
-                  },
-                ],
-              },
-              label: {
-                show: false,
-              },
-              labelLine: {
-                show: false,
-              },
-            },
-          },
-          hoverAnimation: false,
-
-          data: [
+                },
+              ],
+            })
+          });
+        } else {
+          var t = [
             {
-              value: 20.5,
-              label: {
-                formatter(params) {
-                  return `${Number(params.value).toFixed(2)}%`;
-                },
-                position: 'center',
-                show: true,
-                textStyle: {
-                  fontSize: '21',
-                  fontWeight: 'bold',
-                  color: '#fff',
-                },
+              show: true,
+              text: '17岁及以下',
+              textAlign: 'center',
+              textStyle: {
+                color: '#808080',
+                fontSize: 11,
+                fontWeight: 'normal',
+                textAlign: 'center',
               },
+              left: '30%',
+              top: 65,
             },
             {
-              value: 100 - 20.5,
+              show: true,
+              text: '18-24',
+              textAlign: 'center',
+              textStyle: {
+                color: '#808080',
+                fontSize: 11,
+                fontWeight: 'normal',
+                textAlign: 'center',
+              },
+              left: '50%',
+              top: 65,
+            },
+            {
+              show: true,
+              text: '25-30',
+              textAlign: 'center',
+              textStyle: {
+                color: '#808080',
+                fontSize: 11,
+                fontWeight: 'normal',
+                textAlign: 'center',
+              },
+              left: '70%',
+              top: 65,
+            },
+            {
+              show: true,
+              text: '31-35',
+              textAlign: 'center',
+              textStyle: {
+                color: '#808080',
+                fontSize: 11,
+                fontWeight: 'normal',
+                textAlign: 'center',
+              },
+              left: '20%',
+              bottom: 0,
+            },
+            {
+              show: true,
+              text: '36-40',
+              textAlign: 'center',
+              textStyle: {
+                color: '#808080',
+                fontSize: 11,
+                fontWeight: 'normal',
+                textAlign: 'center',
+              },
+              left: '40%',
+              bottom: 0,
+            },
+            {
+              show: true,
+              text: '41-64',
+              textAlign: 'center',
+              textStyle: {
+                color: '#808080',
+                fontSize: 11,
+                fontWeight: 'normal',
+                textAlign: 'center',
+              },
+              left: '60%',
+              bottom: 0,
+            },
+            {
+              show: true,
+              text: '65岁及以上',
+              textAlign: 'center',
+              textStyle: {
+                color: '#808080',
+                fontSize: 11,
+                fontWeight: 'normal',
+                textAlign: 'center',
+              },
+              left: '80%',
+              bottom: 0,
+            }
+          ];
+          var s = [
+            {
+              type: 'pie',
+              clockWise: true,
+              radius: [27, 26],
+              startAngle: 90,
               itemStyle: {
-                color: '#535353',
-                borderWidth: 0,
-                emphasis: {
-                  show: false,
+                normal: {
+                  color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  borderWidth: 5,
+                  borderColor: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  label: {
+                    show: false,
+                  },
+                  labelLine: {
+                    show: false,
+                  },
                 },
               },
-            },
-          ],
-        },
-        {
-          type: 'pie',
-          clockWise: true,
-          radius: [53, 54],
-          startAngle: 90,
-          center: ['70%', 70],
-          itemStyle: {
-            normal: {
-              color: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#F1AA3A', // 0% 处的颜色
+              hoverAnimation: false,
+              center: ['30%', 35],
+              data: [
+                {
+                  value: 20.5,
+                  label: {
+                    formatter(params) {
+                      return `${Number(params.value).toFixed(2)}%`;
+                    },
+                    position: 'center',
+                    show: true,
+                    textStyle: {
+                      fontSize: '11',
+                      fontWeight: 'bold',
+                      color: '#fff',
+                    },
                   },
-                  {
-                    offset: 1,
-                    color: '#F7563E', // 100% 处的颜色
-                  },
-                ],
-              },
-              borderWidth: 5,
-              borderColor: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#F1AA3A', // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: '#F7563E', // 100% 处的颜色
-                  },
-                ],
-              },
-              label: {
-                show: false,
-              },
-              labelLine: {
-                show: false,
-              },
-            },
-          },
-          hoverAnimation: false,
-
-          data: [
-            {
-              value: 20.5,
-              label: {
-                formatter(params) {
-                  return `${Number(params.value).toFixed(2)}%`;
                 },
-                position: 'center',
-                show: true,
-                textStyle: {
-                  fontSize: '21',
-                  fontWeight: 'bold',
-                  color: '#fff',
+                {
+                  value: 100 - 20.5,
+                  itemStyle: {
+                    color: '#535353',
+                    borderWidth: 0,
+                    emphasis: {
+                      show: false,
+                    },
+                  },
                 },
-              },
+              ],
             },
             {
-              value: 100 - 20.5,
+              type: 'pie',
+              clockWise: true,
+              radius: [27, 26],
+              startAngle: 90,
+              center: ['50%', 35],
               itemStyle: {
-                color: '#535353',
-                borderWidth: 0,
-                emphasis: {
-                  show: false,
+                normal: {
+                  color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  borderWidth: 5,
+                  borderColor: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  label: {
+                    show: false,
+                  },
+                  labelLine: {
+                    show: false,
+                  },
                 },
               },
-            },
-          ],
-        },
+              hoverAnimation: false,
 
-        {
-          type: 'pie',
-          clockWise: true,
-          radius: [53, 54],
-          startAngle: 90,
-          center: ['20%', 230],
-          itemStyle: {
-            normal: {
-              color: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#F1AA3A', // 0% 处的颜色
+              data: [
+                {
+                  value: 20.5,
+                  label: {
+                    formatter(params) {
+                      return `${Number(params.value).toFixed(2)}%`;
+                    },
+                    position: 'center',
+                    show: true,
+                    textStyle: {
+                      fontSize: '11',
+                      fontWeight: 'bold',
+                      color: '#fff',
+                    },
                   },
-                  {
-                    offset: 1,
-                    color: '#F7563E', // 100% 处的颜色
-                  },
-                ],
-              },
-              borderWidth: 5,
-              borderColor: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#F1AA3A', // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: '#F7563E', // 100% 处的颜色
-                  },
-                ],
-              },
-              label: {
-                show: false,
-              },
-              labelLine: {
-                show: false,
-              },
-            },
-          },
-          hoverAnimation: false,
-
-          data: [
-            {
-              value: 20.5,
-              label: {
-                formatter(params) {
-                  return `${Number(params.value).toFixed(2)}%`;
                 },
-                position: 'center',
-                show: true,
-                textStyle: {
-                  fontSize: '21',
-                  fontWeight: 'bold',
-                  color: '#fff',
+                {
+                  value: 100 - 20.5,
+                  itemStyle: {
+                    color: '#535353',
+                    borderWidth: 0,
+                    emphasis: {
+                      show: false,
+                    },
+                  },
                 },
-              },
+              ],
             },
             {
-              value: 100 - 20.5,
+              type: 'pie',
+              clockWise: true,
+              radius: [27, 26],
+              startAngle: 90,
+              center: ['70%', 35],
               itemStyle: {
-                color: '#535353',
-                borderWidth: 0,
-                emphasis: {
-                  show: false,
+                normal: {
+                  color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  borderWidth: 5,
+                  borderColor: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  label: {
+                    show: false,
+                  },
+                  labelLine: {
+                    show: false,
+                  },
                 },
               },
-            },
-          ],
-        },
+              hoverAnimation: false,
 
-        {
-          type: 'pie',
-          clockWise: true,
-          radius: [53, 54],
-          startAngle: 90,
-          center: ['40%', 230],
-          itemStyle: {
-            normal: {
-              color: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#F1AA3A', // 0% 处的颜色
+              data: [
+                {
+                  value: 20.5,
+                  label: {
+                    formatter(params) {
+                      return `${Number(params.value).toFixed(2)}%`;
+                    },
+                    position: 'center',
+                    show: true,
+                    textStyle: {
+                      fontSize: '11',
+                      fontWeight: 'bold',
+                      color: '#fff',
+                    },
                   },
-                  {
-                    offset: 1,
-                    color: '#F7563E', // 100% 处的颜色
-                  },
-                ],
-              },
-              borderWidth: 5,
-              borderColor: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#F1AA3A', // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: '#F7563E', // 100% 处的颜色
-                  },
-                ],
-              },
-              label: {
-                show: false,
-              },
-              labelLine: {
-                show: false,
-              },
-            },
-          },
-          hoverAnimation: false,
-
-          data: [
-            {
-              value: 20.5,
-              label: {
-                formatter(params) {
-                  return `${Number(params.value).toFixed(2)}%`;
                 },
-                position: 'center',
-                show: true,
-                textStyle: {
-                  fontSize: '21',
-                  fontWeight: 'bold',
-                  color: '#fff',
+                {
+                  value: 100 - 20.5,
+                  itemStyle: {
+                    color: '#535353',
+                    borderWidth: 0,
+                    emphasis: {
+                      show: false,
+                    },
+                  },
                 },
-              },
+              ],
             },
             {
-              value: 100 - 20.5,
+              type: 'pie',
+              clockWise: true,
+              radius: [27, 26],
+              startAngle: 90,
+              center: ['20%', 115],
               itemStyle: {
-                color: '#535353',
-                borderWidth: 0,
-                emphasis: {
-                  show: false,
+                normal: {
+                  color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  borderWidth: 5,
+                  borderColor: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  label: {
+                    show: false,
+                  },
+                  labelLine: {
+                    show: false,
+                  },
                 },
               },
-            },
-          ],
-        },
+              hoverAnimation: false,
 
-        {
-          type: 'pie',
-          clockWise: true,
-          radius: [53, 54],
-          startAngle: 90,
-          center: ['60%', 230],
-          itemStyle: {
-            normal: {
-              color: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#F1AA3A', // 0% 处的颜色
+              data: [
+                {
+                  value: 20.5,
+                  label: {
+                    formatter(params) {
+                      return `${Number(params.value).toFixed(2)}%`;
+                    },
+                    position: 'center',
+                    show: true,
+                    textStyle: {
+                      fontSize: '11',
+                      fontWeight: 'bold',
+                      color: '#fff',
+                    },
                   },
-                  {
-                    offset: 1,
-                    color: '#F7563E', // 100% 处的颜色
-                  },
-                ],
-              },
-              borderWidth: 5,
-              borderColor: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#F1AA3A', // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: '#F7563E', // 100% 处的颜色
-                  },
-                ],
-              },
-              label: {
-                show: false,
-              },
-              labelLine: {
-                show: false,
-              },
-            },
-          },
-          hoverAnimation: false,
-
-          data: [
-            {
-              value: 20.5,
-              label: {
-                formatter(params) {
-                  return `${Number(params.value).toFixed(2)}%`;
                 },
-                position: 'center',
-                show: true,
-                textStyle: {
-                  fontSize: '21',
-                  fontWeight: 'bold',
-                  color: '#fff',
+                {
+                  value: 100 - 20.5,
+                  itemStyle: {
+                    color: '#535353',
+                    borderWidth: 0,
+                    emphasis: {
+                      show: false,
+                    },
+                  },
                 },
-              },
+              ],
             },
             {
-              value: 100 - 20.5,
+              type: 'pie',
+              clockWise: true,
+              radius: [27, 26],
+              startAngle: 90,
+              center: ['40%', 115],
               itemStyle: {
-                color: '#535353',
-                borderWidth: 0,
-                emphasis: {
-                  show: false,
+                normal: {
+                  color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  borderWidth: 5,
+                  borderColor: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  label: {
+                    show: false,
+                  },
+                  labelLine: {
+                    show: false,
+                  },
                 },
               },
-            },
-          ],
-        },
+              hoverAnimation: false,
 
-        {
-          type: 'pie',
-          clockWise: true,
-          radius: [53, 54],
-          startAngle: 90,
-          center: ['80%', 230],
-          itemStyle: {
-            normal: {
-              color: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#F1AA3A', // 0% 处的颜色
+              data: [
+                {
+                  value: 20.5,
+                  label: {
+                    formatter(params) {
+                      return `${Number(params.value).toFixed(2)}%`;
+                    },
+                    position: 'center',
+                    show: true,
+                    textStyle: {
+                      fontSize: '11',
+                      fontWeight: 'bold',
+                      color: '#fff',
+                    },
                   },
-                  {
-                    offset: 1,
-                    color: '#F7563E', // 100% 处的颜色
-                  },
-                ],
-              },
-              borderWidth: 5,
-              borderColor: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#F1AA3A', // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: '#F7563E', // 100% 处的颜色
-                  },
-                ],
-              },
-              label: {
-                show: false,
-              },
-              labelLine: {
-                show: false,
-              },
-            },
-          },
-          hoverAnimation: false,
-
-          data: [
-            {
-              value: 20.5,
-              label: {
-                formatter(params) {
-                  return `${Number(params.value).toFixed(2)}%`;
                 },
-                position: 'center',
-                show: true,
-                textStyle: {
-                  fontSize: '21',
-                  fontWeight: 'bold',
-                  color: '#fff',
+                {
+                  value: 100 - 20.5,
+                  itemStyle: {
+                    color: '#535353',
+                    borderWidth: 0,
+                    emphasis: {
+                      show: false,
+                    },
+                  },
                 },
-              },
+              ],
             },
             {
-              value: 100 - 20.5,
+              type: 'pie',
+              clockWise: true,
+              radius: [27, 26],
+              startAngle: 90,
+              center: ['60%', 115],
               itemStyle: {
-                color: '#535353',
-                borderWidth: 0,
-                emphasis: {
-                  show: false,
+                normal: {
+                  color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  borderWidth: 5,
+                  borderColor: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  label: {
+                    show: false,
+                  },
+                  labelLine: {
+                    show: false,
+                  },
                 },
               },
-            },
-          ],
-        },
-      ],
-    };
+              hoverAnimation: false,
 
-    myEcharts.setOption(option);
-  },
-};
+              data: [
+                {
+                  value: 20.5,
+                  label: {
+                    formatter(params) {
+                      return `${Number(params.value).toFixed(2)}%`;
+                    },
+                    position: 'center',
+                    show: true,
+                    textStyle: {
+                      fontSize: '11',
+                      fontWeight: 'bold',
+                      color: '#fff',
+                    },
+                  },
+                },
+                {
+                  value: 100 - 20.5,
+                  itemStyle: {
+                    color: '#535353',
+                    borderWidth: 0,
+                    emphasis: {
+                      show: false,
+                    },
+                  },
+                },
+              ],
+            },
+            {
+              type: 'pie',
+              clockWise: true,
+              radius: [27, 26],
+              startAngle: 90,
+              center: ['80%', 115],
+              itemStyle: {
+                normal: {
+                  color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  borderWidth: 5,
+                  borderColor: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                      {
+                        offset: 0,
+                        color: '#F1AA3A', // 0% 处的颜色
+                      },
+                      {
+                        offset: 1,
+                        color: '#F7563E', // 100% 处的颜色
+                      },
+                    ],
+                  },
+                  label: {
+                    show: false,
+                  },
+                  labelLine: {
+                    show: false,
+                  },
+                },
+              },
+              hoverAnimation: false,
+
+              data: [
+                {
+                  value: 20.5,
+                  label: {
+                    formatter(params) {
+                      return `${Number(params.value).toFixed(2)}%`;
+                    },
+                    position: 'center',
+                    show: true,
+                    textStyle: {
+                      fontSize: '11',
+                      fontWeight: 'bold',
+                      color: '#fff',
+                    },
+                  },
+                },
+                {
+                  value: 100 - 20.5,
+                  itemStyle: {
+                    color: '#535353',
+                    borderWidth: 0,
+                    emphasis: {
+                      show: false,
+                    },
+                  },
+                },
+              ],
+            },
+          ]
+        }
+        const option = {
+          title: titles.length > 0 ? title : t,
+          series: titles.length > 0 ? serie : s,
+        };
+        this.myEcharts.setOption(option);
+      },
+    },
+  };
 </script>
 
 <style lang="less" scoped>
-/** @format */
-.age-distribution {
-  margin-bottom: 22px;
-  display: flex;
-  flex-flow: column nowrap;
-  width: 1080px;
-  height: 452px;
-  // background-color: #0e0e20;
+  /** @format */
+  .age-distribution {
+    margin-bottom: 22px;
+    display: flex;
+    flex-flow: column nowrap;
+    /*width: 1080px;*/
+    /*height: 452px;*/
+    width: 367px;
+    height: 240px;
+    // background-color: #0e0e20;
 
-  &_top {
-    padding-top: 36px;
-    padding-bottom: 20px;
-    padding-left: 60px;
-    width: 100%;
-    text-align: left;
-    font-size: 30px;
-    font-weight: 800;
-    color: #fff;
-  }
+    &_top {
+      padding-top: 36px;
+      padding-bottom: 20px;
+      padding-left: 60px;
+      width: 100%;
+      text-align: left;
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
 
-  .echarts-con {
-    width: 100%;
-    height: 100%;
+    .echarts-con {
+      width: 100%;
+      height: 100%;
+    }
   }
-}
 </style>

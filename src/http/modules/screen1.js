@@ -1,12 +1,11 @@
 import axios from "../api"; // 导入 api
 /**
- * 教育活动首页列表
+ * 观众年龄、观众性别
  */
-const activeList = () =>
+export const UserAttr = () =>
 	axios(
-		STATIC_ACTIVE_URL + "/api/web_active_list", {
-			p: PLAT,
-			api_token: localStorage.app_token
+    BASE_URL + "/api/stat/user_attr", {
+			p: 'w',
 		},
 		"GET",
 		true
@@ -14,19 +13,24 @@ const activeList = () =>
 /**
 
 /**
- * 发送短信验证码
+ * 会员注册情况
  */
-const sendSms = (phone = "", code = "") =>
-	axios(
-		STATIC_PW_URL + "/api/send_sms", {
-			p: PLAT,
-			phone,
-			device_uuid: localStorage.device_uuid,
-			code
-		},
-		"POST",
-		true
-	);
-export default {
-  
-}
+export const Member = () =>
+  axios(
+    VIP_BASE_URL + "/api/expert/member", {
+      p: 'w',
+    },
+    "GET",
+    true
+  );
+// const Member = (phone = "", code = "") =>
+// 	axios(
+//     VIP_BASE_URL + "/api/expert/member", {
+// 			p:'w',
+// 			device_uuid: localStorage.device_uuid,
+// 			code
+// 		},
+// 		"POST",
+// 		true
+// 	);
+

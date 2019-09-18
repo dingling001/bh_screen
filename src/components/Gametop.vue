@@ -5,18 +5,18 @@
     </div>
     <div class="gamelist">
       <div class="gameitem">
-        <div class="left ">
+        <div class="gleft ">
           <div class="gametitle">游戏名称</div>
           <div class="gamename gamename1">太空飞船</div>
         </div>
-        <div class="left">
+        <div class="gleft">
           <div class="gamehead"><img src="../assets/logo.png" alt=""></div>
           <div class="gameperson">
             <div class="personname">孙海燕</div>
             <div class="persontype">特级宇航员</div>
           </div>
         </div>
-        <div class="left">
+        <div class="gleft">
           <div class="gametitle">分数</div>
           <div class="gamename">
             <ICountUp :delay="delay" :endVal="endVal" :options="options" @ready="onReady"/>
@@ -24,18 +24,18 @@
         </div>
       </div>
       <div class="gameitem">
-        <div class="left ">
+        <div class="gleft">
           <div class="gametitle">游戏名称</div>
           <div class="gamename gamename2">太空捡垃圾</div>
         </div>
-        <div class="left">
+        <div class="gleft">
           <div class="gamehead"><img src="../assets/logo.png" alt=""></div>
           <div class="gameperson">
             <div class="personname">孙海燕</div>
             <div class="persontype">特级宇航员</div>
           </div>
         </div>
-        <div class="left">
+        <div class="gleft">
           <div class="gametitle">分数</div>
           <div class="gamename">
             <ICountUp :delay="delay" :endVal="endVal" :options="options" @ready="onReady"/>
@@ -61,21 +61,21 @@
           separator: ',',
           decimal: '.',
           prefix: '',
-          suffix: ''
-        }
-      }
+          suffix: '',
+        },
+      };
     },
     components: {
-      ICountUp
+      ICountUp,
     },
     mounted() {
 
     },
     methods: {
-      onReady: function (instance, CountUp) {
+      onReady(instance, CountUp) {
         const that = this;
         instance.update(that.endVal);
-      }
+      },
     },
   };
 </script>
@@ -85,18 +85,20 @@
   .child-age {
     display: flex;
     flex-flow: column nowrap;
-    width: 1080px;
-    height: 452px;
+    /*width: 1080px;*/
+    /*height: 452px;*/
+    width: 100%;
 
     &_top {
-      padding-top: 36px;
-      padding-bottom: 20px;
-      padding-left: 60px;
+      /*padding-top:25px;*/
+      /*padding-bottom: 20px;*/
+      /*padding-left: 60px;*/
       width: 100%;
       text-align: left;
-      font-size: 30px;
+      font-size: 14px;
       font-weight: 800;
       color: #fff;
+      padding: 18px 30px;
     }
 
     .echarts-con {
@@ -106,25 +108,25 @@
   }
 
   .gamelist {
-    padding: 59px 0 0 0;
+    padding: 10px 0 0 0;
 
     .gameitem {
       overflow: hidden;
-      margin-bottom: 50px;
+      margin-bottom: 30px;
 
-      .left {
+      .gleft {
         float: left;
         width: 33%;
         overflow: hidden;
 
         .gametitle {
-          font-size: 16px;
+          font-size: 10px;
           color: #D8D8D8;
           padding: 12px 0;
         }
 
         .gamename {
-          font-size: 20px;
+          font-size: 12px;
           font-weight: bold;
           color: #fff;
 
@@ -143,7 +145,7 @@
           text-align: center;
           line-height: 71px;
           float: left;
-          margin-right: 30px;
+          /*margin-right: 30px;*/
 
           img {
             width: 100%;
@@ -156,13 +158,13 @@
           height: 71px;
 
           .personname {
-            font-size: 22px;
+            font-size: 13px;
             color: #fff;
             padding-bottom: 14px;
           }
 
           .persontype {
-            font-size: 16px;
+            font-size: 10px;
             color: #fff;
           }
         }

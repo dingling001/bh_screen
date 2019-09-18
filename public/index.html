@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico"/>
     <style>
-      body {
-        min-height: 100vh;
-        background-color: rgba(0, 0, 0, 1);
-      }
+        body {
+            min-height: 100vh;
+            background-color: rgba(0, 0, 0, 1);
+        }
     </style>
     <title><%= VUE_APP_TITLE%></title>
-    <script src='https://unpkg.com/vue-countupjs'></script>
-  </head>
-  <body>
-    <noscript>
-      <strong
-        >We're sorry but bigscreen doesn't work properly without JavaScript enabled. Please enable
+    <script type="text/javascript">
+        var BASE_URL = 'http://192.168.10.158:20025'
+        var VIP_BASE_URL='http://192.168.10.158:20021'
+        // var BASE_URL = "{{env('VUE_APP_BASE_URL',url('/'))}}"
+    </script>
+</head>
+<body>
+<noscript>
+    <strong
+    >We're sorry but bigscreen doesn't work properly without JavaScript enabled. Please enable
         it to continue.</strong
-      >
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+    >
+</noscript>
+<div id="app"></div>
+<!-- built files will be auto injected -->
+</body>
 </html>
+

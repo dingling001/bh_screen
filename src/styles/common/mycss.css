@@ -453,7 +453,7 @@ var {
     font-weight: normal;
 }
 
-@media screen and (min-width: 3072px) {
+@media screen and (min-width: 1366px) {
     html {
         width: 750px;
         margin: 0 auto;
@@ -469,11 +469,37 @@ var {
     }
 }
 
-@media screen and (max-width: 3072px) {
+@media screen and (max-width: 1366px) {
     html {
         width: 100%;
-        font-size: 3.255208333333333vw;
+        font-size: 7.32064421669107vw;
         /* prettier-ignore*/
         /* font-size: 100PX; */
     }
+}
+.left {
+    position: fixed;
+    height: 100%;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 470px;
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, .84), rgba(0, 0, 0, .04)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .04)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .04)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .04)); /* 标准的语法 */
+}
+
+.right {
+    position: fixed;
+    height: 100%;
+    z-index: 1;
+    right: 0;
+    top: 0;
+    width: 470px;
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, .04), rgba(0, 0, 0, .84)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, rgba(0, 0, 0, .04), rgba(0, 0, 0, .84)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, rgba(0, 0, 0, .04), rgba(0, 0, 0, .84)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, rgba(0, 0, 0, .04), rgba(0, 0, 0, .84)); /* 标准的语法 */
+    overflow: hidden;
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="video-bg">
-    <video src="../video/index-4.mp4" autoplay="true" muted="true" loop="true"></video>
+    <video src="../video/i.mp4" autoplay="true" muted="true" loop="true" preload="auto"></video>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {};
 /** @format */
 .video-bg {
   width: 100%;
-  height: 1536px;
+  height: 768px;
   > video {
     width: 100%;
     height: 100%;

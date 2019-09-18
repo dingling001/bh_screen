@@ -21,16 +21,16 @@ export default {
     const options = {
       color: ['#7F55C4', '#DB5D09'],
       grid: {
-        top: 40,
+        top: 30,
         bottom: 50,
-        left: 80,
+        left: 50,
         right: 30,
       },
       legend: {
         icon: 'circle',
         textStyle: {
           color: '#ffffff',
-          fontSize: 19,
+          fontSize: 8,
           fontWeight: 'bold',
         },
         orient: 'vertical',
@@ -58,7 +58,7 @@ export default {
         axisLabel: {
           show: true,
           interval: 'auto',
-          fontSize: 19,
+          fontSize: 8,
           color: '#808080',
           formatter(val) {
             const arr = val.split('-');
@@ -81,7 +81,7 @@ export default {
         name: '人数',
         nameTextStyle: {
           color: '#ffffff',
-          fontSize: 19,
+          fontSize: 8,
           fontWeight: 'bold',
         },
         axisLine: {
@@ -95,7 +95,7 @@ export default {
         },
         axisLabel: {
           showMinLabel: false,
-          fontSize: 19,
+          fontSize: 8,
           padding: [0, 20, 0, 0],
           color: '#808080',
         },
@@ -176,8 +176,10 @@ export default {
 .week-visit {
   display: flex;
   flex-flow: column nowrap;
-  width: 960 + 120px;
-  height: 452px;
+/*  width: 960 + 120px;
+  height: 452px;*/
+  width: 367px;
+  height: 240px;
   // background-color: #0e0e20;
 
   &_top {
@@ -186,7 +188,7 @@ export default {
     padding-left: 60px;
     width: 100%;
     text-align: left;
-    font-size: 29px;
+    font-size: 14px;
     font-weight: 800;
     color: #fff;
   }
