@@ -20,7 +20,20 @@
     name: 'CinemaRank',
     data() {
       return {
-        showMovies: [],
+        showMovies: [
+          {
+            name: '鲁滨逊漂流记',
+            value: '16866',
+          },
+          {
+            name: '七大奇迹',
+            value: '16364',
+          },
+          {
+            name: '磁场',
+            value: '13141',
+          },
+        ],
         moviesList: [
           {
             name: '鲁滨逊漂流记',
@@ -132,27 +145,26 @@
           },
         ], // 电影列表
         maxfilmvalue: 0,
-
       };
     },
     mounted() {
       const vm = this;
       vm.getCurrentData();
       // 循环电影列表
-      const n = 4;
+      const n = 3;
       let start = 0;
       let end = start + n;
-      setInterval(() => {
-        if (vm.moviesList.length > 0) {
-          vm.showMovies = vm.moviesList.slice(start, end);
-          start += n;
-          end += n;
-        }
-        if (start >= vm.moviesList.length) {
-          start = 0;
-          end = start + n;
-        }
-      }, 5000);
+      // setInterval(() => {
+      //   if (vm.moviesList.length > 0) {
+      //     vm.showMovies = vm.moviesList.slice(start, end);
+      //     start += n;
+      //     end += n;
+      //   }
+      //   if (start >= vm.moviesList.length) {
+      //     start = 0;
+      //     end = start + n;
+      //   }
+      // }, 5000);
     },
     methods: {
       // 获取统计数据
@@ -193,17 +205,18 @@
   .week-visit {
     display: flex;
     flex-flow: column nowrap;
-    width: 960 + 120px;
-    height: 452px;
+   /* width: 960 + 120px;
+    height: 452px;*/
     // background-color: #0e0e20;
-
+    width: 343px;
+    /*height: 280px;*/
     &_top {
       padding-top: 25px;
       padding-bottom: 20px;
       padding-left: 60px;
       width: 100%;
       text-align: left;
-      font-size: 29px;
+      font-size: 14px;
       font-weight: 800;
       color: #fff;
     }
@@ -226,8 +239,8 @@
     }
 
     .info .c1 {
-      max-width: 300px;
-      font-size: 19px;
+      max-width: 229px;
+      font-size: 11px;
       color: #fff;
       text-align: left;
       white-space: nowrap;
@@ -257,7 +270,7 @@
 
     .info .c3 {
       float: right;
-      font-size: 40px;
+      font-size: 13px;
       padding-right: 71px;
 
       &.color0 {

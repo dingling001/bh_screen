@@ -112,7 +112,7 @@
 
     .gameitem {
       overflow: hidden;
-      margin-bottom: 30px;
+      margin-bottom: 15px;
 
       .gleft {
         float: left;
@@ -140,8 +140,8 @@
         }
 
         .gamehead {
-          width: 71px;
-          height: 71px;
+          width: 44px;
+          height: 44px;
           text-align: center;
           line-height: 71px;
           float: left;

@@ -2,21 +2,21 @@
   <div class="register-num">
     <div class="register-num_top">
       <span>会员总注册人数：</span>
-      <span>6,352</span>
+      <span>{{m_data.total}}</span>
     </div>
 
     <div class="register-num_catalog">
       <div>
         <span>网站</span>
-        <span>{{mdata.pc}}</span>
+        <span>{{m_data.pc}}</span>
       </div>
       <div>
         <span>微信</span>
-        <span>{{mdata.wx}}</span>
+        <span>{{m_data.wx}}</span>
       </div>
       <div>
         <span>导视屏</span>
-        <span>{{mdata.ter}}</span>
+        <span>{{m_data.ter}}</span>
       </div>
     </div>
 
@@ -29,151 +29,156 @@
   import echarts from 'echarts';
 
   export default {
-    data(){
-      return{
-        mdata:{
-          five: 0,
-          four: 0,
-          one: 0,
-          pc: 0,
-          ter: 0,
-          three: 0,
-          two: 0,
-          wx: 0,
-        }
+    data() {
+      return {
+        m_data: {},
+        myEcharts: null
+      }
+    },
+    props: {
+      'mdata': {
+        type: Object,
+        default: {}
       }
     },
     mounted() {
-      this.get_Member();
       const {echartsEl} = this.$refs;
-      const myEcharts = echarts.init(echartsEl);
-      const options = {
-        grid: {
-          left: 50,
-          top: 30,
-          right: 50,
-          bottom: 20,
-        },
-        legend: {
-          type: 'plain',
-          show: false,
-          data: ['网站', '微信', '导视屏'],
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          axisLine: {
-            show: true,
-          },
-          axisTick: {
-            show: false,
-          },
-          splitLine: {
-            show: false,
-          },
-          axisLabel: {
-            show: true,
-            interval: 'auto',
-            fontSize: 10,
-            color: '#657CA8',
-          },
-          data: ['0-17', '18-24', '25-35', '36-64', '65及以上'],
-        },
-        yAxis: {
-          type: 'value',
-          splitNumber: 0,
-          axisLine: {
-            show: true,
-          },
-          axisTick: {
-            show: false,
-          },
-          splitLine: {
-            show: false,
-          },
-          axisLabel: {
-            fontSize: 10,
-            color: '#657CA8',
-            padding: [0, 20, 0, 0],
-            formatter: '{value}%',
-          },
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            // 坐标轴指示器，坐标轴触发有效
-            type: 'line', // 默认为直线，可选为：'line' | 'shadow'
-            lineStyle: {
-              color: '#57617B',
-            },
-          },
-          formatter:
-            '{b}<br />{a0}: {c0}%<br />{a1}: {c1}%<br />{a2}: {c2}%<br />',
-          backgroundColor: 'rgba(0,0,0,0.7)', // 背景
-          padding: [8, 10], // 内边距
-          extraCssText: 'box-shadow: 0 0 3px rgba(255, 255, 255, 0.4);', // 添加阴影
-        },
-        series: [
-          {
-            name: '网站',
-            type: 'line',
-            symbol: 'circle',
-            symbolSize: 10,
-            itemStyle: {
-              color: '#00B7EE',
-              borderColor: '#fff',
-              borderWidth: 2,
-            },
-            lineStyle: {
-              color: '#00B7EE',
-              width: 5,
-            },
-
-            data: [7, 30, 40, 50, 10],
-          },
-          {
-            name: '微信',
-            type: 'line',
-            symbol: 'circle',
-            symbolSize: 10,
-            itemStyle: {
-              color: '#2FE4C3',
-              borderColor: '#fff',
-              borderWidth: 2,
-            },
-            lineStyle: {
-              color: '#2FE4C3',
-              width: 5,
-            },
-
-            data: [20, 60, 10, 10, 10],
-          },
-          {
-            name: '导视屏',
-            type: 'line',
-            symbol: 'circle',
-            symbolSize: 10,
-            itemStyle: {
-              color: '#E4007F',
-              borderColor: '#fff',
-              borderWidth: 2,
-            },
-            lineStyle: {
-              color: '#E4007F',
-              width: 5,
-            },
-            data: [3.5, 15.2, 16.1, 17.4, 13.4],
-          },
-        ],
-      };
-      myEcharts.setOption(options);
+      this.myEcharts = echarts.init(echartsEl);
+      setInterval(() => {
+        this.m_data = this.mdata;
+        this.myEcharts.clear();
+        this.initMember(this.mdata);
+      }, 3000)
     },
     methods: {
-      get_Member() {
-        this.$api.Member().then((res) => {
-          console.log(res)
-          this.mdata=res.data;
-        })
+      initMember(data) {
+        var pctotal = (data.one.pc + data.two.pc + data.three.pc + data.four.pc + data.five.pc) <= 0 ? 1 : (data.one.pc + data.two.pc + data.three.pc + data.four.pc + data.five.pc);
+        var wxtotal = (data.one.wx + data.two.wx + data.three.wx + data.four.wx + data.five.wx) <= 0 ? 1 : (data.one.wx + data.two.wx + data.three.wx + data.four.wx + data.five.wx);
+        var tertotal = (data.one.ter + data.two.ter + data.three.ter + data.four.ter + data.five.ter) <= 0 ? 1 : (data.one.ter + data.two.ter + data.three.ter + data.four.ter + data.five.ter);
+        const options = {
+          grid: {
+            left: 50,
+            top: 30,
+            right: 50,
+            bottom: 50,
+          },
+          legend: {
+            type: 'plain',
+            show: false,
+            data: ['网站', '微信', '导视屏'],
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            axisLine: {
+              show: true,
+            },
+            axisTick: {
+              show: false,
+            },
+            splitLine: {
+              show: false,
+            },
+            axisLabel: {
+              show: true,
+              interval: 'auto',
+              fontSize: 10,
+              color: '#657CA8',
+            },
+            data: ['0-17', '18-24', '25-35', '36-64', '65及以上'],
+          },
+          yAxis: {
+            type: 'value',
+            splitNumber: 0,
+            axisLine: {
+              show: true,
+            },
+            axisTick: {
+              show: false,
+            },
+            splitLine: {
+              show: false,
+            },
+            axisLabel: {
+              fontSize: 10,
+              color: '#657CA8',
+              padding: [0, 20, 0, 0],
+              formatter: function (value) {
+                // console.log(value)
+                return `${value}%`
+              }
+            },
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              // 坐标轴指示器，坐标轴触发有效
+              type: 'line', // 默认为直线，可选为：'line' | 'shadow'
+              lineStyle: {
+                color: '#57617B',
+              },
+            },
+            formatter:
+              '{b}<br />{a0}: {c0}%<br />{a1}: {c1}%<br />{a2}: {c2}%<br />',
+            backgroundColor: 'rgba(0,0,0,0.7)', // 背景
+            padding: [8, 10], // 内边距
+            extraCssText: 'box-shadow: 0 0 3px rgba(255, 255, 255, 0.4);', // 添加阴影
+          },
+          series: [
+            {
+              name: '网站',
+              type: 'line',
+              symbol: 'circle',
+              symbolSize: 10,
+              itemStyle: {
+                color: '#00B7EE',
+                borderColor: '#fff',
+                borderWidth: 2,
+              },
+              lineStyle: {
+                color: '#00B7EE',
+                width: 5,
+              },
+
+              data: [data.one.pc / pctotal, data.two.pc / pctotal, data.three.pc / pctotal, data.four.pc / pctotal, data.five.pc / pctotal],
+            },
+            {
+              name: '微信',
+              type: 'line',
+              symbol: 'circle',
+              symbolSize: 10,
+              itemStyle: {
+                color: '#2FE4C3',
+                borderColor: '#fff',
+                borderWidth: 2,
+              },
+              lineStyle: {
+                color: '#2FE4C3',
+                width: 5,
+              },
+
+              data: [data.one.wx / wxtotal, data.two.wx / wxtotal, data.three.wx / wxtotal, data.four.wx / wxtotal, data.five.wx / wxtotal],
+            },
+            {
+              name: '导视屏',
+              type: 'line',
+              symbol: 'circle',
+              symbolSize: 10,
+              itemStyle: {
+                color: '#E4007F',
+                borderColor: '#fff',
+                borderWidth: 2,
+              },
+              lineStyle: {
+                color: '#E4007F',
+                width: 5,
+              },
+              data: [data.one.ter / tertotal, data.two.ter / tertotal, data.three.ter / tertotal, data.four.ter / tertotal, data.five.ter / tertotal],
+            },
+          ],
+        };
+        this.myEcharts.setOption(options);
+        this.m_data = this.mdata;
       }
     }
   };

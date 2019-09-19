@@ -1,12 +1,13 @@
 <template>
   <div class="week-visit">
     <div class="week-visit_top">
-      <span>4D影院预约量:</span>
+      <span>4D影院预约量：</span>
       <span><ICountUp
         :delay="delay"
         :endVal="endVal"
         :options="options"
         @ready="onReady"
+        class="iconup"
       /></span>
     </div>
 
@@ -39,6 +40,7 @@ export default {
   },
   methods: {
     onReady(instance, CountUp) {
+      console.log(CountUp)
       const that = this;
       instance.update(that.endVal);
     },
@@ -52,7 +54,7 @@ export default {
       color: ['#7349D0', '#79C1FF'],
       grid: {
         top: 40,
-        bottom: 50,
+        bottom: 80,
         left: 80,
         right: 30,
       },
@@ -60,7 +62,7 @@ export default {
         icon: 'circle',
         textStyle: {
           color: '#ffffff',
-          fontSize: 19,
+          fontSize: 8,
           fontWeight: 'bold',
         },
         orient: 'vertical',
@@ -87,14 +89,16 @@ export default {
         },
         axisLabel: {
           show: true,
+          rotate:45,
           interval: 'auto',
-          fontSize: 19,
+          fontSize: 8,
           color: '#808080',
           formatter(val) {
             const arr = val.split('-');
             return `${arr[1]}/${arr[2]}`;
           },
         },
+
         data: [
           '2019-08-25',
           '2019-08-28',
@@ -111,7 +115,7 @@ export default {
         name: '当日预约量',
         nameTextStyle: {
           color: '#ffffff',
-          fontSize: 19,
+          fontSize: 8,
           fontWeight: 'bold',
         },
         axisLine: {
@@ -125,7 +129,7 @@ export default {
         },
         axisLabel: {
           showMinLabel: false,
-          fontSize: 19,
+          fontSize: 8,
           padding: [0, 20, 0, 0],
           color: '#808080',
         },
@@ -135,7 +139,7 @@ export default {
           type: 'line',
           name: '进馆人数',
           lineStyle: {
-            width: 8,
+            width: 4,
             color: {
               type: 'linear',
               x: 0,
@@ -149,7 +153,7 @@ export default {
                 },
                 {
                   offset: 1,
-                  color: '#1A7FD6', // 100% 处的颜色
+                  color: '#79C1FF', // 100% 处的颜色
                 },
               ],
             },
@@ -175,19 +179,23 @@ export default {
   .week-visit {
     display: flex;
     flex-flow: column nowrap;
-    width: 960 + 120px;
-    height: 452px;
+   /* width: 960 + 120px;*/
+    /*height: 452px;*/
     // background-color: #0e0e20;
-
+    width: 343px;
+    height: 280px;
     &_top {
-      padding-top: 60px;
-      padding-bottom: 40px;
+      padding-top: 25px;
+      padding-bottom: 20px;
       padding-left: 60px;
       width: 100%;
       text-align: left;
-      font-size: 29px;
+      font-size: 14px;
       font-weight: 800;
       color: #fff;
+      .iconup{
+        font-size: 22px;
+      }
     }
 
     .echarts-con {

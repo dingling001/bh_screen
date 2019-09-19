@@ -20,10 +20,10 @@ export default {
 
     const options = {
       grid: {
-        top: 40,
+        top: 20,
         bottom: 80,
-        left: 100,
-        right: 100,
+        left: 50,
+        right: 20,
       },
       xAxis: {
         type: 'category',
@@ -38,7 +38,7 @@ export default {
         },
         axisLabel: {
           color: '#fff',
-          fontSize: 24,
+          fontSize: 11,
           margin: 20,
         },
         data: ['3-4', '5-6', '7-8', '9-10', '11-12', '13(岁)'],
@@ -47,7 +47,7 @@ export default {
         type: 'value',
         axisLabel: {
           color: '#A4A4A4',
-          fontSize: 24,
+          fontSize: 11,
           formatter(val) {
             return `${val}%`;
           },
@@ -59,7 +59,7 @@ export default {
       series: [
         {
           type: 'bar',
-          barWidth: 50,
+          barWidth: 25,
           itemStyle: {
             color: {
               type: 'linear',
@@ -94,15 +94,15 @@ export default {
 .child-age {
   display: flex;
   flex-flow: column nowrap;
-  width: 1080px;
-  height: 452px;
+  width: 343px;
+  height: 280px;
   &_top {
     padding-top: 36px;
     padding-bottom: 20px;
     padding-left: 60px;
     width: 100%;
     text-align: left;
-    font-size: 30px;
+    font-size: 14px;
     font-weight: 800;
     color: #fff;
   }

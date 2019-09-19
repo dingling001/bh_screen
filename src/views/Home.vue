@@ -1,16 +1,18 @@
 <template>
   <div class="home">
-    <transition enter-active-class="animated tada" leave-active-class="animated bounceOutRight">
-      <full-screen-map v-show="show" class="bottom-map"></full-screen-map>
+    <transition enter-active-class="animated" leave-active-class="animated zoomOut">
+      <full-screen-map class="bottom-map" :vistNumber="keliu_info.in_num" v-if="keliu_info.in_num>=0"></full-screen-map>
     </transition>
     <div class="left">
-      <current-person-num class="vist-num" v-show="showCurrent"></current-person-num>
+      <current-person-num class="vist-num " :stay_num="keliu_info.stay_num" :datalist="keliu_info.data_list"
+                          v-if="keliu_info.data_list.length"></current-person-num>
       <age-distribution class="age-distribution" :age_user="age_user" v-if="age_user.length"></age-distribution>
       <sex-ratio class="sex-ratio" :sex_user="sex_user" v-if="sex_user.length"></sex-ratio>
     </div>
     <div class="right">
-      <register-num class="register-num"></register-num>
-      <online-register-num class="online-register"></online-register-num>
+      <register-num class="register-num" :mdata="mdata" v-if="Object.keys(mdata).length"></register-num>
+      <online-register-num class="online-register"  :onlinedata="onlinedata"
+                           v-if="Object.keys(onlinedata).length"></online-register-num>
       <week-visit-num class="week-visit"></week-visit-num>
     </div>
 
@@ -43,20 +45,33 @@
     },
     data() {
       return {
-        show: true,
-        showCurrent: true,
-        age_user: [],
-        sex_user: [],
-        people_ck_sum:0
+        showmap: true,
+        age_user: [],//年龄数据
+        sex_user: [],//性别数据
+        people_ck_sum: 0,
+        keliu_info: {
+          data_list: [],//当前在馆人数
+        },
+        mdata: {},
+        count: 0,
+        onlinedata: []
       };
     },
     created() {
-      this.get_UserAttr()
+      this.get_UserAttr();
+      this.get_KeliuInfo();
+      this.get_Member();
+      this.get_StatUserNum();
       setInterval(() => {
-        this.get_UserAttr()
-      }, 3000)
+        this.get_UserAttr();
+        this.get_KeliuInfo();
+        this.get_Member();
+        this.get_StatUserNum()
+        // this.keliu_info.stay_num=0;
+      }, 30000)
     },
     methods: {
+      // 用户属性
       get_UserAttr() {
         this.$api.UserAttr().then(res => {
           this.age_user = res.data.age_stat.data;
@@ -725,6 +740,27 @@
           ]
         })
       },
+      // 客流
+      get_KeliuInfo() {
+        this.$api.KeliuInfo().then(res => {
+          // console.log(res)
+          this.showmap = true;
+          this.keliu_info = res.data;
+          this.keliu_info.data_list = res.data.data_list;
+        })
+      },
+      // 会员注册情况
+      get_Member() {
+        this.$api.Member().then((res) => {
+          this.mdata = res.data;
+        })
+      },
+      // 线上会员注册情况
+      get_StatUserNum() {
+        this.$api.StatUserNum().then(res => {
+          this.onlinedata = res.data;
+        })
+      }
     }
   };
 </script>
@@ -738,7 +774,7 @@
 
     .vist-num {
       position: absolute;
-      top: 0;
+      top: 54px;
       left: 0;
       z-index: 2;
       /*background-image: url('../assets/zuozhezhao.png');*/
@@ -756,7 +792,7 @@
 
     .register-num {
       position: absolute;
-      top: 0;
+      top: 54px;
       right: 0;
       z-index: 2;
 
@@ -769,7 +805,7 @@
     .age-distribution {
       position: absolute;
       /*top: 480 + 22px;*/
-      top: 251px;
+      top: 300px;
       left: 0;
       z-index: 2;
 
@@ -794,7 +830,7 @@
     .online-register {
       position: absolute;
       /*    top: 480 + 22px;*/
-      top: 269px;
+      top: 300px;
       right: 0;
       z-index: 2;
 

@@ -49,8 +49,8 @@
               style: {
                 // eslint-disable-next-line global-require
                 image: require('../assets/woman.png'),
-                width: 25,
-                height: 35,
+                width: 30,
+                height: 30,
               },
             },
             {
@@ -60,8 +60,8 @@
               style: {
                 // eslint-disable-next-line global-require
                 image: require('../assets/man.png'),
-                width: 25,
-                height: 35,
+                width: 30,
+                height: 30,
               },
             },
           ],
@@ -170,7 +170,7 @@
     /*width: 960 + 120px;*/
     /*height: 452px;*/
     width: 367px;
-    height: 240px;
+    height: 196px;
     // background-color: #0e0e20;
 
     &_top {

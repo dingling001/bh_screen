@@ -7,9 +7,9 @@
       <gametop class="sex-ratio"></gametop>
     </div>
     <div class="right">
-      <!--      <cinema-num class="register-num "></cinema-num>-->
-      <!--      <cinema-week-num class="online-register"></cinema-week-num>-->
-      <!--      <cinema-rank class="week-visit"></cinema-rank>-->
+      <cinema-num class="register-num "></cinema-num>
+      <cinema-week-num class="online-register"></cinema-week-num>
+      <cinema-rank class="week-visit"></cinema-rank>
     </div>
   </div>
 </template>
@@ -70,7 +70,7 @@
 
     .register-num {
       position: absolute;
-      top: 0;
+      top: 54px;
       right: 0;
       z-index: 2;
       bottom: inherit;
@@ -107,7 +107,7 @@
 
     .online-register {
       position: absolute;
-      top: 5.02rem;
+      top: 280px;
       right: 0;
       z-index: 2;
       background-image: url('../assets/youzhezhao.png');

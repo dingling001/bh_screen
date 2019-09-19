@@ -73,7 +73,7 @@
 
     .age-distribution {
       position: absolute;
-      top: 269px;
+      top: 350px;
       left: 0;
       z-index: 2;
 

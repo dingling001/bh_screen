@@ -202,10 +202,10 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   /*width: 367px;*/
-  height: 240px;
+  height: 169px;
   width: 100%;
   &-top {
-    padding-top: 50px;
+    /*padding-top: 50px;*/
     width: 100%;
     display: flex;
     align-items: center;

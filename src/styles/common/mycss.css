@@ -477,6 +477,7 @@ var {
         /* font-size: 100PX; */
     }
 }
+
 .left {
     position: fixed;
     height: 100%;
@@ -484,10 +485,10 @@ var {
     left: 0;
     top: 0;
     width: 470px;
-    background: -webkit-linear-gradient(left, rgba(0, 0, 0, .84), rgba(0, 0, 0, .04)); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .04)); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .04)); /* Firefox 3.6 - 15 */
-    background: linear-gradient(to right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .04)); /* 标准的语法 */
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .01)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .01)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .01)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .01)); /* 标准的语法 */
 }
 
 .right {
@@ -497,9 +498,9 @@ var {
     right: 0;
     top: 0;
     width: 470px;
-    background: -webkit-linear-gradient(left, rgba(0, 0, 0, .04), rgba(0, 0, 0, .84)); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(right, rgba(0, 0, 0, .04), rgba(0, 0, 0, .84)); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(right, rgba(0, 0, 0, .04), rgba(0, 0, 0, .84)); /* Firefox 3.6 - 15 */
-    background: linear-gradient(to right, rgba(0, 0, 0, .04), rgba(0, 0, 0, .84)); /* 标准的语法 */
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, .01), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, rgba(0, 0, 0, .01), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, rgba(0, 0, 0, .01), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, rgba(0, 0, 0, .01), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84)); /* 标准的语法 */
     overflow: hidden;
 }
