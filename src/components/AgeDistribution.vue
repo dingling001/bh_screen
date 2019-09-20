@@ -55,7 +55,7 @@
               },
               left: index > 2 ? (20 + (index - 3) * 20) + '%' : (30 + index * 20) + '%',
               top: index > 2 ? null : 65,
-              bottom: 0
+              bottom: 15
             })
             serie.push({
               type: 'pie',
@@ -824,7 +824,7 @@
     // background-color: #0e0e20;
 
     &_top {
-      padding-top: 36px;
+      padding-top: 16px;
       padding-bottom: 20px;
       padding-left: 60px;
       width: 100%;

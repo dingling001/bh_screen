@@ -6,6 +6,9 @@
 
     <!-- echarts -->
     <div class="echarts-con" ref="echartsEl"></div>
+    <div class="man"><span>男性 </span><span>{{((sex_user[0].value/sextotal)*100).toFixed(2)}}%</span></div>
+
+    <div class="woman"><span>女性 </span><span>{{((sex_user[1].value/sextotal)*100).toFixed(2)}}%</span></div>
   </div>
 </template>
 
@@ -16,7 +19,8 @@
     data() {
       return {
         // image: require('../assets/logo.png'),
-        myEcharts: null
+        myEcharts: null,
+        sextotal: 0
       };
     },
     props: {
@@ -28,11 +32,14 @@
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
+      for (var i in this.sex_user) {
+        this.sextotal += this.sex_user[i].value
+      }
       this.initSex(this.sex_user);
-      setInterval(()=>{
+      setInterval(() => {
         this.myEcharts.clear();
         this.initSex(this.sex_user)
-      },3000)
+      }, 3000)
     },
     methods: {
       initSex(sexdata) {
@@ -55,7 +62,7 @@
             },
             {
               type: 'image',
-              right:  '43%',
+              right: '43%',
               bottom: '50%',
               style: {
                 // eslint-disable-next-line global-require
@@ -99,20 +106,23 @@
                   name: sexdata[1].name + '性',
                   value: sexdata[1].value,
                   label: {
-                    padding: [0, 0, 70, 60],
-                    color: '#E90079',
-                    formatter(params) {
-                      return `${params.data.name}\t\t{color1|${
-                      params.value / total
-                        }%}`;
-                    },
-                    rich: {
-                      color1: {
-                        fontSize: 16,
-                        fontWeight: 'bold',
-                      },
-                    },
+                    show: false,
                   },
+                  // label: {
+                  //   padding: [0, 0, 70, 60],
+                  //   color: '#E90079',
+                  //   formatter(params) {
+                  //     return `${params.data.name}\t\t{color1|${
+                  //     params.value / total
+                  //       }%}`;
+                  //   },
+                  //   rich: {
+                  //     color1: {
+                  //       fontSize: 16,
+                  //       fontWeight: 'bold',
+                  //     },
+                  //   },
+                  // },
                   itemStyle: {
                     color: '#E90079',
                     borderWidth: 5,
@@ -127,20 +137,24 @@
                   name: sexdata[0].name + '性',
                   value: sexdata[0].value,
                   label: {
-                    color: '#0A89EA',
-                    padding: [85, 55, 0, 0],
-                    formatter(params) {
-                      return `${params.data.name}\t\t{color1|${
-                        ((params.value / total) * 100).toFixed(2)
-                        }%}`;
-                    },
-                    rich: {
-                      color1: {
-                        fontSize: 16,
-                        fontWeight: 'bold',
-                      },
-                    },
+                    show: false,
                   },
+
+                  // label: {
+                  //   color: '#0A89EA',
+                  //   padding: [85, 55, 0, 0],
+                  //   formatter(params) {
+                  //     return `${params.data.name}\t\t{color1|${
+                  //       ((params.value / total) * 100).toFixed(2)
+                  //       }%}`;
+                  //   },
+                  //   rich: {
+                  //     color1: {
+                  //       fontSize: 16,
+                  //       fontWeight: 'bold',
+                  //     },
+                  //   },
+                  // },
                   itemStyle: {
                     color: '#0A89EA',
                     borderWidth: 5,
@@ -170,13 +184,13 @@
     /*width: 960 + 120px;*/
     /*height: 452px;*/
     width: 367px;
-    height: 196px;
+    height: 240px;
     // background-color: #0e0e20;
 
     &_top {
-      padding-top: 25px;
-      /*padding-bottom: 20px;*/
-      padding-left: 60px;
+      padding-top: 0.25rem;
+      padding-bottom: 0.2rem;
+      padding-left: 0.6rem;
       width: 100%;
       text-align: left;
       font-size: 14px;
@@ -187,6 +201,31 @@
     .echarts-con {
       width: 100%;
       height: 100%;
+    }
+
+    .woman {
+      position: absolute;
+      top: 58px;
+      left: 80px;
+      color: #D81271;
+      font-size: 16px;
+      span{
+        &:first-child{
+          font-size: 10px;
+        }
+      }
+    }
+
+    .man {
+      position: absolute;
+      bottom: 24px;
+      right: 20px;
+      color: #2A7EC2;
+      span{
+        &:first-child{
+          font-size: 10px;
+        }
+      }
     }
   }
 </style>

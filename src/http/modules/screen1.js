@@ -3,16 +3,16 @@ import axios from "../api"; // 导入 api
  * 观众年龄、观众性别
  */
 export const UserAttr = () =>
-	axios(
-    BASE_URL + "/api/stat/user_attr", {
-			p: 'w',
-		},
-		"GET",
-		true
-	);
+  axios(
+    TICKET_BASE_URL + "/api/stat/user_attr", {
+      p: 'w',
+    },
+    "GET",
+    true
+  );
 /**
 
-/**
+ /**
  * 会员注册情况
  */
 export const Member = () =>
@@ -35,12 +35,35 @@ export const KeliuInfo = () =>
     true
   );
 /**
-* 线上注册情况
-*/
+ * 线上注册情况
+ */
 export const StatUserNum = () =>
   axios(
-    BASE_URL + "/api/stat/stat_user_num", {
+    TICKET_BASE_URL + "/api/stat/stat_user_num", {
       p: 'w',
+    },
+    "GET",
+    true
+  );
+
+// 获取天气
+export const SetWeather = () =>
+  axios(
+    "https://free-api.heweather.com/s6/weather/now", {
+      location: "auto_ip",
+      key: Weather_KEY
+    },
+    "GET",
+    true
+  );
+/**
+ * 七日预约
+ */
+export const YyCkData = (yy_t_date_range = '') =>
+  axios(
+    TICKET_BASE_URL + "/api/stat/yy_ck_data", {
+      p: 'w',
+      yy_t_date_range
     },
     "GET",
     true

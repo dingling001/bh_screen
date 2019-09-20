@@ -2,7 +2,7 @@
   <div class="current-inner">
     <div class="current-inner_top">
       <span>当前观众在馆人数：</span>
-      <span><ICountUp :delay="delay" :endVal="stay_num" :options="options" @ready="onReady" class="iconup"/></span>
+      <span><ICountUp :delay="delay" :endVal="staynum" :options="options" @ready="onReady" class="iconup"/></span>
     </div>
     <!-- echart -->
     <div class="echarts-con" ref="echartsEl"></div>
@@ -28,6 +28,7 @@
           prefix: '',
           suffix: '',
         },
+        staynum: 0
       };
     },
     components: {
@@ -47,7 +48,9 @@
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEchart = echarts.init(echartsEl);
-      this.initPersonMap(this.datalist)
+      this.initPersonMap(this.datalist);
+      this.staynum = this.stay_num > 0 ? this.stay_num : 5306
+
       setInterval(() => {
         this.myEchart.clear();
         // this.stay_num = 0;
@@ -156,7 +159,7 @@
       },
       onReady(instance, CountUp) {
         const that = this;
-        instance.update(that.stay_num);
+        instance.update(that.staynum);
       },
     }
   };

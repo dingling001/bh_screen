@@ -1,22 +1,22 @@
 <template>
   <div class="home">
     <transition enter-active-class="animated" leave-active-class="animated zoomOut">
-      <full-screen-map class="bottom-map" :vistNumber="keliu_info.in_num" v-if="keliu_info.in_num>=0"></full-screen-map>
+      <full-screen-map class="bottom-map" :vistNumber="keliu_info.in_num" :areatop="areatop"
+                       v-if="showmap"></full-screen-map>
     </transition>
     <div class="left">
       <current-person-num class="vist-num " :stay_num="keliu_info.stay_num" :datalist="keliu_info.data_list"
-                          v-if="keliu_info.data_list.length"></current-person-num>
-      <age-distribution class="age-distribution" :age_user="age_user" v-if="age_user.length"></age-distribution>
-      <sex-ratio class="sex-ratio" :sex_user="sex_user" v-if="sex_user.length"></sex-ratio>
+                          v-if="showdata"></current-person-num>
+      <age-distribution class="age-distribution" :age_user="age_user" v-if="showmap"></age-distribution>
+      <sex-ratio class="sex-ratio" :sex_user="sex_user" v-if="showmap"></sex-ratio>
     </div>
     <div class="right">
       <register-num class="register-num" :mdata="mdata" v-if="Object.keys(mdata).length"></register-num>
-      <online-register-num class="online-register"  :onlinedata="onlinedata"
+      <online-register-num class="online-register" :onlinedata="onlinedata"
                            v-if="Object.keys(onlinedata).length"></online-register-num>
-      <week-visit-num class="week-visit"></week-visit-num>
+      <week-visit-num class="week-visit" :people_line="people_line" v-if="people_line.length"></week-visit-num>
     </div>
-
-    <audience-origin class="audience-rogin"></audience-origin>
+    <audience-origin class="audience-rogin" :origins="origin" v-if="showmap"></audience-origin>
   </div>
 </template>
 
@@ -45,7 +45,6 @@
     },
     data() {
       return {
-        showmap: true,
         age_user: [],//年龄数据
         sex_user: [],//性别数据
         people_ck_sum: 0,
@@ -54,7 +53,12 @@
         },
         mdata: {},
         count: 0,
-        onlinedata: []
+        onlinedata: [],
+        showdata: false,
+        showmap: false,
+        areatop: [],
+        origin: [],
+        people_line: []
       };
     },
     created() {
@@ -62,11 +66,13 @@
       this.get_KeliuInfo();
       this.get_Member();
       this.get_StatUserNum();
+      this.get_YyCkData();
       setInterval(() => {
         this.get_UserAttr();
         this.get_KeliuInfo();
         this.get_Member();
-        this.get_StatUserNum()
+        this.get_StatUserNum();
+        this.get_YyCkData();
         // this.keliu_info.stay_num=0;
       }, 30000)
     },
@@ -74,8 +80,12 @@
       // 用户属性
       get_UserAttr() {
         this.$api.UserAttr().then(res => {
+          this.showmap = true;
           this.age_user = res.data.age_stat.data;
           this.sex_user = res.data.sex_stat.data;
+          this.areatop = res.data.area_top;
+          this.origin = res.data.area_top.splice(0, 20);
+          // console.log(this.origin)
         }).catch((err) => {
           this.age_user = [
             {
@@ -744,7 +754,7 @@
       get_KeliuInfo() {
         this.$api.KeliuInfo().then(res => {
           // console.log(res)
-          this.showmap = true;
+          this.showdata = true;
           this.keliu_info = res.data;
           this.keliu_info.data_list = res.data.data_list;
         })
@@ -759,6 +769,12 @@
       get_StatUserNum() {
         this.$api.StatUserNum().then(res => {
           this.onlinedata = res.data;
+        })
+      },
+      // 获取7日进馆人数
+      get_YyCkData() {
+        this.$api.YyCkData().then(res => {
+          this.people_line = res.data.people_line;
         })
       }
     }
