@@ -176,7 +176,7 @@
         // 热力图
         vm.heatmap.forEach((a, i) => {
           const heatmapDom = document.querySelector(`#chart4_${i + 1}`);
-          console.log(heatmapDom);
+          // console.log(heatmapDom);
           const scale = heatmapDom.clientWidth / 1400;
           a.map = Heatmap.create(
             {

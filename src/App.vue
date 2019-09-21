@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="header">
+    <div id="header" v-show="headershow">
       <div class="wether head_left">
             <span>
                    <span class="l1" :style="{color:wlist[windex]}">
@@ -25,12 +25,40 @@
         <div class="time-con">{{nowdate}}</div>
       </div>
     </div>
-    <router-view/>
+    <!--<router-view/>-->
+    <swiper :options="appswiperoption" ref="appswiper" class="swiperbox">
+      <swiper-slide class="imgbox">
+        <Home></Home>
+      </swiper-slide>
+      <swiper-slide class="imgbox">
+        <Second></Second>
+      </swiper-slide>
+      <swiper-slide class="imgbox">
+        <Thrid></Thrid>
+      </swiper-slide>
+      <!--<swiper-slide class="imgbox">-->
+      <!--<Imgview></Imgview>-->
+      <!--</swiper-slide>-->
+      <swiper-slide class="imgbox"><img src="./assets/sf1.jpg" alt=""></swiper-slide>
+      <swiper-slide class="imgbox"><img src="./assets/sf2.jpg" alt=""></swiper-slide>
+      <swiper-slide class="imgbox"><img src="./assets/sf3.jpg" alt=""></swiper-slide>
+      <swiper-slide class="imgbox"><img src="./assets/sf4.jpg" alt=""></swiper-slide>
+      <swiper-slide class="imgbox"><img src="./assets/diqiu.jpg" alt=""></swiper-slide>
+      <swiper-slide class="imgbox"><img src="./assets/fukebai.jpg" alt=""></swiper-slide>
+      <swiper-slide class="imgbox"><img src="./assets/jixie.jpg" alt=""></swiper-slide>
+      <swiper-slide class="imgbox"><img src="./assets/qipao.jpg" alt=""></swiper-slide>
+    </swiper>
   </div>
 </template>
 <script>
+  import Imgview from '@/views/Imgview';
+  import Home from '@/views/Home';
+  import Second from '@/views/Second';
+  import Thrid from '@/views/Thrid';
+
   export default {
     data() {
+      var vm = this;
       return {
         nowdate: '',
         tmp: 0,//温度
@@ -51,13 +79,40 @@
           '#FE6400',
           '#E40001',
           '#A00010',
-          '#640000'
+          '#640000',
         ],
-        cond_src: ''
+        cond_src: '',
+        headershow: true,
+        appswiperoption: {
+          autoplay: {
+            delay: 10000,
+            stopOnLastSlide: true,
+            disableOnInteraction: true,
+          },
+          effect : 'fade',
+          fadeEffect: {
+            crossFade: true,
+          },
+          observer: true,
+          observeParents: true,
+          loop: true,
+          on: {
+            slideChangeTransitionStart: function (swiper) {
+              vm.headershow = this.realIndex <= 2;
+            },
+          },
+        }
       }
+    },
+    components: {
+      Imgview,
+      Home,
+      Second,
+      Thrid
     },
     created() {
       var vm = this;
+      // this.headershow=this.$route.meta.headers
       setInterval(function () {
         var date = new Date();
         var options = {
@@ -112,6 +167,7 @@
           }
         })
       },
+
     }
   }
 </script>
@@ -128,7 +184,16 @@
     overflow: hidden;
     background-color: #000;
     font-size: 18px;
-    // width: 3840px;
+    width: 1366px;
+
+    .swiperbox {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      left: 0;
+      top: 0;
+    }
+
   }
 
   #header {

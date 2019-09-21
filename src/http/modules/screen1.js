@@ -43,7 +43,7 @@ export const StatUserNum = () =>
       p: 'w',
     },
     "GET",
-    true
+    true,
   );
 
 // 获取天气

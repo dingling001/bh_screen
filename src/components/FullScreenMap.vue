@@ -233,7 +233,7 @@
           } else {
             width = 1;
           }
-          console.log(width)
+          // console.log(width)
           series.push(
             {
               name: '线路',

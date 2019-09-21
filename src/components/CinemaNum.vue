@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     onReady(instance, CountUp) {
-      console.log(CountUp)
+      // console.log(CountUp)
       const that = this;
       instance.update(that.endVal);
     },

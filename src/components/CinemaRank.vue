@@ -176,7 +176,7 @@
           const cur = parseInt(vm.moviesList[i].value, 10);
           cur > vm.maxfilmvalue ? vm.maxfilmvalue = cur : null;
         }
-        console.log(vm.maxfilmvalue);
+        // console.log(vm.maxfilmvalue);
       },
       renderMoviesList(data) {
         const vm = this;
@@ -193,7 +193,7 @@
         const vm = this;
         // vm.baseValue <= 0 ? vm.baseValue = 1 : '';
         const perc = `${Math.round((val / vm.maxfilmvalue) * 100)}%`;
-        console.log(perc);
+        // console.log(perc);
         return perc;
       },
     },

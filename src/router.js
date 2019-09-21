@@ -29,5 +29,13 @@ export default new Router({
       name: 'thridScreen',
       component: () => import(/* webpackChunkName: "second_screem" */ './views/Thrid.vue'),
     },
+    {
+      path: '/imgview',
+      name: 'imgview',
+      mate: {
+        headershow: false,
+      },
+      component: () => import(/* webpackChunkName: "second_screem" */ './views/Imgview.vue'),
+    },
   ],
 });
