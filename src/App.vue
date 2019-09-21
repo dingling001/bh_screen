@@ -28,7 +28,7 @@
     <!--<router-view/>-->
     <swiper :options="appswiperoption" ref="appswiper" class="swiperbox">
       <swiper-slide class="imgbox">
-        <Home></Home>
+        <Home ref="home"></Home>
       </swiper-slide>
       <swiper-slide class="imgbox">
         <Second></Second>
@@ -89,16 +89,21 @@
             stopOnLastSlide: true,
             disableOnInteraction: true,
           },
-          effect : 'fade',
-          fadeEffect: {
-            crossFade: true,
-          },
+          // effect : 'fade',
+          // fadeEffect: {
+          //   crossFade: true,
+          // },
           observer: true,
           observeParents: true,
           loop: true,
           on: {
             slideChangeTransitionStart: function (swiper) {
               vm.headershow = this.realIndex <= 2;
+              vm.$refs.home.get_UserAttr();
+              vm.$refs.home.get_KeliuInfo();
+              vm.$refs.home.get_Member();
+              vm.$refs.home.get_StatUserNum();
+              vm.$refs.home.get_YyCkData();
             },
           },
         }
