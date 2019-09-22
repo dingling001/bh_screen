@@ -16,7 +16,7 @@
                            v-if="Object.keys(onlinedata).length"></online-register-num>
       <week-visit-num class="week-visit" :people_line="people_line" v-if="people_line.length"></week-visit-num>
     </div>
-    <audience-origin class="audience-rogin" :origins="origin" v-if="showmap"></audience-origin>
+    <audience-origin class="audience-rogin" :index="sindex"></audience-origin>
   </div>
 </template>
 
@@ -62,6 +62,17 @@
       };
     },
     created() {
+
+    },
+    props:['sindex'],
+    watch:{
+      'sindex'(){
+        console.log(this.sindex)
+        this.showmap = true;
+        console.log(this.showmap)
+      }
+    },
+    mounted(){
       this.get_UserAttr();
       this.get_KeliuInfo();
       this.get_Member();
@@ -81,7 +92,6 @@
       get_UserAttr() {
         this.$api.UserAttr().then(res => {
           this.showmap = true;
-          // console.log(this.showmap)
           this.age_user = res.data.age_stat.data;
           this.sex_user = res.data.sex_stat.data;
           this.areatop = res.data.area_top;

@@ -29,7 +29,7 @@
     <div class="swiper-container swiperbox">
       <div class="swiper-wrapper">
         <div class="swiper-slide imgbox">
-          <Home ref="home"></Home>
+          <Home ref="home" :sindex="swiperindex"></Home>
         </div>
         <div class="swiper-slide imgbox">
           <Second></Second>
@@ -86,21 +86,8 @@
         ],
         cond_src: '',
         headershow: true,
-        appswiperoption: {
-          autoplay: '10000',
-          loop: true,
-          onSlideChangeStart: function (swiper) {
-            console.log(swiper.realIndex);
-            vm.headershow = swiper.realIndex <= 2;
-            vm.$refs.home.get_UserAttr();
-            vm.$refs.home.get_KeliuInfo();
-            vm.$refs.home.get_Member();
-            vm.$refs.home.get_StatUserNum();
-            vm.$refs.home.get_YyCkData();
-          },
-          observer: true,
-          observeParents: true,
-        }
+        swiperindex: 0,
+        initialSlide: 0
       }
     },
     components: {
@@ -129,11 +116,33 @@
     },
     mounted() {
       var vm = this;
-      new Swiper('.swiper-container', {
+      var mySwiper = new Swiper('.swiper-container', {
         autoplay: 10000,
-        loop: true,
+        // loop: true,
+        initialSlide: vm.initialSlide,
+        autoplayDisableOnInteraction: false,
         onSlideChangeStart: function (swiper) {
-          console.log(swiper.realIndex);
+          vm.headershow = swiper.realIndex <= 2;
+          vm.swiperindex = swiper.realIndex;
+          vm.$refs.home.get_UserAttr();
+          vm.$refs.home.get_KeliuInfo();
+          vm.$refs.home.get_Member();
+          vm.$refs.home.get_StatUserNum();
+          vm.$refs.home.get_YyCkData();
+        },
+        onAutoplay: function (swiper) {
+          // alert('自动切换了;');
+          vm.$refs.home.get_UserAttr();
+          vm.$refs.home.get_KeliuInfo();
+          vm.$refs.home.get_Member();
+          vm.$refs.home.get_StatUserNum();
+          vm.$refs.home.get_YyCkData();
+          if (swiper.realIndex == 10) {
+            mySwiper.slideTo(0, 2000, true);
+          }
+        },
+        onTransitionStart: function (swiper) {
+          // console.log(swiper.realIndex)
           vm.headershow = swiper.realIndex <= 2;
           vm.$refs.home.get_UserAttr();
           vm.$refs.home.get_KeliuInfo();
@@ -141,13 +150,16 @@
           vm.$refs.home.get_StatUserNum();
           vm.$refs.home.get_YyCkData();
         },
-        onSlideChangeEnd: function (swiper) {
-          console.log(111)
+        onSlideChangeEnd: function (sw) {
+          vm.headershow = sw.realIndex <= 2;
           vm.$refs.home.get_UserAttr();
           vm.$refs.home.get_KeliuInfo();
           vm.$refs.home.get_Member();
           vm.$refs.home.get_StatUserNum();
           vm.$refs.home.get_YyCkData();
+          if (sw.realIndex == 10) {
+            window.location.reload();
+          }
         },
         observer: true,
         observeParents: true,
