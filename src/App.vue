@@ -19,35 +19,37 @@
             </span>
             </span>
       </div>
-      <div class="title">滨海科技馆数据展示平台</div>
+      <div class="title"></div>
       <div class="time">
         <div class="clock"></div>
         <div class="time-con">{{nowdate}}</div>
       </div>
     </div>
     <!--<router-view/>-->
-    <swiper :options="appswiperoption" ref="appswiper" class="swiperbox">
-      <swiper-slide class="imgbox">
-        <Home ref="home"></Home>
-      </swiper-slide>
-      <swiper-slide class="imgbox">
-        <Second></Second>
-      </swiper-slide>
-      <swiper-slide class="imgbox">
-        <Thrid></Thrid>
-      </swiper-slide>
-      <!--<swiper-slide class="imgbox">-->
-      <!--<Imgview></Imgview>-->
-      <!--</swiper-slide>-->
-      <swiper-slide class="imgbox"><img src="./assets/sf1.jpg" alt=""></swiper-slide>
-      <swiper-slide class="imgbox"><img src="./assets/sf2.jpg" alt=""></swiper-slide>
-      <swiper-slide class="imgbox"><img src="./assets/sf3.jpg" alt=""></swiper-slide>
-      <swiper-slide class="imgbox"><img src="./assets/sf4.jpg" alt=""></swiper-slide>
-      <swiper-slide class="imgbox"><img src="./assets/diqiu.jpg" alt=""></swiper-slide>
-      <swiper-slide class="imgbox"><img src="./assets/fukebai.jpg" alt=""></swiper-slide>
-      <swiper-slide class="imgbox"><img src="./assets/jixie.jpg" alt=""></swiper-slide>
-      <swiper-slide class="imgbox"><img src="./assets/qipao.jpg" alt=""></swiper-slide>
-    </swiper>
+    <div class="swiper-container swiperbox">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide imgbox">
+          <Home ref="home"></Home>
+        </div>
+        <div class="swiper-slide imgbox">
+          <Second></Second>
+        </div>
+        <div class="swiper-slide imgbox">
+          <Thrid></Thrid>
+        </div>
+        <!--<div class="swiper-slide imgbox">-->
+        <!--<Imgview></Imgview>-->
+        <!--</div>-->
+        <div class="swiper-slide imgbox"><img src="./assets/sf1.jpg" alt=""></div>
+        <div class="swiper-slide imgbox"><img src="./assets/sf2.jpg" alt=""></div>
+        <div class="swiper-slide imgbox"><img src="./assets/sf3.jpg" alt=""></div>
+        <div class="swiper-slide imgbox"><img src="./assets/sf4.jpg" alt=""></div>
+        <div class="swiper-slide imgbox"><img src="./assets/diqiu.jpg" alt=""></div>
+        <div class="swiper-slide imgbox"><img src="./assets/fukebai.jpg" alt=""></div>
+        <div class="swiper-slide imgbox"><img src="./assets/jixie.jpg" alt=""></div>
+        <div class="swiper-slide imgbox"><img src="./assets/qipao.jpg" alt=""></div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -55,6 +57,7 @@
   import Home from '@/views/Home';
   import Second from '@/views/Second';
   import Thrid from '@/views/Thrid';
+  import Swiper from 'swiper';
 
   export default {
     data() {
@@ -84,28 +87,19 @@
         cond_src: '',
         headershow: true,
         appswiperoption: {
-          autoplay: {
-            delay: 10000,
-            stopOnLastSlide: true,
-            disableOnInteraction: true,
+          autoplay: '10000',
+          loop: true,
+          onSlideChangeStart: function (swiper) {
+            console.log(swiper.realIndex);
+            vm.headershow = swiper.realIndex <= 2;
+            vm.$refs.home.get_UserAttr();
+            vm.$refs.home.get_KeliuInfo();
+            vm.$refs.home.get_Member();
+            vm.$refs.home.get_StatUserNum();
+            vm.$refs.home.get_YyCkData();
           },
-          // effect : 'fade',
-          // fadeEffect: {
-          //   crossFade: true,
-          // },
           observer: true,
           observeParents: true,
-          loop: true,
-          on: {
-            slideChangeTransitionStart: function (swiper) {
-              vm.headershow = this.realIndex <= 2;
-              vm.$refs.home.get_UserAttr();
-              vm.$refs.home.get_KeliuInfo();
-              vm.$refs.home.get_Member();
-              vm.$refs.home.get_StatUserNum();
-              vm.$refs.home.get_YyCkData();
-            },
-          },
         }
       }
     },
@@ -133,7 +127,32 @@
       }, 1000);
       this.get_setWeather();
     },
-
+    mounted() {
+      var vm = this;
+      new Swiper('.swiper-container', {
+        autoplay: 10000,
+        loop: true,
+        onSlideChangeStart: function (swiper) {
+          console.log(swiper.realIndex);
+          vm.headershow = swiper.realIndex <= 2;
+          vm.$refs.home.get_UserAttr();
+          vm.$refs.home.get_KeliuInfo();
+          vm.$refs.home.get_Member();
+          vm.$refs.home.get_StatUserNum();
+          vm.$refs.home.get_YyCkData();
+        },
+        onSlideChangeEnd: function (swiper) {
+          console.log(111)
+          vm.$refs.home.get_UserAttr();
+          vm.$refs.home.get_KeliuInfo();
+          vm.$refs.home.get_Member();
+          vm.$refs.home.get_StatUserNum();
+          vm.$refs.home.get_YyCkData();
+        },
+        observer: true,
+        observeParents: true,
+      })
+    },
     methods: {
       // 设置天气
       get_setWeather: function () {

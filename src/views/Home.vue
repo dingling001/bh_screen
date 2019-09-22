@@ -74,13 +74,14 @@
         this.get_StatUserNum();
         this.get_YyCkData();
         // this.keliu_info.stay_num=0;
-      }, 30000)
+      }, 30000);
     },
     methods: {
       // 用户属性
       get_UserAttr() {
         this.$api.UserAttr().then(res => {
           this.showmap = true;
+          // console.log(this.showmap)
           this.age_user = res.data.age_stat.data;
           this.sex_user = res.data.sex_stat.data;
           this.areatop = res.data.area_top;
