@@ -1,22 +1,28 @@
 <template>
   <div class="home">
-    <transition enter-active-class="animated" leave-active-class="animated zoomOut">
-      <full-screen-map class="bottom-map" :vistNumber="keliu_info.in_num" :areatop="areatop"
-                       v-if="showmap"></full-screen-map>
-    </transition>
-    <div class="left">
-      <current-person-num class="vist-num " :stay_num="keliu_info.stay_num" :datalist="keliu_info.data_list"
-                          v-if="showdata"></current-person-num>
-      <age-distribution class="age-distribution" :age_user="age_user" v-if="showmap"></age-distribution>
-      <sex-ratio class="sex-ratio" :sex_user="sex_user" v-if="showmap"></sex-ratio>
+    <!--    <transition enter-active-class="animated" leave-active-class="animated zoomOut">-->
+    <full-screen-map :class="['bottom-map animated', showmap?'zoomIn':'zoomOut']" :vistNumber="keliu_info.in_num"
+                     :areatop="areatop"
+    >
+    </full-screen-map>
+    <!--    </transition>-->
+    <div class="left animated slideInLeft">
+      <current-person-num class="vist-num  animated fadeInLeft " :stay_num="keliu_info.stay_num"
+                          :datalist="keliu_info.data_list"
+                          v-if="showmap"></current-person-num>
+      <age-distribution class="age-distribution animated fadeInLeft  delay-1s" :age_user="age_user"
+                        v-if="showmap"></age-distribution>
+      <sex-ratio class="sex-ratio animated fadeInLeft delay-2s" :sex_user="sex_user" v-if="showmap"></sex-ratio>
     </div>
-    <div class="right">
-      <register-num class="register-num" :mdata="mdata" v-if="Object.keys(mdata).length"></register-num>
-      <online-register-num class="online-register" :onlinedata="onlinedata"
-                           v-if="Object.keys(onlinedata).length"></online-register-num>
-      <week-visit-num class="week-visit" :people_line="people_line" v-if="people_line.length"></week-visit-num>
+    <div class="right animated slideInRight">
+      <register-num class="register-num animated fadeInRight" :mdata="mdata"
+                    v-if="showdata"></register-num>
+      <online-register-num class="online-register animated fadeInRight delay-1s" :onlinedata="onlinedata"
+                           v-if="showdata"></online-register-num>
+      <week-visit-num class="week-visit animated fadeInRight delay-2s" :people_line="people_line"
+                      v-if="showdata"></week-visit-num>
     </div>
-    <audience-origin class="audience-rogin" :index="sindex"></audience-origin>
+    <audience-origin class="audience-rogin animated fadeInUp delay-3s" v-if="showmap"></audience-origin>
   </div>
 </template>
 
@@ -62,17 +68,21 @@
       };
     },
     created() {
-
     },
-    props:['sindex'],
-    watch:{
-      'sindex'(){
+    props: ['sindex'],
+    watch: {
+      'sindex'() {
         console.log(this.sindex)
-        this.showmap = true;
-        console.log(this.showmap)
+        if (this.sindex == 0) {
+          this.showmap = true;
+          this.showdata = Object.keys(this.mdata).length && Object.keys(this.onlinedata).length && this.people_line.length
+        } else {
+          this.showmap = false;
+          this.showdata = false;
+        }
       }
     },
-    mounted(){
+    mounted() {
       this.get_UserAttr();
       this.get_KeliuInfo();
       this.get_Member();
@@ -798,7 +808,6 @@
     position: relative;
     height: 768px;
 
-
     .vist-num {
       position: absolute;
       top: 54px;
@@ -836,7 +845,7 @@
       left: 0;
       z-index: 2;
 
-      background-image: url('../assets/zuozhezhao.png');
+      /*background-image: url('../assets/zuozhezhao.png');*/
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -848,7 +857,7 @@
       left: 0;
       z-index: 2;
 
-      background-image: url('../assets/zuozhezhao.png');
+      /*background-image: url('../assets/zuozhezhao.png');*/
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -861,7 +870,7 @@
       right: 0;
       z-index: 2;
 
-      background-image: url('../assets/youzhezhao.png');
+      /*background-image: url('../assets/youzhezhao.png');*/
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -873,22 +882,23 @@
       right: 0;
       z-index: 2;
 
-      background-image: url('../assets/youzhezhao.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
+      /*background-image: url('../assets/youzhezhao.png');*/
+      /*background-size: cover;*/
+      /*background-repeat: no-repeat;*/
+      /*background-position: center;*/
     }
 
     .audience-origin {
       position: absolute;
       bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0;
+      right: 0;
+      margin: 0 auto;
       z-index: 2;
-      background-image: url('../assets/xiazhezhao.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
+      /*background-image: url('../assets/xiazhezhao.png');*/
+      /*background-size: cover;*/
+      /*background-repeat: no-repeat;*/
+      /*background-position: center;*/
     }
   }
 </style>

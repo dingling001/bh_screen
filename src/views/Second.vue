@@ -2,13 +2,16 @@
   <div class="home">
     <video-full-screen class="bottom-map"></video-full-screen>
     <div class="left">
-      <child-playground-compared class="vist-num"></child-playground-compared>
-      <accumulative-num class="age-distribution"></accumulative-num>
-      <child-age-distribution class="sex-ratio"></child-age-distribution>
+      <child-playground-compared class="vist-num animated fadeInLeft" :peopleline="people_line"
+                                 v-if="showchlid"></child-playground-compared>
+      <accumulative-num class="age-distribution animated fadeInLeft delay-1s" :childrenyysum="children_yy_sum"
+                        :childrencksum="children_ck_sum" :peoplepbnum="people_pb_num"
+                        :peopleyysum="people_yy_sum" v-if="showchlid"></accumulative-num>
+      <child-age-distribution class="sex-ratio animated fadeInLeft delay-2s" :agestat="age_stat" v-if="showchlid"></child-age-distribution>
     </div>
     <div class="right">
-      <popular-exs class="register-num"></popular-exs>
-      <popular-production class="week-visit"></popular-production>
+      <popular-exs class="register-num animated  fadeInRight" :exhibit="exhibit" v-if="showchlid" ></popular-exs>
+      <popular-production class="week-visit animated fadeInRight delay-1s" :exhibition="exhibition" v-if="showchlid"></popular-production>
     </div>
   </div>
 </template>
@@ -22,6 +25,19 @@
   import PopularProduction from '@/components/PopularProduction';
 
   export default {
+    data() {
+      return {
+        people_line: [],
+        children_yy_sum: 0,
+        children_ck_sum: 0,
+        people_pb_num: 0,
+        people_yy_sum: 0,
+        age_stat: [],
+        showchlid: false,
+        exhibit:[],
+        exhibition:[]
+      }
+    },
     components: {
       VideoFullScreen,
       ChildPlaygroundCompared,
@@ -30,6 +46,37 @@
       PopularExs,
       PopularProduction,
     },
+    mounted() {
+      // this.get_ChildrenYyCkData();
+      this.get_ExhibitStat();
+    },
+    props: ['sindex'],
+    watch: {
+      'sindex'() {
+        this.showchlid = this.sindex == 1;
+        this.get_ChildrenYyCkData();
+        this.get_ExhibitStat();
+      }
+    },
+    methods: {
+      // 获取儿童数据
+      get_ChildrenYyCkData() {
+        this.$api.ChildrenYyCkData().then(res => {
+          this.people_line = res.data.people_line;
+          this.children_yy_sum = res.data.children_yy_sum;
+          this.children_ck_sum = res.data.children_ck_sum;
+          this.people_pb_num = res.data.people_pb_num;
+          this.people_yy_sum = res.data.people_yy_sum;
+          this.age_stat = res.data.age_stat.data;
+        })
+      },
+      get_ExhibitStat() {
+        this.$api.ExhibitStat().then(res => {
+          this.exhibit=res.data.exhibit;
+          this.exhibition=res.data.exhibition.splice(0,5);
+        })
+      }
+    }
   };
 </script>
 
@@ -38,15 +85,16 @@
   .home {
     position: relative;
     width: 100%;
-    height: ~'calc(100% - 112px)';
-    background-color: rgba(0, 0, 0, 0.3);
+    height: 768px;
+    /*height: ~'calc(100% - 112px)';*/
+    /*background-color: rgba(0, 0, 0, 0.3);*/
 
     .vist-num {
       position: absolute;
       top: 54px;
       left: 0;
       z-index: 2;
-      background-image: url('../assets/zuozhezhao.png');
+      /*background-image: url('../assets/zuozhezhao.png');*/
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -65,7 +113,7 @@
       right: 0;
       z-index: 2;
 
-      background-image: url('../assets/youzhezhao.png');
+      /*background-image: url('../assets/youzhezhao.png');*/
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -77,7 +125,7 @@
       left: 0;
       z-index: 2;
 
-      background-image: url('../assets/zuozhezhao.png');
+      /*background-image: url('../assets/zuozhezhao.png');*/
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -89,7 +137,7 @@
       left: 0;
       z-index: 2;
 
-      background-image: url('../assets/zuozhezhao.png');
+      /*background-image: url('../assets/zuozhezhao.png');*/
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -101,7 +149,7 @@
       right: 0;
       z-index: 2;
 
-      background-image: url('../assets/youzhezhao.png');
+      /*background-image: url('../assets/youzhezhao.png');*/
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -113,7 +161,7 @@
       right: 0;
       z-index: 2;
 
-      background-image: url('../assets/youzhezhao.png');
+      /*background-image: url('../assets/youzhezhao.png');*/
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -126,7 +174,7 @@
       transform: translateX(-50%);
       z-index: 2;
 
-      background-image: url('../assets/xiazhezhao.png');
+      /*background-image: url('../assets/xiazhezhao.png');*/
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;

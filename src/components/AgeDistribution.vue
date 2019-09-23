@@ -31,7 +31,7 @@
       setInterval(()=>{
         this.myEcharts.clear();
         this.initData(this.age_user)
-      },3000)
+      },10000)
     },
     methods: {
       initData(titles) {

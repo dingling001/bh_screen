@@ -19,7 +19,7 @@
       return {
         value: [830, 924, 1921, 924, 1230, 1220, 1102],
         myEchart: null,
-        delay: 500,
+        delay: 1000,
         options: {
           useEasing: true,
           useGrouping: true,
@@ -49,7 +49,7 @@
       const {echartsEl} = this.$refs;
       this.myEchart = echarts.init(echartsEl);
       this.initPersonMap(this.datalist);
-      this.staynum = this.stay_num > 0 ? this.stay_num : 5306
+      this.staynum = this.stay_num > 0 ? this.stay_num : 5306;
 
       setInterval(() => {
         this.myEchart.clear();
@@ -90,7 +90,7 @@
               interval: 'auto',
               fontSize: 10,
               fontWeight: 'bold',
-              color: '#808080',
+              color: '#fff',
             },
             data: xdata.length ? xdata : ['9:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00'],
           },

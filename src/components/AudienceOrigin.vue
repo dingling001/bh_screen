@@ -5,33 +5,37 @@
     </div>
 
     <!-- echarts -->
-    <div class="echarts-con" ref="echartsEl"></div>
+    <div class="echarts-con" id="chart"></div>
   </div>
 </template>
 
 <script>
   import echarts from 'echarts';
+  import mixin from '@/mixins/mixin'
 
   export default {
+    name: 'audienceOrigin',
     data() {
       return {
-        myEcharts: null
+        myEcharts: null,
+        origin: []
       };
     },
     props: ['index'],
+    mixins: [mixin],
     watch: {
       'index'() {
-        console.log(this.index)
         this.$nextTick(() => {
-          this.myEcharts.clear();
           this.get_UserAttr()
         })
       }
     },
     mounted() {
-      const {echartsEl} = this.$refs;
-      this.myEcharts = echarts.init(echartsEl);
-      this.get_UserAttr()
+      this.myEcharts = echarts.init(document.querySelector("#chart"));
+      this.get_UserAttr();
+      setInterval(()=>{
+        this.get_UserAttr();
+      },10000)
     },
     methods: {
       initAudience(datas) {
@@ -47,7 +51,7 @@
             name: item.name,
             type: 'pie',
             startAngle: 45,
-            radius: [55 / 2 - 10, 55 / 2],
+            radius: [19.5, 27.5],
             label: {
               show: true,
               fontWeight: 'bold',
@@ -141,13 +145,14 @@
           title: titles,
           series,
         };
+        this.myEcharts.clear();
         this.myEcharts.setOption(options, true);
       },
       // 用户属性
       get_UserAttr() {
         this.$api.UserAttr().then(res => {
-         var origin = res.data.area_top.splice(0, 20);
-          this.initAudience(origin)
+          this.origin = res.data.area_top.splice(0, 20);
+          this.initAudience(this.origin)
         }).catch((err) => {
         })
       },

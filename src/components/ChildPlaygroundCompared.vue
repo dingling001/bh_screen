@@ -17,20 +17,31 @@
         myEcharts: null
       }
     },
+    props: {
+      'peopleline': {
+        type: Array,
+        default: []
+      }
+    },
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
-      this.get_ChildrenYyCkData()
+      this.initChild(this.peopleline)
+      setInterval(()=>{
+        this.myEcharts.clear();
+        this.initChild(this.peopleline)
+      },10000)
     },
     methods: {
-
-      get_ChildrenYyCkData() {
-        this.$api.ChildrenYyCkData().then(res => {
-          console.log(res)
-          this.initChild()
-        })
-      },
-      initChild() {
+      initChild(data) {
+        var xdata = [];
+        var ydata = [];
+        var tdata = []
+        data.forEach((item, index) => {
+          xdata.push(item.name);
+          ydata.push(item.value);
+          tdata.push(item.value_ck);
+        });
         const options = {
           color: ['#DB5D09', '#7F55C4'],
           grid: {
@@ -75,13 +86,13 @@
               interval: 0,
               show: true,
               fontSize: 8,
-              color: '#808080',
+              color: '#fff',
               formatter(val) {
                 const arr = val.split('-');
                 return `${arr[1]}/${arr[2]}`;
               },
             },
-            data: [
+            data: xdata.length ? xdata : [
               '2019-08-25',
               '2019-08-28',
               '2019-08-29',
@@ -96,6 +107,7 @@
             splitNumber: 3,
             name: '人数',
             nameGap: 40,
+            minInterval:1,
             nameTextStyle: {
               color: '#ffffff',
               fontSize: 8,
@@ -144,7 +156,7 @@
                 width: 8,
                 type: 'solid',
               },
-              data: [1000, 1200, 3000, 5660, 1000, 5662, 5000],
+              data: tdata.length ? tdata : [1000, 1200, 3000, 5660, 1000, 5662, 5000],
               markPoint: {
                 data: [
                   {
@@ -183,12 +195,13 @@
                 type: 'solid',
               },
 
-              data: [2000, 4000, 3000, 2100, 3200, 4000, 6000],
+              data: ydata ? ydata : [2000, 4000, 3000, 2100, 3200, 4000, 6000],
             },
           ],
         };
         this.myEcharts.setOption(options);
-      }
+      },
+
     }
   };
 </script>

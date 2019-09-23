@@ -2,7 +2,11 @@
   <div class="register-num">
     <div class="register-num_top">
       <span>会员总注册人数：</span>
-      <span>{{m_data.total}}</span>
+      <span><i-count-up :delay="delay"
+                        :endVal="m_data.total"
+                        :options="options"
+                        @ready="onReady"
+                        class="iconup"></i-count-up></span>
     </div>
 
     <div class="register-num_catalog">
@@ -27,12 +31,25 @@
 
 <script>
   import echarts from 'echarts';
+  import ICountUp from 'vue-countup-v2';
 
   export default {
     data() {
       return {
-        m_data: {},
-        myEcharts: null
+        m_data: {
+          total: 0
+        },
+        myEcharts: null,
+        delay: 1000,
+        endVal: 120500,
+        options: {
+          useEasing: true,
+          useGrouping: true,
+          separator: ',',
+          decimal: '.',
+          prefix: '',
+          suffix: '',
+        },
       }
     },
     props: {
@@ -41,16 +58,24 @@
         default: {}
       }
     },
+    components: {
+      ICountUp
+    },
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
+      this.m_data = this.mdata;
+      this.initMember(this.mdata);
       setInterval(() => {
-        this.m_data = this.mdata;
-        this.myEcharts.clear();
         this.initMember(this.mdata);
-      }, 3000)
+      }, 10000)
     },
     methods: {
+      onReady(instance, CountUp) {
+        // console.log(CountUp)
+        const that = this;
+        instance.update(that.m_data.total);
+      },
       initMember(data) {
         var pctotal = (data.one.pc + data.two.pc + data.three.pc + data.four.pc + data.five.pc) <= 0 ? 1 : (data.one.pc + data.two.pc + data.three.pc + data.four.pc + data.five.pc);
         var wxtotal = (data.one.wx + data.two.wx + data.three.wx + data.four.wx + data.five.wx) <= 0 ? 1 : (data.one.wx + data.two.wx + data.three.wx + data.four.wx + data.five.wx);
@@ -83,7 +108,7 @@
               show: true,
               interval: 'auto',
               fontSize: 10,
-              color: '#657CA8',
+              color: '#fff',
             },
             data: ['0-17', '18-24', '25-35', '36-64', '65及以上'],
           },

@@ -2,8 +2,8 @@
   <div class="home">
     <hot-map class="bottom-map"></hot-map>
     <div class="left">
-      <gamefeeltotal class="vist-num"></gamefeeltotal>
-      <game-feel-top class="age-distribution"></game-feel-top>
+      <gamefeeltotal class="vist-num" v-if="showgame" :total="total" :list="list"></gamefeeltotal>
+      <game-feel-top class="age-distribution" :topfive="topfive" v-if="showgame"></game-feel-top>
       <gametop class="sex-ratio"></gametop>
     </div>
     <div class="right">
@@ -24,6 +24,14 @@
   import CinemaRank from '@/components/CinemaRank';
 
   export default {
+    data() {
+      return {
+        topfive: [],
+        showgame: false,
+        total: 0,
+        list:[]
+      }
+    },
     components: {
       HotMap,
       Gamefeeltotal,
@@ -33,6 +41,33 @@
       CinemaWeekNum,
       CinemaRank,
     },
+    mounted() {
+      this.get_HelloTop();
+    },
+    watch: {
+      'sindex'() {
+        this.showgame = this.sindex == 2;
+        this.get_HelloTop();
+        this.get_hello();
+      }
+    },
+    props: ['sindex'],
+    methods: {
+      // 获取top5数据
+      get_HelloTop() {
+        this.$api.HelloTop().then(res => {
+          console.log(res)
+          this.topfive = res.data;
+        })
+      },
+      get_hello() {
+        this.$api.Hello().then(res => {
+          console.log(res)
+          this.total = res.data.total;
+          this.list=res.data.list;
+        })
+      }
+    }
   };
 </script>
 
@@ -41,8 +76,9 @@
   .home {
     position: relative;
     width: 100%;
-    height: ~'calc(100% - 112px)';
-    background-color: rgba(0, 0, 0, 0.3);
+    /*height: ~'calc(100% - 112px)';*/
+    /*background-color: rgba(0, 0, 0, 0.3);*/
+    height: 768px;
 
     .vist-num {
       position: absolute;

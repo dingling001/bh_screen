@@ -7,12 +7,12 @@
     <div class="echarts-con" ref="echartsEl">
       <ul>
         <li
-          v-for="(item, index) in production"
+          v-for="(item, index) in exhibition"
           :key="index"
           :class="{first: index === 0, second: index === 1, thrid: index === 2, fourth: index === 3, fifth: index === 4}"
         >
-          <div></div>
-          <div>{{ item.name }}</div>
+          <div :style="{borderBottomWidth:150*item.prenncent+'px'}"></div>
+          <div>{{ item.exhibition_name }}</div>
           <div>{{ `No.${index + 1}` }}</div>
         </li>
       </ul>
@@ -33,6 +33,19 @@
         ],
       };
     },
+    props: {
+      'exhibition': {
+        type: Array,
+        default: []
+      }
+    },
+    created() {
+
+      for (var i in  this.exhibition) {
+        this.exhibition[i].prenncent = parseInt(this.exhibition[i].total) / parseInt(this.exhibition[0].total)
+      }
+      console.log(this.exhibition)
+    }
   };
 </script>
 

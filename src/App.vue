@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <div id="header" v-show="headershow">
-      <div class="wether head_left">
+    <div id="header" :class="['animated',headershow?'slideInDown':'slideOutUp']">
+      <div class="wether head_left ">
             <span>
                    <span class="l1" :style="{color:wlist[windex]}">
                        <span class="iconfont iconwendu" :style="{color:wlist[windex]}"></span><span>{{tmp}} ℃</span>
@@ -19,23 +19,22 @@
             </span>
             </span>
       </div>
-      <div class="title"></div>
+      <div class="title">滨海科技馆数据展示平台</div>
       <div class="time">
-        <div class="clock"></div>
-        <div class="time-con">{{nowdate}}</div>
+        <div class="time-con"><span class="iconfont iconshijian"></span>{{nowdate}}</div>
       </div>
     </div>
     <!--<router-view/>-->
     <div class="swiper-container swiperbox">
       <div class="swiper-wrapper">
         <div class="swiper-slide imgbox">
-          <Home ref="home" :sindex="swiperindex"></Home>
+          <Home ref="home" :sindex="swiperindex" class="animated fadeIn"></Home>
         </div>
         <div class="swiper-slide imgbox">
-          <Second></Second>
+          <Second :sindex="swiperindex"></Second>
         </div>
         <div class="swiper-slide imgbox">
-          <Thrid></Thrid>
+          <Thrid :sindex="swiperindex"></Thrid>
         </div>
         <!--<div class="swiper-slide imgbox">-->
         <!--<Imgview></Imgview>-->
@@ -60,6 +59,7 @@
   import Swiper from 'swiper';
 
   export default {
+    name: 'app',
     data() {
       var vm = this;
       return {
@@ -87,7 +87,8 @@
         cond_src: '',
         headershow: true,
         swiperindex: 0,
-        initialSlide: 0
+        initialSlide: 0,
+        comp: ''
       }
     },
     components: {
@@ -117,48 +118,29 @@
     mounted() {
       var vm = this;
       var mySwiper = new Swiper('.swiper-container', {
-        autoplay: 10000,
+        // autoplay: 30000,
         // loop: true,
         initialSlide: vm.initialSlide,
+        notNextTick: true,
         autoplayDisableOnInteraction: false,
-        onSlideChangeStart: function (swiper) {
-          vm.headershow = swiper.realIndex <= 2;
+        lazyLoadingInPrevNext: true,
+        lazyLoadingInPrevNextAmount: 1,
+        lazyLoading: true,
+        loop: false,
+        onSlideChangeStart: swiper => {
           vm.swiperindex = swiper.realIndex;
-          vm.$refs.home.get_UserAttr();
-          vm.$refs.home.get_KeliuInfo();
-          vm.$refs.home.get_Member();
-          vm.$refs.home.get_StatUserNum();
-          vm.$refs.home.get_YyCkData();
         },
-        onAutoplay: function (swiper) {
-          // alert('自动切换了;');
-          vm.$refs.home.get_UserAttr();
-          vm.$refs.home.get_KeliuInfo();
-          vm.$refs.home.get_Member();
-          vm.$refs.home.get_StatUserNum();
-          vm.$refs.home.get_YyCkData();
-          if (swiper.realIndex == 10) {
-            mySwiper.slideTo(0, 2000, true);
-          }
-        },
-        onTransitionStart: function (swiper) {
-          // console.log(swiper.realIndex)
+        onSlideChangeEnd: swiper => {
           vm.headershow = swiper.realIndex <= 2;
-          vm.$refs.home.get_UserAttr();
-          vm.$refs.home.get_KeliuInfo();
-          vm.$refs.home.get_Member();
-          vm.$refs.home.get_StatUserNum();
-          vm.$refs.home.get_YyCkData();
-        },
-        onSlideChangeEnd: function (sw) {
-          vm.headershow = sw.realIndex <= 2;
-          vm.$refs.home.get_UserAttr();
-          vm.$refs.home.get_KeliuInfo();
-          vm.$refs.home.get_Member();
-          vm.$refs.home.get_StatUserNum();
-          vm.$refs.home.get_YyCkData();
-          if (sw.realIndex == 10) {
-            window.location.reload();
+          if (swiper.isEnd) {
+            // let dom = swiper.slides[0];
+            // swiper.removeSlide(0);
+            // swiper.appendSlide(dom);
+            // swiper.activeIndex = 0;
+            // swiper.update();
+            setTimeout(() => {
+              swiper.slideTo(0, 0, false)
+            }, 10000);
           }
         },
         observer: true,
@@ -198,7 +180,7 @@
               vm.windex = 10;
             }
             vm.cond_code = now.cond_code;
-            vm.cond_src = './assets/cloudys/cond_icon_' + now.cond_code + '.png'
+            vm.cond_src = require('./assets/cloudy/' + now.cond_code + '.png');
             vm.cond_txt = now.cond_txt;
           }
         })
@@ -260,6 +242,15 @@
       flex: 1;
       font-size: 22px;
       font-weight: bold;
+
+      .time-con {
+        .iconfont {
+          font-size: 23px;
+          color: #56B1E4;
+          margin-right: 10px;
+          font-weight: normal;
+        }
+      }
     }
   }
 

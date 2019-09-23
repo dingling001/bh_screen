@@ -1,6 +1,6 @@
 <template>
   <div class="popular-exs">
-    <div class="popular-exs_top">
+    <div class="popular-exs_top ">
       <span>热门展区排行榜</span>
     </div>
 
@@ -10,11 +10,12 @@
         <li
           v-for="(item, index) in exhibit"
           :key="index"
-          :class="{first: index === 0, second: index === 1, thrid: index === 2}"
+          :class="[ index === 0?'first':'',index === 1? 'second':'' ,index === 2? 'thrid':'' ,]"
         >
+<!--          'animated slideInRight delay-'+index+'s'-->
           <span>{{ item.exhibit_name }}</span>
           <div>
-            <span :style="`width: ${item.look_num / 113 * 100}%`"></span>
+            <span :style="`width: ${item.like_num / exhibit[0].like_num * 100}%`"></span>
           </div>
           <span>{{ `No.${index + 1}` }}</span>
         </li>
@@ -27,22 +28,32 @@
   export default {
     data() {
       return {
-        exhibit: [
-          {exhibit_name: '地下挖掘', look_num: 113},
-          {exhibit_name: '多彩的形状', look_num: 50},
-          {exhibit_name: '多彩的形状', look_num: 50},
-          {exhibit_name: '地下生活的哺乳动物', look_num: 41},
-          {exhibit_name: '仰望星空', look_num: 41},
-          {exhibit_name: '人体八大系统', look_num: 39},
-          {exhibit_name: '未来交通生活畅想', look_num: 32},
-          {exhibit_name: '地下采矿', look_num: 31},
-          {exhibit_name: '简仪', look_num: 28},
-          {exhibit_name: '地下生活的虫子', look_num: 25},
-        ],
-
+        // exhibit: [
+        //   {exhibit_name: '地下挖掘', look_num: 113},
+        //   {exhibit_name: '多彩的形状', look_num: 50},
+        //   {exhibit_name: '多彩的形状', look_num: 50},
+        //   {exhibit_name: '地下生活的哺乳动物', look_num: 41},
+        //   {exhibit_name: '仰望星空', look_num: 41},
+        //   {exhibit_name: '人体八大系统', look_num: 39},
+        //   {exhibit_name: '未来交通生活畅想', look_num: 32},
+        //   {exhibit_name: '地下采矿', look_num: 31},
+        //   {exhibit_name: '简仪', look_num: 28},
+        //   {exhibit_name: '地下生活的虫子', look_num: 25},
+        // ],
         count: 113,
       };
     },
+    props: {
+      'exhibit': {
+        type: Array,
+        default: []
+      },
+    },
+    created() {
+      this.exhibit.forEach((item) => {
+        this.count += parseInt(item.like_num, 10);
+      })
+    }
   };
 </script>
 
@@ -77,7 +88,7 @@
       > ul {
         /*padding-left: 200px;*/
         /*padding-right: 108px;*/
-        padding: 0 17px;
+        padding: 0 17px 0 0;
         display: flex;
         flex-flow: column nowrap;
         justify-content: space-around;
@@ -152,7 +163,7 @@
 
           > span {
             &:first-of-type {
-              width: 68px;
+              width: 90px;
               line-height: 1.5;
               font-size: 8px;
               font-weight: bold;

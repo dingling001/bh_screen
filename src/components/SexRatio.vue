@@ -39,7 +39,7 @@
       setInterval(() => {
         this.myEcharts.clear();
         this.initSex(this.sex_user)
-      }, 3000)
+      }, 10000)
     },
     methods: {
       initSex(sexdata) {
@@ -131,7 +131,7 @@
                 },
                 {
                   name: '',
-                  value: total / 10,
+                  value:0,
                 },
                 {
                   name: sexdata[0].name + '性',
@@ -163,7 +163,7 @@
                 },
                 {
                   name: '',
-                  value: total / 10,
+                  value: 0,
                 },
               ],
             },

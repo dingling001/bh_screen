@@ -81,7 +81,7 @@
               show: true,
               interval: 'auto',
               fontSize: 8,
-              color: '#808080',
+              color: '#fff',
               formatter(val) {
                 const arr = val.split('-');
                 return `${arr[1]}/${arr[2]}`;

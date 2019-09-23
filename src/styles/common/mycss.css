@@ -479,7 +479,7 @@ var {
 }
 
 .left {
-    position: fixed;
+    position: absolute;
     height: 100%;
     z-index: 1;
     left: 0;
@@ -492,7 +492,7 @@ var {
 }
 
 .right {
-    position: fixed;
+    position: absolute;
     height: 100%;
     z-index: 1;
     right: 0;
