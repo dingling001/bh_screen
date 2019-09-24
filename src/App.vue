@@ -25,16 +25,16 @@
       </div>
     </div>
     <!--<router-view/>-->
-    <div class="swiper-container swiperbox">
+    <div class="swiper-container swiperbox" :style="{height:swiperindex>2?'768px':'714px'}">
       <div class="swiper-wrapper">
         <div class="swiper-slide imgbox">
           <Home ref="home" :sindex="swiperindex" class="animated fadeIn"></Home>
         </div>
         <div class="swiper-slide imgbox">
-          <Second :sindex="swiperindex"></Second>
+          <Second :sindex="swiperindex" class="animated fadeIn"></Second>
         </div>
         <div class="swiper-slide imgbox">
-          <Thrid :sindex="swiperindex"></Thrid>
+          <Thrid :sindex="swiperindex" class="animated fadeIn"></Thrid>
         </div>
         <!--<div class="swiper-slide imgbox">-->
         <!--<Imgview></Imgview>-->
@@ -120,6 +120,10 @@
       var mySwiper = new Swiper('.swiper-container', {
         // autoplay: 30000,
         // loop: true,
+        effect: 'fade',
+        fade: {
+          crossFade: false,
+        },
         initialSlide: vm.initialSlide,
         notNextTick: true,
         autoplayDisableOnInteraction: false,
@@ -129,6 +133,7 @@
         loop: false,
         onSlideChangeStart: swiper => {
           vm.swiperindex = swiper.realIndex;
+          vm.headershow = swiper.realIndex <= 2;
         },
         onSlideChangeEnd: swiper => {
           vm.headershow = swiper.realIndex <= 2;
@@ -140,7 +145,7 @@
             // swiper.update();
             setTimeout(() => {
               swiper.slideTo(0, 0, false)
-            }, 10000);
+            }, 200);
           }
         },
         observer: true,
@@ -202,14 +207,19 @@
     overflow: hidden;
     background-color: #000;
     font-size: 18px;
-    width: 1366px;
+    width: 1366PX;
+    margin: 0 auto;
 
     .swiperbox {
-      width: 100%;
-      height: 100%;
+      width: 1366px;
+      height: 714px;
       position: fixed;
       left: 0;
-      top: 0;
+      right: 0;
+      /*bottom: 0;*/
+      top: 54px;
+      margin: auto;
+      transition: ease-in-out .3s;
     }
 
   }
@@ -221,7 +231,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.84);
     color: #fff;
     text-align: center;
     z-index: 9999;

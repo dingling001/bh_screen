@@ -45,7 +45,7 @@
         const options = {
           grid: {
             top: 40,
-            bottom: 50,
+            bottom: 90,
             left: 80,
             right: 0,
           },
@@ -119,12 +119,8 @@
   .child-age {
     display: flex;
     flex-flow: column nowrap;
-    /*width: 1080px;
-    height: 452px;*/
-    /*width: 520px;*/
     width: 100%;
-    height: 240px;
-
+    height: 300px;
     &_top {
       padding-top: 25px;
       /*padding-bottom: 20px;*/

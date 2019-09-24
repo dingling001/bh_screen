@@ -10,106 +10,131 @@
 </template>
 
 <script>
-import echarts from 'echarts';
+  import echarts from 'echarts';
 
-export default {
-  mounted() {
-    const { echartsEl } = this.$refs;
-
-    const myEcharts = echarts.init(echartsEl);
-
-    const options = {
-      grid: {
-        top: 20,
-        bottom: 80,
-        left: 50,
-        right: 20,
-      },
-      xAxis: {
-        type: 'category',
-        axisLine: {
-          show: false,
-        },
-        axisTick: {
-          show: false,
-        },
-        splitLine: {
-          show: false,
-        },
-        axisLabel: {
-          color: '#fff',
-          fontSize: 11,
-          margin: 20,
-        },
-        data: ['3-4', '5-6', '7-8', '9-10', '11-12', '13(岁)'],
-      },
-      yAxis: {
-        type: 'value',
-        axisLabel: {
-          color: '#A4A4A4',
-          fontSize: 11,
-          formatter(val) {
-            return `${val}%`;
+  export default {
+    data() {
+      return {
+        myEcharts: null
+      }
+    },
+    props: {
+      'attendancerate': {
+        type: Array,
+        default: []
+      }
+    },
+    mounted() {
+      const {echartsEl} = this.$refs;
+      this.myEcharts = echarts.init(echartsEl);
+      this.initCrank(this.attendancerate)
+    },
+    methods: {
+      initCrank(attendancerate) {
+        var xdata = [];
+        var ydata = [];
+        attendancerate.forEach((item, index) => {
+          xdata.push(item.date);
+          ydata.push(item.attendance_rate)
+        });
+        const options = {
+          grid: {
+            top: 20,
+            bottom: 80,
+            left: 50,
+            right: 20,
           },
-        },
-        splitLine: { show: false },
-        axisLine: { show: false },
-        axisTick: { show: false },
-      },
-      series: [
-        {
-          type: 'bar',
-          barWidth: 25,
-          itemStyle: {
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [
-                {
-                  offset: 0,
-                  color: '#BC15EC', // 0% 处的颜色
-                },
-                {
-                  offset: 1,
-                  color: '#5715EB', // 100% 处的颜色
-                },
-              ],
+          xAxis: {
+            type: 'category',
+            axisLine: {
+              show: false,
             },
-          },
-          data: [50, 60, 10, 20, 30, 20],
-        },
-      ],
-    };
+            axisTick: {
+              show: false,
+            },
+            splitLine: {
+              show: false,
+            },
+            axisLabel: {
+              color: '#fff',
+              fontSize: 11,
+              margin: 20,
+              formatter(val) {
+                const arr = val.split('-');
+                return `${arr[1]}/${arr[2]}`;
+              },
+            },
 
-    myEcharts.setOption(options);
-  },
-};
+            data: xdata
+          },
+          yAxis: {
+            type: 'value',
+            axisLabel: {
+              color: '#A4A4A4',
+              fontSize: 11,
+              formatter(val) {
+                return `${val}%`;
+              },
+            },
+            splitLine: {show: false},
+            axisLine: {show: false},
+            axisTick: {show: false},
+          },
+          series: [
+            {
+              type: 'bar',
+              barWidth: 25,
+              itemStyle: {
+                color: {
+                  type: 'linear',
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  colorStops: [
+                    {
+                      offset: 0,
+                      color: '#BC15EC', // 0% 处的颜色
+                    },
+                    {
+                      offset: 1,
+                      color: '#5715EB', // 100% 处的颜色
+                    },
+                  ],
+                },
+              },
+              data: ydata
+            },
+          ],
+        };
+        this.myEcharts.setOption(options);
+      }
+    }
+  };
 </script>
 
 <style lang="less" scoped>
-/** @format */
-.child-age {
-  display: flex;
-  flex-flow: column nowrap;
-  width: 343px;
-  height: 280px;
-  &_top {
-    padding-top: 36px;
-    padding-bottom: 20px;
-    padding-left: 60px;
-    width: 100%;
-    text-align: left;
-    font-size: 14px;
-    font-weight: 800;
-    color: #fff;
-  }
+  /** @format */
+  .child-age {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 343px;
+    height: 280px;
 
-  .echarts-con {
-    width: 100%;
-    height: 100%;
+    &_top {
+      padding-top: 14px;
+      padding-bottom: 20px;
+      /*padding-left: 60px;*/
+      width: 100%;
+      text-align: left;
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .echarts-con {
+      width: 100%;
+      height: 100%;
+    }
   }
-}
 </style>

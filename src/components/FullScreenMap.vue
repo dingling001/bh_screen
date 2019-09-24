@@ -351,7 +351,7 @@
 
     .vist-number {
       position: absolute;
-      top: 85px;
+      top: 31px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;

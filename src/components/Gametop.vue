@@ -4,45 +4,28 @@
       <span>“你好智能”游戏分数最高纪录</span>
     </div>
     <div class="gamelist">
-      <div class="gameitem">
+      <div class="gameitem" v-for="(item,index) in gamedata">
         <div class="gleft ">
           <div class="gametitle">游戏名称</div>
-          <div class="gamename gamename1">太空飞船</div>
+          <div :class="['gamename',index==0?'gamename1':'gamename2']">{{item.game_name}}</div>
         </div>
         <div class="gleft">
-          <div class="gamehead"><img src="../assets/logo.png" alt=""></div>
+          <div class="gamehead">
+            <img :src="item.avatar" alt="" v-if="item.avatar">
+          </div>
           <div class="gameperson">
-            <div class="personname">孙海燕</div>
-            <div class="persontype">特级宇航员</div>
+            <div class="personname">{{item.name}}</div>
+            <div class="persontype">{{item.rank}}</div>
           </div>
         </div>
         <div class="gleft">
           <div class="gametitle">分数</div>
           <div class="gamename">
-            <ICountUp :delay="delay" :endVal="endVal" :options="options" @ready="onReady"/>
+            <span>{{item.score}}</span>
+            <!--            <ICountUp :delay="delay" :endVal="item.score" :options="options" @ready="onReady"/>-->
           </div>
         </div>
       </div>
-      <div class="gameitem">
-        <div class="gleft">
-          <div class="gametitle">游戏名称</div>
-          <div class="gamename gamename2">太空捡垃圾</div>
-        </div>
-        <div class="gleft">
-          <div class="gamehead"><img src="../assets/logo.png" alt=""></div>
-          <div class="gameperson">
-            <div class="personname">孙海燕</div>
-            <div class="persontype">特级宇航员</div>
-          </div>
-        </div>
-        <div class="gleft">
-          <div class="gametitle">分数</div>
-          <div class="gamename">
-            <ICountUp :delay="delay" :endVal="endVal" :options="options" @ready="onReady"/>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </template>
@@ -68,6 +51,12 @@
     components: {
       ICountUp,
     },
+    props: {
+      'gamedata': {
+        type: Array,
+        default: []
+      }
+    },
     mounted() {
 
     },
@@ -88,6 +77,7 @@
     /*width: 1080px;*/
     /*height: 452px;*/
     width: 100%;
+    height: 280px;
 
     &_top {
       /*padding-top:25px;*/
@@ -112,7 +102,7 @@
 
     .gameitem {
       overflow: hidden;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
 
       .gleft {
         float: left;
@@ -145,7 +135,10 @@
           text-align: center;
           line-height: 71px;
           float: left;
-          /*margin-right: 30px;*/
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
           img {
             width: 100%;

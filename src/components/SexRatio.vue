@@ -184,13 +184,13 @@
     /*width: 960 + 120px;*/
     /*height: 452px;*/
     width: 367px;
-    height: 240px;
+    height: 300px;
     // background-color: #0e0e20;
 
     &_top {
-      padding-top: 0.25rem;
-      padding-bottom: 0.2rem;
-      padding-left: 0.6rem;
+      padding-top: 16px;
+      padding-bottom: 20px;
+      padding-left: 60px;
       width: 100%;
       text-align: left;
       font-size: 14px;
@@ -218,7 +218,7 @@
 
     .man {
       position: absolute;
-      bottom: 24px;
+      bottom: 80px;
       right: 20px;
       color: #2A7EC2;
       span{

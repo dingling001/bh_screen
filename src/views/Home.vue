@@ -7,6 +7,8 @@
     </full-screen-map>
     <!--    </transition>-->
     <div class="left animated slideInLeft">
+      <div class="hr top"></div>
+      <div class="hr bottom"></div>
       <current-person-num class="vist-num  animated fadeInLeft " :stay_num="keliu_info.stay_num"
                           :datalist="keliu_info.data_list"
                           v-if="showmap"></current-person-num>
@@ -15,6 +17,8 @@
       <sex-ratio class="sex-ratio animated fadeInLeft delay-2s" :sex_user="sex_user" v-if="showmap"></sex-ratio>
     </div>
     <div class="right animated slideInRight">
+      <div class="hr top"></div>
+      <div class="hr bottom"></div>
       <register-num class="register-num animated fadeInRight" :mdata="mdata"
                     v-if="showdata"></register-num>
       <online-register-num class="online-register animated fadeInRight delay-1s" :onlinedata="onlinedata"
@@ -59,7 +63,7 @@
         },
         mdata: {},
         count: 0,
-        onlinedata: [],
+        onlinedata: {},
         showdata: false,
         showmap: false,
         areatop: [],
@@ -810,7 +814,7 @@
 
     .vist-num {
       position: absolute;
-      top: 54px;
+      top: 0;
       left: 0;
       z-index: 2;
       /*background-image: url('../assets/zuozhezhao.png');*/
@@ -820,7 +824,7 @@
     }
 
     .bottom-map {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       z-index: 1;
@@ -828,7 +832,7 @@
 
     .register-num {
       position: absolute;
-      top: 54px;
+      top: 0;
       right: 0;
       z-index: 2;
 
@@ -841,7 +845,7 @@
     .age-distribution {
       position: absolute;
       /*top: 480 + 22px;*/
-      top: 300px;
+      top: 240px;
       left: 0;
       z-index: 2;
 
@@ -866,7 +870,7 @@
     .online-register {
       position: absolute;
       /*    top: 480 + 22px;*/
-      top: 300px;
+      top: 240px;
       right: 0;
       z-index: 2;
 

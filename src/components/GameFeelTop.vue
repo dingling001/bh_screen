@@ -43,7 +43,8 @@
           })
           ydata.push({
             value: 90 * (item.hello_num / 90) + 10,
-            symbol: 'image://' + item.avatar
+            symbol: 'image://' + item.avatar,
+            symbolSize: [28, 28],
           })
         });
         // this.main(item.avatar, function (res) {
@@ -52,7 +53,7 @@
         const options = {
           colors: ['#BC15EC', '#7F16E7', '#5715EB', '#2B41F4', '#1787EB'],
           grid: {
-            top: 50,
+            top: 80,
             bottom: 30,
             left: 50,
             right: 120,
@@ -109,7 +110,7 @@
                 return colorList[params.dataIndex];
               },
             },
-            barWidth: '20%',
+            barWidth: '25%',
             data: xdata,
             //   [{value: 80, name: '刘学'}, {value: 70, name: '杨辉'}, {value: 67, name: '孙海岩'}, {
             //   value: 20,
@@ -143,7 +144,7 @@
     width: 100%;
 
     &_top {
-      padding-top: 36px;
+      padding-top: 14px;
       padding-bottom: 20px;
       padding-left: 60px;
       width: 100%;

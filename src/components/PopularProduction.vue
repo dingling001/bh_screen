@@ -11,7 +11,7 @@
           :key="index"
           :class="{first: index === 0, second: index === 1, thrid: index === 2, fourth: index === 3, fifth: index === 4}"
         >
-          <div :style="{borderBottomWidth:150*item.prenncent+'px'}"></div>
+          <div :style="{borderBottomWidth:185*item.prenncent+'px'}"></div>
           <div>{{ item.exhibition_name }}</div>
           <div>{{ `No.${index + 1}` }}</div>
         </li>
@@ -56,7 +56,7 @@
     flex-flow: column nowrap;
     /*  width: 960 + 120px;*/
     width: 100%;
-    height: 268px;
+    height: 340px;
 
     &_top {
       /*padding-top: 60px;*/
@@ -81,7 +81,7 @@
         justify-content: space-between;
         align-items: center;
         height: 235px;
-        padding: 0 0 30px 0;
+        /*padding: 0 0 30px 0;*/
 
         li {
           height: 100%;

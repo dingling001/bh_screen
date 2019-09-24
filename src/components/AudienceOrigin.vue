@@ -166,7 +166,7 @@
     display: flex;
     flex-flow: column nowrap;
     width: 520px;
-    height: 240px;
+    height: 280px;
 
     &_top {
       padding-top: 25px;

@@ -453,29 +453,38 @@ var {
     font-weight: normal;
 }
 
-@media screen and (min-width: 1366px) {
-    html {
-        width: 750px;
-        margin: 0 auto;
-        font-size: 50px;
-    }
+/*@media screen and (min-width: 1366px) {*/
+/*    html {*/
+/*        width: 750px;*/
+/*        margin: 0 auto;*/
+/*        font-size: 50px;*/
+/*    }*/
 
-    html[drp='2'] {
-        font-size: 100px;
-    }
+/*    html[drp='2'] {*/
+/*        font-size: 100px;*/
+/*    }*/
 
-    html[drp='3'] {
-        font-size: 150px;
-    }
-}
+/*    html[drp='3'] {*/
+/*        font-size: 150px;*/
+/*    }*/
+/*}*/
 
-@media screen and (max-width: 1366px) {
-    html {
-        width: 100%;
-        font-size: 7.32064421669107vw;
-        /* prettier-ignore*/
-        /* font-size: 100PX; */
-    }
+/*@media screen and (max-width: 1366px) {*/
+/*    html {*/
+/*        width: 100%;*/
+/*        font-size: 7.32064421669107vw;*/
+/*        !* prettier-ignore*!*/
+/*        !* font-size: 100PX; *!*/
+/*    }*/
+/*}*/
+html, body {
+    width: 1366PX;
+    margin: 0 auto;
+    height: 768PX;
+    overflow: hidden;
+    font-size: 7.32064421669107vw;
+    /* prettier-ignore*/
+    /* font-size: 100PX; */
 }
 
 .left {
@@ -503,4 +512,26 @@ var {
     background: -moz-linear-gradient(right, rgba(0, 0, 0, .01), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84)); /* Firefox 3.6 - 15 */
     background: linear-gradient(to right, rgba(0, 0, 0, .01), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84)); /* 标准的语法 */
     overflow: hidden;
+}
+
+.left .hr {
+    width: 422px;
+    height: 11px;
+    background: linear-gradient(to right, rgba(5, 20, 31, 1), rgba(5, 20, 31, .5));
+    position: absolute;
+    left: 0;
+}
+.right .hr {
+    width: 422px;
+    height: 11px;
+    background: linear-gradient(to right, rgba(5, 20, 31, 1), rgba(5, 20, 31, .5));
+    position: absolute;
+    right: 0;
+}
+.top {
+    top: 239px;
+}
+
+.bottom {
+    bottom: 290px;
 }

@@ -44,7 +44,7 @@
           color: ['#7F55C4', '#DB5D09'],
           grid: {
             top: 50,
-            bottom: 50,
+            bottom: 80,
             left: 50,
             right: 30,
           },
@@ -202,11 +202,11 @@
     /*  width: 960 + 120px;
       height: 452px;*/
     width: 367px;
-    height: 240px;
+    height: 300px;
     // background-color: #0e0e20;
 
     &_top {
-      padding-top: 25px;
+      padding-top: 16px;
       padding-bottom: 20px;
       padding-left: 60px;
       width: 100%;

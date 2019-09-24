@@ -292,7 +292,6 @@
     /*width: 367px;*/
     height: 169px;
     width: 100%;
-
     &-top {
       /*padding-top: 50px;*/
       width: 100%;

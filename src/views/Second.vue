@@ -2,6 +2,8 @@
   <div class="home">
     <video-full-screen class="bottom-map"></video-full-screen>
     <div class="left">
+      <div class="hr top"></div>
+      <div class="hr bottom"></div>
       <child-playground-compared class="vist-num animated fadeInLeft" :peopleline="people_line"
                                  v-if="showchlid"></child-playground-compared>
       <accumulative-num class="age-distribution animated fadeInLeft delay-1s" :childrenyysum="children_yy_sum"
@@ -10,6 +12,7 @@
       <child-age-distribution class="sex-ratio animated fadeInLeft delay-2s" :agestat="age_stat" v-if="showchlid"></child-age-distribution>
     </div>
     <div class="right">
+      <div class="hr bottom"></div>
       <popular-exs class="register-num animated  fadeInRight" :exhibit="exhibit" v-if="showchlid" ></popular-exs>
       <popular-production class="week-visit animated fadeInRight delay-1s" :exhibition="exhibition" v-if="showchlid"></popular-production>
     </div>
@@ -91,7 +94,7 @@
 
     .vist-num {
       position: absolute;
-      top: 54px;
+      top: 0;
       left: 0;
       z-index: 2;
       /*background-image: url('../assets/zuozhezhao.png');*/
@@ -101,15 +104,18 @@
     }
 
     .bottom-map {
-      position: fixed;
+      position: absolute;
       top: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
       left: 0;
       z-index: 1;
     }
 
     .register-num {
       position: absolute;
-      top: 54px;
+      top: 0;
       right: 0;
       z-index: 2;
 
@@ -121,7 +127,7 @@
 
     .age-distribution {
       position: absolute;
-      top: 350px;
+      top: 300px;
       left: 0;
       z-index: 2;
 
@@ -178,6 +184,14 @@
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
+    }
+    .top{
+      top: 260px;
+    }
+    .right{
+      .bottom{
+        bottom: 361px;
+      }
     }
   }
 </style>

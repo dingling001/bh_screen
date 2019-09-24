@@ -16,18 +16,18 @@ const cdn = {
 module.exports = {
   lintOnSave: true,
 
-  css: {
-    loaderOptions: {
-      postcss: {
-        plugins: [
-          postcssPx2Rem({
-            remUnit: 100,
-          }),
-        ],
-      },
-      less: {},
-    },
-  },
+  // css: {
+  //   loaderOptions: {
+  //     postcss: {
+  //       plugins: [
+  //         postcssPx2Rem({
+  //           remUnit: 100,
+  //         }),
+  //       ],
+  //     },
+  //     less: {},
+  //   },
+  // },
 
   chainWebpack: (config) => {
     config.resolve.alias
@@ -48,15 +48,15 @@ module.exports = {
       return args;
     });
     // 开启图片压缩
-    config.module
-      .rule('image-webpack-loader')
-      .test(/\.(gif|png|jpe?g|svg)$/i)
-      .use('file-loader')
-      .loader('image-webpack-loader')
-      .tap(() => ({
-        disable: process.env.NODE_ENV !== 'production',
-      }))
-      .end();
+    // config.module
+    //   .rule('image-webpack-loader')
+    //   .test(/\.(gif|png|jpe?g|svg)$/i)
+    //   .use('file-loader')
+    //   .loader('image-webpack-loader')
+    //   .tap(() => ({
+    //     disable: process.env.NODE_ENV !== 'production',
+    //   }))
+    //   .end();
   },
 
   publicPath: process.env.BASE_URL,
