@@ -29,6 +29,10 @@
       // console.log(this.people_line)
       this.myEcharts = echarts.init(echartsEl);
       this.initPeople(this.people_line)
+      setInterval(() => {
+        this.myEcharts.clear();
+        this.initPeople(this.people_line)
+      }, 10000)
     },
     methods: {
       initPeople(data) {
@@ -86,7 +90,7 @@
                 const arr = val.split('-');
                 return `${arr[1]}/${arr[2]}`;
               },
-              rotate:45
+              rotate: 45
             },
             data: date.length <= 0 ? [
               '2019-08-25',
@@ -208,7 +212,7 @@
     &_top {
       padding-top: 16px;
       padding-bottom: 20px;
-      padding-left: 60px;
+      padding-left: 30px;
       width: 100%;
       text-align: left;
       font-size: 14px;

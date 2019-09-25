@@ -4,19 +4,20 @@
     <div class="left">
       <div class="hr top"></div>
       <div class="hr bottom"></div>
-      <gamefeeltotal class="vist-num animated fadeInLeft" v-if="showgame" :total="total" :list="list"></gamefeeltotal>
+      <gamefeeltotal class="vist-num animated fadeInLeft" v-if="list.length" :total="total"
+                     :list="list"></gamefeeltotal>
       <game-feel-top class="age-distribution animated fadeInLeft delay-1s" :topfive="topfive"
-                     v-if="showgame"></game-feel-top>
-      <gametop class="sex-ratio animated fadeInLeft delay-2s" :gamedata="gamedata" v-if="showgame"></gametop>
+                     v-if="topfive.length"></game-feel-top>
+      <gametop class="sex-ratio animated fadeInLeft delay-2s" :gamedata="gamedata" v-if="gamedata.length"></gametop>
     </div>
     <div class="right">
       <div class="hr top"></div>
       <div class="hr bottom"></div>
       <cinema-num class="register-num animated fadeInRight " :clist="clist" :ctotal="ctotal"
-                  v-if="showgame"></cinema-num>
+                  v-if="clist.length"></cinema-num>
       <cinema-week-num class="online-register animated fadeInRight delay-1s" :attendancerate="attendance_rate"
-                       v-if="showgame"></cinema-week-num>
-      <cinema-rank class="week-visit animated fadeInRight delay-2s" v-if="showgame" :mlist="mlist"></cinema-rank>
+                       v-if="attendance_rate.length"></cinema-week-num>
+      <cinema-rank class="week-visit animated fadeInRight delay-2s" v-if="mlist.length" :mlist="mlist"></cinema-rank>
     </div>
   </div>
 </template>
@@ -55,7 +56,7 @@
       CinemaRank,
     },
     mounted() {
-      this.get_HelloTop();
+      // this.get_HelloTop();
     },
     watch: {
       'sindex'() {
@@ -89,12 +90,16 @@
         this.$api.Game().then(res => {
           // console.log(res)
           this.gamedata = res.data;
+          // 0<=hello_num<=3   初级
+          // 3< hello_num <=10 中级
+          // 10<hello_num <=30 高级
+          // 30<hello_num  特级
         })
       },
       // 获取电影数据
       get_CinemaStat() {
         this.$api.CinemaStat().then(res => {
-          console.log(res)
+          // console.log(res)
           this.clist = res.data.buy.list;
           this.ctotal = parseInt(res.data.buy.total, 10);
           this.attendance_rate = res.data.attendance_rate;
@@ -104,7 +109,7 @@
       // 获取楼层客流
       get_KeliuDataStat() {
         this.$api.KeliuDataStat().then(res => {
-          console.log(res)
+          // console.log(res)
           this.staylist = res.data;
         })
       }
@@ -119,7 +124,7 @@
     width: 100%;
     /*height: ~'calc(100% - 112px)';*/
     /*background-color: rgba(0, 0, 0, 0.3);*/
-    height: 768px;
+    height: 714px;
 
     .vist-num {
       position: absolute;
@@ -214,6 +219,14 @@
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
+    }
+
+    .left .bottom {
+      bottom: 205px;
+    }
+
+    .right .bottom {
+      bottom: 205px;
     }
   }
 </style>

@@ -4,13 +4,13 @@
       <span>“你好智能”游戏分数最高纪录</span>
     </div>
     <div class="gamelist">
-      <div class="gameitem" v-for="(item,index) in gamedata">
+      <div class="gameitem" v-for="(item,index) in game_data">
         <div class="gleft ">
           <div class="gametitle">游戏名称</div>
           <div :class="['gamename',index==0?'gamename1':'gamename2']">{{item.game_name}}</div>
         </div>
         <div class="gleft">
-          <div class="gamehead">
+          <div :class="['gamehead',item.score>=0&&item.score<=3?'chuji':'',item.score>3&&item.score<=10?'zhongji':'',item.score>30?'teji':'']">
             <img :src="item.avatar" alt="" v-if="item.avatar">
           </div>
           <div class="gameperson">
@@ -46,6 +46,7 @@
           prefix: '',
           suffix: '',
         },
+        game_data: []
       };
     },
     components: {
@@ -58,14 +59,13 @@
       }
     },
     mounted() {
-
-    },
-    methods: {
-      onReady(instance, CountUp) {
-        const that = this;
-        instance.update(that.endVal);
-      },
-    },
+      this.game_data = this.gamedata;
+      console.log(this.game_data);
+      setInterval(() => {
+        this.game_data = [];
+        this.game_data = this.gamedata;
+      }, 10000)
+    }
   };
 </script>
 
@@ -77,18 +77,21 @@
     /*width: 1080px;*/
     /*height: 452px;*/
     width: 100%;
-    height: 280px;
+    height: 200px;
 
     &_top {
       /*padding-top:25px;*/
       /*padding-bottom: 20px;*/
-      /*padding-left: 60px;*/
+      /*padding-left: 30px;*/
       width: 100%;
       text-align: left;
       font-size: 14px;
       font-weight: 800;
       color: #fff;
-      padding: 18px 30px;
+      /*padding: 18px 30px;*/
+      padding-top: 14px;
+      padding-bottom: 20px;
+      padding-left: 30px;
     }
 
     .echarts-con {
@@ -133,27 +136,47 @@
           width: 44px;
           height: 44px;
           text-align: center;
-          line-height: 71px;
+          line-height: 35px;
           float: left;
           overflow: hidden;
           display: flex;
           align-items: center;
           justify-content: center;
+          background-repeat: no-repeat;
+          background-size: cover;
 
           img {
-            width: 100%;
             vertical-align: middle;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
           }
         }
 
+        .chuji {
+          background-image: url("../assets/chuji.png");
+        }
+
+        .zhongji {
+          background-image: url("../assets/zhongji.png");
+        }
+
+        .gaoji {
+          background-image: url("../assets/gaoji.png");
+        }
+
+        .teji {
+          background-image: url("../assets/teji.png");
+        }
+
+
         .gameperson {
           float: left;
-          height: 71px;
 
           .personname {
             font-size: 13px;
             color: #fff;
-            padding-bottom: 14px;
+            padding-bottom: 20px;
           }
 
           .persontype {

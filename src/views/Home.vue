@@ -1,32 +1,32 @@
 <template>
   <div class="home">
     <!--    <transition enter-active-class="animated" leave-active-class="animated zoomOut">-->
-    <full-screen-map :class="['bottom-map animated', showmap?'zoomIn':'zoomOut']" :vistNumber="keliu_info.in_num"
+    <full-screen-map :class="['bottom-map animated', areatop.length?'zoomIn':'zoomOut']" :vistNumber="keliu_info.in_num"
                      :areatop="areatop"
-    >
+                     v-if="areatop.length">
     </full-screen-map>
     <!--    </transition>-->
     <div class="left animated slideInLeft">
       <div class="hr top"></div>
       <div class="hr bottom"></div>
-      <current-person-num class="vist-num  animated fadeInLeft " :stay_num="keliu_info.stay_num"
+      <current-person-num class="vist-num  animated fadeInLeft" :stay_num="keliu_info.stay_num"
                           :datalist="keliu_info.data_list"
-                          v-if="showmap"></current-person-num>
+                          v-if="keliu_info.data_list.length"></current-person-num>
       <age-distribution class="age-distribution animated fadeInLeft  delay-1s" :age_user="age_user"
-                        v-if="showmap"></age-distribution>
-      <sex-ratio class="sex-ratio animated fadeInLeft delay-2s" :sex_user="sex_user" v-if="showmap"></sex-ratio>
+                        v-if="age_user.length"></age-distribution>
+      <sex-ratio class="sex-ratio animated fadeInLeft delay-2s" :sex_user="sex_user" v-if="sex_user.length"></sex-ratio>
     </div>
     <div class="right animated slideInRight">
       <div class="hr top"></div>
       <div class="hr bottom"></div>
       <register-num class="register-num animated fadeInRight" :mdata="mdata"
-                    v-if="showdata"></register-num>
+                    v-if="Object.keys(mdata).length"></register-num>
       <online-register-num class="online-register animated fadeInRight delay-1s" :onlinedata="onlinedata"
-                           v-if="showdata"></online-register-num>
+                           v-if="Object.keys(onlinedata).length"></online-register-num>
       <week-visit-num class="week-visit animated fadeInRight delay-2s" :people_line="people_line"
-                      v-if="showdata"></week-visit-num>
+                      v-if="people_line.length"></week-visit-num>
     </div>
-    <audience-origin class="audience-rogin animated fadeInUp delay-3s" v-if="showmap"></audience-origin>
+    <audience-origin class="audience-rogin animated fadeInUp delay-3s" :origin="origin" v-if="origin.length"></audience-origin>
   </div>
 </template>
 
@@ -68,7 +68,29 @@
         showmap: false,
         areatop: [],
         origin: [],
-        people_line: []
+        people_line: [],
+        testKeLiu: [
+          {
+            time: '10:00',
+            num: 100
+          },
+          {
+            time: '11:00',
+            num: 200
+          },
+          {
+            time: '12:00',
+            num: 500
+          },
+          {
+            time: '13:00',
+            num: 1500
+          },
+          {
+            time: '14:00',
+            num: 1120
+          }
+        ]
       };
     },
     created() {
@@ -76,10 +98,15 @@
     props: ['sindex'],
     watch: {
       'sindex'() {
-        console.log(this.sindex)
+        // console.log(this.sindex)
         if (this.sindex == 0) {
           this.showmap = true;
           this.showdata = Object.keys(this.mdata).length && Object.keys(this.onlinedata).length && this.people_line.length
+          this.get_UserAttr();
+          this.get_KeliuInfo();
+          this.get_Member();
+          this.get_StatUserNum();
+          this.get_YyCkData();
         } else {
           this.showmap = false;
           this.showdata = false;
@@ -93,6 +120,7 @@
       this.get_StatUserNum();
       this.get_YyCkData();
       setInterval(() => {
+        this.keliu_info.data_list=[];
         this.get_UserAttr();
         this.get_KeliuInfo();
         this.get_Member();
@@ -105,7 +133,6 @@
       // 用户属性
       get_UserAttr() {
         this.$api.UserAttr().then(res => {
-          this.showmap = true;
           this.age_user = res.data.age_stat.data;
           this.sex_user = res.data.sex_stat.data;
           this.areatop = res.data.area_top;
@@ -772,7 +799,7 @@
                 },
               ],
             },
-          ]
+          ];
         })
       },
       // 客流
@@ -781,7 +808,11 @@
           // console.log(res)
           this.showdata = true;
           this.keliu_info = res.data;
-          this.keliu_info.data_list = res.data.data_list;
+          if (res.data.data_list.length > 0) {
+            this.keliu_info.data_list = res.data.data_list;
+          } else {
+            this.keliu_info.data_list = this.testKeLiu;
+          }
         })
       },
       // 会员注册情况

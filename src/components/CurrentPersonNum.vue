@@ -49,8 +49,7 @@
       const {echartsEl} = this.$refs;
       this.myEchart = echarts.init(echartsEl);
       this.initPersonMap(this.datalist);
-      this.staynum = this.stay_num > 0 ? this.stay_num : 5306;
-
+      this.staynum =  this.stay_num ;
       setInterval(() => {
         this.myEchart.clear();
         // this.stay_num = 0;
@@ -92,10 +91,11 @@
               fontWeight: 'bold',
               color: '#fff',
             },
-            data: xdata.length ? xdata : ['9:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00'],
+            data: xdata
           },
           yAxis: {
             type: 'value',
+            minInterval:1,
             splitNumber: 3,
             axisLine: {
               show: false,
@@ -151,7 +151,7 @@
                   ],
                 },
               },
-              data: ydata.length ? ydata : [830, 924, 1921, 924, 1230, 1220, 1102],
+              data:ydata,
             },
           ],
         };
@@ -178,7 +178,7 @@
     &_top {
       padding-top: 25px;
       padding-bottom: 20px;
-      padding-left: 60px;
+      padding-left: 30px;
       width: 100%;
       text-align: left;
       font-size: 14px;

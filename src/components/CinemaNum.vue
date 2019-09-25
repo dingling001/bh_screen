@@ -1,6 +1,6 @@
 <template>
-  <div class="week-visit">
-    <div class="week-visit_top">
+  <div class="week-visits">
+    <div class="week-visits_top">
       <span>4D影院预约量：</span>
       <span><ICountUp
         :delay="delay"
@@ -180,13 +180,16 @@
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
       this.initCdata(this.clist)
+      setInterval(()=>{
+        this.initCdata(this.clist)
+      },10000)
     },
   };
 </script>
 
 <style lang="less" scoped>
   /** @format */
-  .week-visit {
+  .week-visits {
     display: flex;
     flex-flow: column nowrap;
     /* width: 960 + 120px;*/
@@ -198,7 +201,7 @@
     &_top {
       padding-top: 25px;
       padding-bottom: 20px;
-      /*padding-left: 60px;*/
+      /*padding-left: 30px;*/
       width: 100%;
       text-align: left;
       font-size: 14px;

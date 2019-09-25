@@ -18,24 +18,23 @@
     data() {
       return {
         myEcharts: null,
-        origin: []
       };
     },
-    props: ['index'],
-    mixins: [mixin],
-    watch: {
-      'index'() {
-        this.$nextTick(() => {
-          this.get_UserAttr()
-        })
+    props: {
+      'origin': {
+        type: Array,
+        default: []
       }
     },
+
     mounted() {
       this.myEcharts = echarts.init(document.querySelector("#chart"));
-      this.get_UserAttr();
-      setInterval(()=>{
-        this.get_UserAttr();
-      },10000)
+      // console.log(this.origin);
+      this.initAudience(this.origin)
+      setInterval(() => {
+        this.myEcharts.clear();
+        this.initAudience(this.origin)
+      }, 10000)
     },
     methods: {
       initAudience(datas) {
@@ -145,16 +144,7 @@
           title: titles,
           series,
         };
-        this.myEcharts.clear();
         this.myEcharts.setOption(options, true);
-      },
-      // 用户属性
-      get_UserAttr() {
-        this.$api.UserAttr().then(res => {
-          this.origin = res.data.area_top.splice(0, 20);
-          this.initAudience(this.origin)
-        }).catch((err) => {
-        })
       },
     }
   };
@@ -171,7 +161,7 @@
     &_top {
       padding-top: 25px;
       padding-bottom: 20px;
-      padding-left: 60px;
+      padding-left: 30px;
       width: 100%;
       text-align: left;
       font-size: 14px;

@@ -7,7 +7,7 @@
       <div class="mitem" v-for="(item,index) in list">
         <div class="mname">《{{item.movie_name}}》</div>
         <div class="imgbox">
-          <div class="imgitem"><img src="../assets/icon4.png" alt=""  v-for="i in item.unit"></div>
+          <div class="imgitem"><img src="../assets/icon4.png" alt="" v-for="i in item.unit"></div>
           <span :class="'num'+index">{{item.num}}</span>
         </div>
       </div>
@@ -47,18 +47,27 @@
     },
     mounted() {
       const vm = this;
-      if (this.mlist.length > 3) {
-        this.mlist = this.mlist.splice(0, 3)
-      }
-      for (var i in this.mlist) {
-        var unit = Math.floor(18 * (this.mlist[i].num / this.mlist[0].num));
-        this.list.push({
-          movie_name: this.mlist[i].movie_name,
-          unit: unit,
-          num: this.mlist[i].num
-        })
-      }
+      vm.initCrank(this.mlist);
+      setInterval(() => {
+        vm.initCrank(this.mlist);
+      }, 10000)
     },
+    methods: {
+      initCrank(mlist) {
+        this.list = [];
+        if (mlist.length > 3) {
+          mlist = mlist.splice(0, 3)
+        }
+        for (var i in mlist) {
+          var unit = Math.floor(18 * (mlist[i].num / mlist[0].num));
+          this.list.push({
+            movie_name: mlist[i].movie_name,
+            unit: unit,
+            num: mlist[i].num
+          })
+        }
+      }
+    }
 
   };
 </script>
@@ -68,13 +77,13 @@
   .week-visit {
     display: flex;
     flex-flow: column nowrap;
-    height: 290px;
+    height: 218px;
     width: 343px;
 
     &_top {
       padding-top: 25px;
       padding-bottom: 20px;
-      /*padding-left: 60px;*/
+      /*padding-left: 30px;*/
       width: 100%;
       text-align: left;
       font-size: 14px;

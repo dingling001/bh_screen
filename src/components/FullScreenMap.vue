@@ -26,6 +26,7 @@
       return {
         innum: 0,
         startNum: 0,
+        myEcharts: null
       };
     },
     components: {
@@ -185,34 +186,30 @@
     mounted() {
       // console.log(geoJSON);
       // console.log(s)
-      // console.log(this.areatop)
-      this.initMap();
+      const {echartsEl} = this.$refs;
+      this.myEcharts = echarts.init(echartsEl);
+      this.initMap(this.areatop);
       this.innum = this.vistNumber.toString().split('');
+      setInterval(() => {
+        this.myEcharts.clear();
+        this.initMap(this.areatop);
+      }, 20000)
     },
     methods: {
-      initMap() {
-        var citys = [];
+      initMap(areatop) {
         var lines = [];
+        var series = []
+        echarts.registerMap('worldMap', geoJSON);
         s.features.forEach((item, index) => {
-          // citys.push({
-          //   name: item.properties.name,
-          //   value: item.properties.cp
-          // });
           lines.push({
             coords: [item.properties.cp, [117.802248, 39.4189]],
             fromName: item.properties.name,
             toName: "天津市",
             name: item.properties.name
           })
-          // mapData.moveLines.forEach((a, i) => {
-          //   if(a.fromName.indexOf(item.name)>1){
-          //     console.log(i)
-          //     item.cp=a.coords[0]
-          //   }
-          // })
-        })
+        });
         lines.forEach((a, b) => {
-          this.areatop.forEach((c, d) => {
+          areatop.forEach((c, d) => {
             if (a.name == c.name) {
               a.width = c.value;
               // console.log(a.name)
@@ -221,11 +218,7 @@
             }
           })
         });
-        echarts.registerMap('worldMap', geoJSON);
-        const {echartsEl} = this.$refs;
-        const myEcharts = echarts.init(echartsEl);
-        var series = []
-        let maxwidth = Math.max(...lines.map(o => o.width))
+        let maxwidth = Math.max(...lines.map(o => o.width));
         lines.forEach((i, ind) => {
           var width = 0;
           if (maxwidth > 0 && i.width > 0) {
@@ -278,7 +271,7 @@
               // data:mapData.moveLines
             },
           )
-        })
+        });
         const option = {
           // legend: {
           //   show: false,
@@ -333,7 +326,7 @@
           },
           series: series,
         };
-        myEcharts.setOption(option);
+        this.myEcharts.setOption(option);
       }
     }
   };

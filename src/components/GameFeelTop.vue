@@ -5,6 +5,19 @@
     </div>
     <!-- echart -->
     <div class="echarts-con" ref="echartsEl"></div>
+    <div class="avatar_box">
+      <!--      0<=hello_num<=3   初级-->
+      <!--      3< hello_num <=10 中级-->
+      <!--      10<hello_num <=30 高级-->
+      <!--      30<hello_num  特级-->
+      <div class="avataritem" v-for="(item ,index) in topfive"
+           :style="{marginTop:80-80*(item.hello_num/topfive[0].hello_num)+'px'}">
+        <div
+          :class="['avatar_bg',item.hello_num>=0&&item.hello_num<=3?'bachuji':'',item.hello_num>3&&item.hello_num<=10?'zhongji':'',item.hello_num>30?'teji':'']">
+          <img class="avtor" :src="item.avatar" alt="">
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -26,11 +39,12 @@
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
+      console.log(this.topfive)
       this.iniTopfive(this.topfive);
-      setInterval(() => {
-        this.myEcharts.clear();
-        this.iniTopfive(this.topfive);
-      }, 10000)
+      // setInterval(() => {
+      //   this.myEcharts.clear();
+      //   this.iniTopfive(this.topfive);
+      // }, 10000)
     },
     methods: {
       iniTopfive(data) {
@@ -110,21 +124,22 @@
                 return colorList[params.dataIndex];
               },
             },
-            barWidth: '25%',
+            barWidth: 22,
             data: xdata,
             //   [{value: 80, name: '刘学'}, {value: 70, name: '杨辉'}, {value: 67, name: '孙海岩'}, {
             //   value: 20,
             //   name: '孙海岩',
             // }, {value: 10, name: '孙海岩'}]
           },
-            {
-              type: 'pictorialBar',
-              barGap: '-100%',
-              symbolPosition: 'end',
-              symbolSize: 22,
-              symbolOffset: [0, '-230%'],
-              data: ydata
-            }],
+            // {
+            //   type: 'pictorialBar',
+            //   barGap: '-100%',
+            //   symbolPosition: 'end',
+            //   symbolSize: 22,
+            //   symbolOffset: [0, '-230%'],
+            //   data: ydata
+            // }
+          ],
         };
         this.myEcharts.setOption(options);
       },
@@ -142,11 +157,12 @@
     /*width: 367px;*/
     height: 240px;
     width: 100%;
+    position: relative;
 
     &_top {
       padding-top: 14px;
       padding-bottom: 20px;
-      padding-left: 60px;
+      padding-left: 30px;
       width: 100%;
       text-align: left;
       font-size: 14px;
@@ -157,6 +173,56 @@
     .echarts-con {
       width: 100%;
       height: 100%;
+    }
+
+    .avatar_box {
+      position: absolute;
+      left: 64px;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      height: 70%;
+
+      .avataritem {
+        margin-right: 31.5px;
+
+        .avatar_bg {
+          background-repeat: no-repeat;
+          background-size: cover;
+          width: 29px;
+          height: 29px;
+          position: relative;
+
+          img {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            left: 0;
+            right: 0;
+            top: 5px;
+            margin: 0 auto;
+          }
+        }
+
+        .bachuji {
+          background-image: url("../assets/chuji.png");
+        }
+
+        .zhongji {
+          background-image: url("../assets/zhongji.png");
+        }
+
+        .gaoji {
+          background-image: url("../assets/gaoji.png");
+        }
+
+        .teji {
+          background-image: url("../assets/teji.png");
+        }
+
+      }
+
     }
   }
 </style>

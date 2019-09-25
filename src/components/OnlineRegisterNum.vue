@@ -55,6 +55,9 @@
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
       this.initOnline(this.onlinedata);
+      setInterval(()=>{
+        this.initOnline(this.onlinedata);
+      },10000)
       // console.log(this.onlinedata)
     },
     methods: {
@@ -276,7 +279,7 @@
     &_top {
       padding-top: 16px;
       padding-bottom: 20px;
-      padding-left: 60px;
+      padding-left: 30px;
       width: 100%;
       text-align: left;
       font-size: 14px;

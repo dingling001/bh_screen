@@ -222,7 +222,7 @@
     &_top {
       padding-top: 25px;
       padding-bottom: 20px;
-      padding-left: 60px;
+      padding-left: 30px;
       width: 100%;
       text-align: left;
       font-size: 14px;

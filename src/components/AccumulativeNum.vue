@@ -66,7 +66,7 @@
       this.total = this.childrenyysum + this.peopleyysum;
       this.totalcheck = this.childrencksum + this.peopleyysum;
       this.pbprenct = this.total == 0 ? 0 : (this.peoplepbnum / this.total).toFixed(2) * 100;
-      console.log(this.total)
+      // console.log(this.total)
       this.childprecent = this.totalcheck == 0 ? 0 : (this.childrencksum / this.totalcheck).toFixed(2) * 100;
       this.adultprecent = this.totalcheck == 0 ? 0 : (this.peopleyysum / this.totalcheck).toFixed(2) * 100;
       this.initChildtotal();

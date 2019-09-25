@@ -40,7 +40,8 @@
         //   {exhibit_name: '简仪', look_num: 28},
         //   {exhibit_name: '地下生活的虫子', look_num: 25},
         // ],
-        count: 113,
+        count: 1,
+
       };
     },
     props: {

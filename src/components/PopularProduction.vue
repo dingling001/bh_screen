@@ -40,11 +40,10 @@
       }
     },
     created() {
-
       for (var i in  this.exhibition) {
         this.exhibition[i].prenncent = parseInt(this.exhibition[i].total) / parseInt(this.exhibition[0].total)
       }
-      console.log(this.exhibition)
+      // console.log(this.exhibition)
     }
   };
 </script>

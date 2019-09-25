@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <div id="header" :class="['animated',headershow?'slideInDown':'slideOutUp']">
+  <div id="app" class="animated fadeIn">
+    <div id="header" :class="['animated fast',headershow?'slideInDown ':'slideOutUp']">
       <div class="wether head_left ">
             <span>
                    <span class="l1" :style="{color:wlist[windex]}">
@@ -25,16 +25,17 @@
       </div>
     </div>
     <!--<router-view/>-->
-    <div class="swiper-container swiperbox" :style="{height:swiperindex>2?'768px':'714px'}">
+    <div class="swiper-container swiperbox" :class="[swiperindex>2?'top0':'top54']"
+         :style="{height:swiperindex>2?'768px':'714px'}">
       <div class="swiper-wrapper">
         <div class="swiper-slide imgbox">
-          <Home ref="home" :sindex="swiperindex" class="animated fadeIn"></Home>
+          <Home :sindex="swiperindex"></Home>
         </div>
         <div class="swiper-slide imgbox">
-          <Second :sindex="swiperindex" class="animated fadeIn"></Second>
+          <Second :sindex="swiperindex"></Second>
         </div>
         <div class="swiper-slide imgbox">
-          <Thrid :sindex="swiperindex" class="animated fadeIn"></Thrid>
+          <Thrid :sindex="swiperindex"></Thrid>
         </div>
         <!--<div class="swiper-slide imgbox">-->
         <!--<Imgview></Imgview>-->
@@ -88,7 +89,8 @@
         headershow: true,
         swiperindex: 0,
         initialSlide: 0,
-        comp: ''
+        comp: '',
+        mySwiper: null
       }
     },
     components: {
@@ -115,38 +117,71 @@
       }, 1000);
       this.get_setWeather();
     },
+    watch: {
+      'swiperindex'(val) {
+        var vm = this;
+        console.log(val)
+        if (val === 10) {
+          setTimeout(() => {
+            vm.mySwiper.slideTo(0, 2500, false)
+          }, 30000)
+        }
+      }
+    },
     mounted() {
       var vm = this;
-      var mySwiper = new Swiper('.swiper-container', {
-        // autoplay: 30000,
+      vm.mySwiper = new Swiper('.swiper-container', {
+        autoplay: 30000,
         // loop: true,
         effect: 'fade',
+        speed: 2500,
+        autoplayDisableOnInteraction: false,
+        lazyLoading: true,
+        lazyLoadingInPrevNext: true,
+        lazyLoadingInPrevNextAmount: 2,
+        preloadImages: false,
         fade: {
           crossFade: false,
         },
-        initialSlide: vm.initialSlide,
-        notNextTick: true,
-        autoplayDisableOnInteraction: false,
-        lazyLoadingInPrevNext: true,
-        lazyLoadingInPrevNextAmount: 1,
-        lazyLoading: true,
-        loop: false,
         onSlideChangeStart: swiper => {
+          // console.log(swiper.activeIndex)
+          // console.log(swiper.realIndex);
           vm.swiperindex = swiper.realIndex;
           vm.headershow = swiper.realIndex <= 2;
         },
-        onSlideChangeEnd: swiper => {
-          vm.headershow = swiper.realIndex <= 2;
+        onTransitionEnd: function (swiper) {
+          swiper.update();
+          console.log(swiper.isEnd)
           if (swiper.isEnd) {
+            vm.mySwiper.startAutoplay();
             // let dom = swiper.slides[0];
             // swiper.removeSlide(0);
             // swiper.appendSlide(dom);
             // swiper.activeIndex = 0;
             // swiper.update();
-            setTimeout(() => {
-              swiper.slideTo(0, 0, false)
-            }, 200);
+            // console.log(swiper.isEnd)
+            // // swiper.next();
+            // setTimeout(() => {
+            //   swiper.slideTo(0, 3000, false)
+            // }, 30000);
+            // window.location.reload();
           }
+        },
+        onSlideChangeEnd: swiper => {
+          vm.headershow = swiper.realIndex <= 2;
+          // if (swiper.isEnd) {
+          //   // let dom = swiper.slides[0];
+          //   // swiper.removeSlide(0);
+          //   // swiper.appendSlide(dom);
+          //   // swiper.activeIndex = 0;
+          //   // swiper.update();
+          //   // console.log(swiper.isEnd)
+          //   // // swiper.next();
+          //   setTimeout(() => {
+          //     swiper.slideTo(0, 1000, false)
+          //   }, 200);
+          //   // window.location.reload();
+          // }
         },
         observer: true,
         observeParents: true,
@@ -222,6 +257,13 @@
       transition: ease-in-out .3s;
     }
 
+    .top54 {
+      top: 54px;
+    }
+
+    .top0 {
+      top: 0;
+    }
   }
 
   #header {

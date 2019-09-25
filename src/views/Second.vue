@@ -5,16 +5,20 @@
       <div class="hr top"></div>
       <div class="hr bottom"></div>
       <child-playground-compared class="vist-num animated fadeInLeft" :peopleline="people_line"
-                                 v-if="showchlid"></child-playground-compared>
+                                 v-if="people_line.length"></child-playground-compared>
       <accumulative-num class="age-distribution animated fadeInLeft delay-1s" :childrenyysum="children_yy_sum"
                         :childrencksum="children_ck_sum" :peoplepbnum="people_pb_num"
-                        :peopleyysum="people_yy_sum" v-if="showchlid"></accumulative-num>
-      <child-age-distribution class="sex-ratio animated fadeInLeft delay-2s" :agestat="age_stat" v-if="showchlid"></child-age-distribution>
+                        :peopleyysum="people_yy_sum"
+                        v-if="children_yy_sum||children_ck_sum||people_pb_num||people_yy_sum">
+      </accumulative-num>
+      <child-age-distribution class="sex-ratio animated fadeInLeft delay-2s" :agestat="age_stat"
+                              v-if="age_stat.length"></child-age-distribution>
     </div>
     <div class="right">
       <div class="hr bottom"></div>
-      <popular-exs class="register-num animated  fadeInRight" :exhibit="exhibit" v-if="showchlid" ></popular-exs>
-      <popular-production class="week-visit animated fadeInRight delay-1s" :exhibition="exhibition" v-if="showchlid"></popular-production>
+      <popular-exs class="register-num animated  fadeInRight" :exhibit="exhibit" v-if="exhibit.length"></popular-exs>
+      <popular-production class="week-visit animated fadeInRight delay-1s" :exhibition="exhibition"
+                          v-if="exhibition.length"></popular-production>
     </div>
   </div>
 </template>
@@ -37,8 +41,8 @@
         people_yy_sum: 0,
         age_stat: [],
         showchlid: false,
-        exhibit:[],
-        exhibition:[]
+        exhibit: [],
+        exhibition: []
       }
     },
     components: {
@@ -51,7 +55,7 @@
     },
     mounted() {
       // this.get_ChildrenYyCkData();
-      this.get_ExhibitStat();
+      // this.get_ExhibitStat();
     },
     props: ['sindex'],
     watch: {
@@ -66,6 +70,7 @@
       get_ChildrenYyCkData() {
         this.$api.ChildrenYyCkData().then(res => {
           this.people_line = res.data.people_line;
+          console.log(res)
           this.children_yy_sum = res.data.children_yy_sum;
           this.children_ck_sum = res.data.children_ck_sum;
           this.people_pb_num = res.data.people_pb_num;
@@ -75,8 +80,8 @@
       },
       get_ExhibitStat() {
         this.$api.ExhibitStat().then(res => {
-          this.exhibit=res.data.exhibit;
-          this.exhibition=res.data.exhibition.splice(0,5);
+          this.exhibit = res.data.exhibit;
+          this.exhibition = res.data.exhibition.splice(0, 5);
         })
       }
     }
@@ -185,11 +190,13 @@
       background-repeat: no-repeat;
       background-position: center;
     }
-    .top{
+
+    .top {
       top: 260px;
     }
-    .right{
-      .bottom{
+
+    .right {
+      .bottom {
         bottom: 361px;
       }
     }
