@@ -66,7 +66,7 @@
         })
         const options = {
           grid: {
-            left: 59,
+            left: 40,
             top: 20,
             right: 20,
             bottom: 40,
@@ -95,8 +95,8 @@
           },
           yAxis: {
             type: 'value',
-            minInterval:1,
-            splitNumber: 3,
+            minInterval:0,
+            splitNumber: 2,
             axisLine: {
               show: false,
             },
@@ -178,7 +178,7 @@
     &_top {
       padding-top: 25px;
       padding-bottom: 20px;
-      padding-left: 30px;
+      padding-left: 12px;
       width: 100%;
       text-align: left;
       font-size: 14px;

@@ -50,7 +50,7 @@ module.exports = {
     // 开启图片压缩
     // config.module
     //   .rule('image-webpack-loader')
-    //   .test(/\.(gif|png|jpe?g|svg)$/i)
+    //   .test(/\.(gif|png|jpe?g|svg|)$/i)
     //   .use('file-loader')
     //   .loader('image-webpack-loader')
     //   .tap(() => ({

@@ -130,8 +130,8 @@
               color: '#657CA8',
               padding: [0, 20, 0, 0],
               formatter: function (value) {
-                // console.log(value)
-                return `${value}%`
+                console.log(value)
+                return `${value*100}%`
               }
             },
           },

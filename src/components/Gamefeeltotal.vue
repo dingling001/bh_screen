@@ -52,6 +52,7 @@
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
+      console.log(this.list)
       this.initFeelTotal(this.list);
       setInterval(() => {
         this.initFeelTotal(this.list)

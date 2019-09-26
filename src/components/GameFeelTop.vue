@@ -49,17 +49,17 @@
     methods: {
       iniTopfive(data) {
         let xdata = [];
-        let ydata = [];
+        // let ydata = [];
         data.forEach((item, index) => {
           xdata.push({
             value: item.hello_num,
             name: item.real_name,
           })
-          ydata.push({
-            value: 90 * (item.hello_num / 90) + 10,
-            symbol: 'image://' + item.avatar,
-            symbolSize: [28, 28],
-          })
+          // ydata.push({
+          //   value: 90 * (item.hello_num / 90) + 10,
+          //   symbol: 'image://' + item.avatar,
+          //   symbolSize: [28, 28],
+          // })
         });
         // this.main(item.avatar, function (res) {
         //   return res
