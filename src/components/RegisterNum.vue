@@ -84,9 +84,9 @@
         const options = {
           grid: {
             left: 50,
-            top: 30,
+            top: 20,
             right: 50,
-            bottom: 50,
+            bottom: 40,
           },
           legend: {
             type: 'plain',
@@ -116,6 +116,7 @@
           yAxis: {
             type: 'value',
             splitNumber: 0,
+            minInterval:0.2,
             axisLine: {
               show: true,
             },
@@ -128,9 +129,8 @@
             axisLabel: {
               fontSize: 10,
               color: '#657CA8',
-              padding: [0, 20, 0, 0],
+              padding: [0, 10, 0, 0],
               formatter: function (value) {
-                console.log(value)
                 return `${value*100}%`
               }
             },

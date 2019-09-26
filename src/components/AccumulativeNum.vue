@@ -70,9 +70,9 @@
       this.childprecent = this.totalcheck == 0 ? 0 : (this.childrencksum / this.totalcheck).toFixed(2) * 100;
       this.adultprecent = this.totalcheck == 0 ? 0 : (this.peopleyysum / this.totalcheck).toFixed(2) * 100;
       this.initChildtotal();
-      setInterval(() => {
+      var initChildtotal = setInterval(() => {
         this.initChildtotal()
-      }, 10000)
+      }, 10000);
     },
     components: {
       ICountUp,
@@ -292,6 +292,7 @@
     /*width: 367px;*/
     height: 169px;
     width: 100%;
+
     &-top {
       /*padding-top: 50px;*/
       width: 100%;

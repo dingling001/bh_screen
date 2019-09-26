@@ -30,15 +30,16 @@
     mounted() {
       this.myEcharts = echarts.init(document.querySelector("#chart"));
       // console.log(this.origin);
-      this.initAudience(this.origin)
+      var orign = this.origin.splice(0, 20);
+      this.initAudience(orign)
       setInterval(() => {
         this.myEcharts.clear();
-        this.initAudience(this.origin)
+        this.initAudience(orign)
       }, 10000)
     },
     methods: {
       initAudience(datas) {
-        const data = datas.slice(-10).reverse();
+        const data = datas;
         let total = 0;
         data.forEach((item) => {
           total += item.value;

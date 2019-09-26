@@ -28,10 +28,10 @@
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
       this.initData(this.age_user)
-      setInterval(()=>{
+      var initData = setInterval(() => {
         this.myEcharts.clear();
         this.initData(this.age_user)
-      },10000)
+      }, 10000)
     },
     methods: {
       initData(titles) {

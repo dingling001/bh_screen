@@ -39,148 +39,7 @@
       },
       'areatop': {
         type: Array,
-        default: [
-          {
-            name: "黑龙江",
-            value: 10
-          },
-          {
-            name: "香港",
-            value: 2
-          },
-          {
-            name: "青海",
-            value: 3
-          },
-          {
-            name: "陕西",
-            value: 4
-          },
-          {
-            name: "重庆",
-            value: 0
-          },
-          {
-            name: "辽宁",
-            value: 0
-          },
-          {
-            name: "贵州",
-            value: 0
-          },
-          {
-            name: "西藏",
-            value: 0
-          },
-          {
-            name: "福建",
-            value: 0
-          },
-          {
-            name: "甘肃",
-            value: 0
-          },
-          {
-            name: "澳门",
-            value: 0
-          },
-          {
-            name: "湖南",
-            value: 0
-          },
-          {
-            name: "湖北",
-            value: 0
-          },
-          {
-            name: "海南",
-            value: 0
-          },
-          {
-            name: "浙江",
-            value: 0
-          },
-          {
-            name: "河南",
-            value: 0
-          },
-          {
-            name: "河北",
-            value: 0
-          },
-          {
-            name: "江西",
-            value: 0
-          },
-          {
-            name: "江苏",
-            value: 0
-          },
-          {
-            name: "新疆",
-            value: 0
-          },
-          {
-            name: "广西",
-            value: 0
-          },
-          {
-            name: "广东",
-            value: 0
-          },
-          {
-            name: "山西",
-            value: 0
-          },
-          {
-            name: "山东",
-            value: 0
-          },
-          {
-            name: "安徽",
-            value: 0
-          },
-          {
-            name: "宁夏",
-            value: 0
-          },
-          {
-            name: "国外",
-            value: 0
-          },
-          {
-            name: "四川",
-            value: 0
-          },
-          {
-            name: "吉林",
-            value: 0
-          },
-          {
-            name: "台湾",
-            value: 0
-          },
-          {
-            name: "北京",
-            value: 0
-          },
-          {
-            name: "内蒙古",
-            value: 0
-          },
-          {
-            name: "云南",
-            value: 0
-          },
-          {
-            name: "上海",
-            value: 0
-          },
-          {
-            name: "天津",
-            value: 2
-          }
-        ]
+        default: []
       }
     },
     mounted() {
@@ -188,45 +47,45 @@
       // console.log(s)
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
-      this.initMap(this.areatop);
+      var lines = [];
+      // let list = this.areatop.find(item => s.features.findIndex(o => o.properties.name == item.name) === -1)
+      // console.log(list)
+      this.areatop.forEach((c, d) => {
+        s.features.forEach((item, index) => {
+          if (item.properties.name == c.name) {
+            lines.push({
+              coords: [item.properties.cp, [117.802248, 39.4189]],
+              fromName: item.properties.name,
+              toName: "天津市",
+              name: item.properties.name,
+              width: c.value == 0 ? 1 : c.value
+            })
+          }
+        })
+      });
+      console.log(lines)
+      this.initMap(lines);
       this.innum = this.vistNumber.toString().split('');
       setInterval(() => {
         this.myEcharts.clear();
-        this.initMap(this.areatop);
+        this.initMap(lines);
       }, 20000)
+
     },
     methods: {
-      initMap(areatop) {
-        var lines = [];
+      initMap(lines) {
+
         var series = []
         echarts.registerMap('worldMap', geoJSON);
-        s.features.forEach((item, index) => {
-          lines.push({
-            coords: [item.properties.cp, [117.802248, 39.4189]],
-            fromName: item.properties.name,
-            toName: "天津市",
-            name: item.properties.name
-          })
-        });
-        lines.forEach((a, b) => {
-          areatop.forEach((c, d) => {
-            if (a.name == c.name) {
-              a.width = c.value;
-              // console.log(a.name)
-            } else if (a.name != c.name) {
-              a.width = 0;
-            }
-          })
-        });
         let maxwidth = Math.max(...lines.map(o => o.width));
         lines.forEach((i, ind) => {
           var width = 0;
-          if (maxwidth > 0 && i.width > 0) {
-            width = Math.floor(10 * (i.width / maxwidth));
+          if (maxwidth > 0) {
+            width = Math.ceil(10 * (i.width / maxwidth));
           } else {
             width = 1;
           }
-          // console.log(width)
+          console.log(width)
           series.push(
             {
               name: '线路',
@@ -263,8 +122,8 @@
                     false,
                   ),
                   width: width,
-                  opacity: 0.5,
-                  curveness: 0.1,
+                  opacity: 1,
+                  curveness: .1,
                 },
               },
               data: [i],

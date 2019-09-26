@@ -1,9 +1,9 @@
 <template>
   <div class="home">
     <!--    <transition enter-active-class="animated" leave-active-class="animated zoomOut">-->
-    <full-screen-map :class="['bottom-map animated', areatop.length?'zoomIn':'zoomOut']" :vistNumber="keliu_info.in_num"
-                     :areatop="areatop"
-                     v-if="areatop.length">
+    <full-screen-map :class="['bottom-map animated', area_top.length?'zoomIn':'zoomOut']" :vistNumber="keliu_info.in_num"
+                     :areatop="area_top"
+                     v-if="area_top.length">
     </full-screen-map>
     <!--    </transition>-->
     <div class="left animated slideInLeft">
@@ -66,7 +66,7 @@
         onlinedata: {},
         showdata: false,
         showmap: false,
-        areatop: [],
+        area_top: [],
         origin: [],
         people_line: [],
         testKeLiu: [
@@ -135,8 +135,9 @@
         this.$api.UserAttr().then(res => {
           this.age_user = res.data.age_stat.data;
           this.sex_user = res.data.sex_stat.data;
-          this.areatop = res.data.area_top;
-          this.origin = res.data.area_top.splice(0, 20);
+          this.area_top = res.data.area_top;
+          // console.log(this.area_top)
+          this.origin = res.data.area_top;
           // console.log(this.origin)
         }).catch((err) => {
         })
