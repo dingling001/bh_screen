@@ -2,11 +2,13 @@
   <div class="register-num">
     <div class="register-num_top">
       <span>会员总注册人数：</span>
-      <span><i-count-up :delay="delay"
+      <span>
+        <i-count-up :delay="delay"
                         :endVal="m_data.total"
                         :options="options"
                         @ready="onReady"
-                        class="iconup"></i-count-up></span>
+                        class="iconup"></i-count-up>
+      </span>
     </div>
 
     <div class="register-num_catalog">
@@ -128,7 +130,7 @@
             },
             axisLabel: {
               fontSize: 10,
-              color: '#657CA8',
+              color: 'rgba(255,255,255,.72)',
               padding: [0, 10, 0, 0],
               formatter: function (value) {
                 return `${value*100}%`
@@ -155,7 +157,7 @@
               name: '网站',
               type: 'line',
               symbol: 'circle',
-              symbolSize: 10,
+              symbolSize: 7,
               itemStyle: {
                 color: '#00B7EE',
                 borderColor: '#fff',
@@ -165,14 +167,13 @@
                 color: '#00B7EE',
                 width: 5,
               },
-
               data: [data.one.pc / pctotal, data.two.pc / pctotal, data.three.pc / pctotal, data.four.pc / pctotal, data.five.pc / pctotal],
             },
             {
               name: '微信',
               type: 'line',
               symbol: 'circle',
-              symbolSize: 10,
+              symbolSize: 7,
               itemStyle: {
                 color: '#2FE4C3',
                 borderColor: '#fff',
@@ -189,7 +190,7 @@
               name: '导视屏',
               type: 'line',
               symbol: 'circle',
-              symbolSize: 10,
+              symbolSize: 7,
               itemStyle: {
                 color: '#E4007F',
                 borderColor: '#fff',

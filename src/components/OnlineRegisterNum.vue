@@ -16,9 +16,12 @@
     <!-- echarts -->
     <div class="echarts-con" ref="echartsEl"></div>
     <div class="onlinedata">
-      <div class="onlineitem item0"><span>{{onlinedata.w_count}}</span><span>{{((onlinedata.w_count/onlinedata.count)*100).toFixed(2)}}%</span></div>
-      <div class="onlineitem item1"><span>{{onlinedata.d_count}}</span><span>{{((onlinedata.d_count/onlinedata.count)*100).toFixed(2)}}%</span></div>
-      <div class="onlineitem item2"><span>{{onlinedata.m_count}}</span><span>{{((onlinedata.m_count/onlinedata.count)*100).toFixed(2)}}%</span></div>
+      <div class="onlineitem item0"><span>{{onlinedata.w_count}}</span><span>{{((onlinedata.w_count/onlinedata.count)*100).toFixed(2)}}%</span>
+      </div>
+      <div class="onlineitem item1"><span>{{onlinedata.d_count}}</span><span>{{((onlinedata.d_count/onlinedata.count)*100).toFixed(2)}}%</span>
+      </div>
+      <div class="onlineitem item2"><span>{{onlinedata.m_count}}</span><span>{{((onlinedata.m_count/onlinedata.count)*100).toFixed(2)}}%</span>
+      </div>
     </div>
   </div>
 </template>
@@ -55,9 +58,10 @@
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
       this.initOnline(this.onlinedata);
-      setInterval(()=>{
+      var online = setInterval(() => {
+        this.myEcharts.clear();
         this.initOnline(this.onlinedata);
-      },10000)
+      }, 10000)
       // console.log(this.onlinedata)
     },
     methods: {
@@ -197,7 +201,7 @@
                   name: '',
                   number: onlinedata.d_count,
                   // value: ((onlinedata.d_count / onlinedata.count) * 100).toFixed(2),
-                  value:onlinedata.d_count,
+                  value: onlinedata.d_count,
                   itemStyle: {
                     color: '#2FE4C3',
                     borderColor: '#2FE4C3',
@@ -236,7 +240,7 @@
                   name: '',
                   number: onlinedata.m_count,
                   // value: ((onlinedata.m_count / onlinedata.count) * 100).toFixed(2),
-                  value:onlinedata.m_count,
+                  value: onlinedata.m_count,
                   itemStyle: {
                     color: '#EA68A2',
                     borderColor: '#EA68A2',
@@ -297,54 +301,67 @@
       width: 100%;
       height: 100%;
     }
-    .onlinedata{
+
+    .onlinedata {
       overflow: hidden;
       position: absolute;
       bottom: 15px;
       width: 100%;
       left: 0;
-      .onlineitem{
+
+      .onlineitem {
         color: #fff;
         float: left;
         width: 33.33%;
         font-size: 13px;
         font-weight: bold;
         line-height: 25px;
-        span{
+
+        span {
           display: block;
-          &:first-child{
+
+          &:first-child {
             /*color: #209BC5;*/
           }
-          &:last-child{
+
+          &:last-child {
             color: #209BC5;
           }
         }
-        &.item0{
-          span{
+
+        &.item0 {
+          span {
             padding-left: 25px;
-            &:first-child{
+
+            &:first-child {
             }
-            &:last-child{
+
+            &:last-child {
             }
           }
         }
-        &.item1{
-          span{
-            &:first-child{
+
+        &.item1 {
+          span {
+            &:first-child {
               /*color: #209BC5;*/
             }
-            &:last-child{
+
+            &:last-child {
               color: #54AA98;
             }
           }
         }
-        &.item2{
-          span{
+
+        &.item2 {
+          span {
             padding-right: 25px;
-            &:first-child{
+
+            &:first-child {
               /*color: #209BC5;*/
             }
-            &:last-child{
+
+            &:last-child {
               color: #C45A89;
             }
           }

@@ -26,7 +26,7 @@
     },
     mounted() {
       const {echartsEl} = this.$refs;
-      // console.log(this.people_line)
+      console.log(this.people_line)
       this.myEcharts = echarts.init(echartsEl);
       this.initPeople(this.people_line)
       setInterval(() => {
@@ -48,7 +48,7 @@
           color: ['#7F55C4', '#DB5D09'],
           grid: {
             top: 50,
-            bottom: 80,
+            bottom: 100,
             left: 50,
             right: 30,
           },
@@ -56,7 +56,7 @@
             icon: 'circle',
             textStyle: {
               color: '#ffffff',
-              fontSize: 8,
+              fontSize: 9,
               fontWeight: 'bold',
             },
             orient: 'vertical',
@@ -84,13 +84,13 @@
             axisLabel: {
               show: true,
               interval: 'auto',
-              fontSize: 8,
+              fontSize: 9,
               color: '#fff',
               formatter(val) {
                 const arr = val.split('-');
                 return `${arr[1]}/${arr[2]}`;
               },
-              rotate: 45
+              // rotate: 45
             },
             data: date.length <= 0 ? [
               '2019-08-25',
@@ -104,11 +104,11 @@
           },
           yAxis: {
             type: 'value',
-            splitNumber: 3,
+            // splitNumber: 3,
             name: '人数',
             nameTextStyle: {
               color: '#ffffff',
-              fontSize: 8,
+              fontSize: 9,
               fontWeight: 'bold',
             },
             axisLine: {
@@ -124,7 +124,7 @@
               showMinLabel: false,
               fontSize: 8,
               padding: [0, 20, 0, 0],
-              color: '#808080',
+              color: 'rgba(255,255,255,0.72)',
             },
           },
           series: [

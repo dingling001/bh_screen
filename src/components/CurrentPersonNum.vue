@@ -66,9 +66,9 @@
         })
         const options = {
           grid: {
-            left: 40,
+            left: 50,
             top: 20,
-            right: 20,
+            right: 15,
             bottom: 40,
           },
 
@@ -86,9 +86,8 @@
             },
             axisLabel: {
               show: true,
-              interval: 'auto',
-              fontSize: 10,
-              fontWeight: 'bold',
+              interval: 0,
+              fontSize: 9,
               color: '#fff',
             },
             data: xdata
@@ -96,7 +95,7 @@
           yAxis: {
             type: 'value',
             minInterval:0,
-            splitNumber: 2,
+            // splitNumber: 2,
             axisLine: {
               show: false,
             },
@@ -110,7 +109,7 @@
               showMinLabel: false,
               fontWeight: 'bold',
               fontSize: 10,
-              color: '#808080',
+              color: 'rgba(255,255,255,0.72)',
             },
           },
           series: [
@@ -171,14 +170,14 @@
     margin-bottom: 22px;
     display: flex;
     flex-flow: column nowrap;
-    width: 367px;
+    width: 80%;
     height: 251px;
     // background-color: #0e0e20;
 
     &_top {
       padding-top: 25px;
       padding-bottom: 20px;
-      padding-left: 12px;
+      padding-left: 30px;
       width: 100%;
       text-align: left;
       font-size: 14px;

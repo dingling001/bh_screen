@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <video-full-screen class="bottom-map"></video-full-screen>
+    <video-full-screen class="bottom-map" :auto="autoplay" v-if="autoplay"></video-full-screen>
     <div class="left">
       <div class="hr top"></div>
       <div class="hr bottom"></div>
@@ -16,9 +16,9 @@
     </div>
     <div class="right">
       <div class="hr bottom"></div>
-      <popular-exs class="register-num animated  fadeInRight" :exhibit="exhibit" v-if="exhibit.length"></popular-exs>
-      <popular-production class="week-visit animated fadeInRight delay-1s" :exhibition="exhibition"
-                          v-if="exhibition.length"></popular-production>
+      <popular-exs class="register-num animated  fadeInRight" :exhibition="exhibition" v-if="exhibition.length"></popular-exs>
+      <popular-production class="week-visit animated fadeInRight delay-1s" :exhibit="exhibit"
+                          v-if="exhibit.length"></popular-production>
     </div>
   </div>
 </template>
@@ -42,7 +42,8 @@
         age_stat: [],
         showchlid: false,
         exhibit: [],
-        exhibition: []
+        exhibition: [],
+        autoplay: false
       }
     },
     components: {
@@ -60,9 +61,13 @@
     props: ['sindex'],
     watch: {
       'sindex'() {
-        this.showchlid = this.sindex == 1;
-        this.get_ChildrenYyCkData();
-        this.get_ExhibitStat();
+        if (this.sindex == 1) {
+          this.autoplay = true;
+          this.get_ChildrenYyCkData();
+          this.get_ExhibitStat();
+        } else {
+          this.autoplay = false
+        }
       }
     },
     methods: {
@@ -70,7 +75,6 @@
       get_ChildrenYyCkData() {
         this.$api.ChildrenYyCkData().then(res => {
           this.people_line = res.data.people_line;
-          console.log(res)
           this.children_yy_sum = res.data.children_yy_sum;
           this.children_ck_sum = res.data.children_ck_sum;
           this.people_pb_num = res.data.people_pb_num;
@@ -81,7 +85,7 @@
       get_ExhibitStat() {
         this.$api.ExhibitStat().then(res => {
           this.exhibit = res.data.exhibit;
-          this.exhibition = res.data.exhibition.splice(0, 5);
+          this.exhibition = res.data.exhibition;
         })
       }
     }
@@ -110,7 +114,7 @@
 
     .bottom-map {
       position: absolute;
-      top: 0;
+      top: -54px;
       bottom: 0;
       right: 0;
       margin: auto;

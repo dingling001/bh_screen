@@ -7,12 +7,12 @@
     <div class="echarts-con" ref="echartsEl">
       <ul>
         <li
-          v-for="(item, index) in exhibition"
+          v-for="(item, index) in exhibit"
           :key="index"
           :class="{first: index === 0, second: index === 1, thrid: index === 2, fourth: index === 3, fifth: index === 4}"
         >
           <div :style="{borderBottomWidth:185*item.prenncent+'px'}"></div>
-          <div>{{ item.exhibition_name }}</div>
+          <div>{{ item.exhibit_name }}</div>
           <div>{{ `No.${index + 1}` }}</div>
         </li>
       </ul>
@@ -23,27 +23,19 @@
 <script>
   export default {
     data() {
-      return {
-        production: [
-          {name: '像素世界', see_num: 42},
-          {name: '甘肃之光', see_num: 20},
-          {name: '宇宙探索 飞天探梦', see_num: 19},
-          {name: '天籁之声 数学之魅 运动之律', see_num: 17},
-          {name: '泡芙堡', see_num: 16},
-        ],
-      };
+      return {};
     },
     props: {
-      'exhibition': {
+      'exhibit': {
         type: Array,
         default: []
       }
     },
     created() {
-      for (var i in  this.exhibition) {
-        this.exhibition[i].prenncent = parseInt(this.exhibition[i].total) / parseInt(this.exhibition[0].total)
-      }
-      // console.log(this.exhibition)
+      console.log(this.exhibit)
+      // for (var i in  this.exhibit) {
+      //   this.exhibit[i].prenncent = parseInt(this.exhibit[i].like_num) / parseInt(this.exhibit[0].like_num)
+      // }
     }
   };
 </script>
@@ -80,7 +72,7 @@
         justify-content: space-between;
         align-items: center;
         height: 235px;
-        /*padding: 0 0 30px 0;*/
+        padding: 0 0 20px 0;
 
         li {
           height: 100%;

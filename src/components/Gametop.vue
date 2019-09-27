@@ -9,8 +9,9 @@
           <div class="gametitle">游戏名称</div>
           <div :class="['gamename',index==0?'gamename1':'gamename2']">{{item.game_name}}</div>
         </div>
-        <div class="gleft">
-          <div :class="['gamehead',item.score>=0&&item.score<=3?'chuji':'',item.score>3&&item.score<=10?'zhongji':'',item.score>30?'teji':'']">
+        <div class="gleft mid">
+          <div
+            :class="['gamehead',item.score>=0&&item.score<=3?'chuji':'',item.score>3&&item.score<=10?'zhongji':'',item.score>30?'teji':'']">
             <img :src="item.avatar" alt="" v-if="item.avatar">
           </div>
           <div class="gameperson">
@@ -102,20 +103,28 @@
 
   .gamelist {
     padding: 10px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
 
     .gameitem {
       overflow: hidden;
-      margin-bottom: 10px;
+      /*margin-bottom: 10px;*/
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 129px 0 34px;
 
       .gleft {
-        float: left;
-        width: 33%;
+        /*float: left;*/
+        /*width: 33%;*/
         overflow: hidden;
 
         .gametitle {
           font-size: 10px;
           color: #D8D8D8;
-          padding: 12px 0;
+          padding: 0 0 9px   0;
         }
 
         .gamename {
@@ -144,6 +153,7 @@
           justify-content: center;
           background-repeat: no-repeat;
           background-size: cover;
+          margin-right: 20px;
 
           img {
             vertical-align: middle;
@@ -176,7 +186,7 @@
           .personname {
             font-size: 13px;
             color: #fff;
-            padding-bottom: 20px;
+            padding-bottom: 10px;
           }
 
           .persontype {
@@ -185,6 +195,14 @@
           }
         }
 
+      }
+
+      .mid {
+        /*width: 34%;*/
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
   }

@@ -1,16 +1,26 @@
 <template>
   <div class="video-bg">
-    <video loop preload="auto" muted="muted" autoplay id="video">
+    <video loop preload="auto" muted="muted" :autoplay="auto" id="video">
       <source src="../video/i.mp4" type="video/mp4">
     </video>
   </div>
 </template>
-
+<script>
+  export default {
+    props: {
+      'auto': {
+        type: Boolean,
+        default: false
+      }
+    },
+  }
+</script>
 <style lang="less" scoped>
   /** @format */
   .video-bg {
     width: 100%;
     height: 768px;
+
     > video {
       width: 100%;
       height: 100%;

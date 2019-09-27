@@ -1,9 +1,10 @@
 <template>
   <div class="home">
     <!--    <transition enter-active-class="animated" leave-active-class="animated zoomOut">-->
-    <full-screen-map :class="['bottom-map animated', area_top.length?'zoomIn':'zoomOut']" :vistNumber="keliu_info.in_num"
+    <full-screen-map :class="['bottom-map animated', area_top.length?'zoomIn':'zoomOut']"
+                     :vistNumber="keliu_info.in_num"
                      :areatop="area_top"
-                     v-if="area_top.length">
+                     v-if="area_top.length&&keliu_info.in_num>=0">
     </full-screen-map>
     <!--    </transition>-->
     <div class="left animated slideInLeft">
@@ -26,7 +27,8 @@
       <week-visit-num class="week-visit animated fadeInRight delay-2s" :people_line="people_line"
                       v-if="people_line.length"></week-visit-num>
     </div>
-    <audience-origin class="audience-rogin animated fadeInUp delay-3s" :origin="origin" v-if="origin.length"></audience-origin>
+    <audience-origin class="audience-rogin animated fadeInUp delay-3s" :origin="area_top"
+                     v-if="area_top.length"></audience-origin>
   </div>
 </template>
 
@@ -60,6 +62,7 @@
         people_ck_sum: 0,
         keliu_info: {
           data_list: [],//当前在馆人数
+          in_num: -1
         },
         mdata: {},
         count: 0,
@@ -120,7 +123,6 @@
       this.get_StatUserNum();
       this.get_YyCkData();
       setInterval(() => {
-        this.keliu_info.data_list=[];
         this.get_UserAttr();
         this.get_KeliuInfo();
         this.get_Member();
@@ -137,7 +139,6 @@
           this.sex_user = res.data.sex_stat.data;
           this.area_top = res.data.area_top;
           // console.log(this.area_top)
-          this.origin = res.data.area_top;
           // console.log(this.origin)
         }).catch((err) => {
         })
@@ -146,7 +147,6 @@
       get_KeliuInfo() {
         this.$api.KeliuInfo().then(res => {
           // console.log(res)
-          this.showdata = true;
           this.keliu_info = res.data;
           if (res.data.data_list.length > 0) {
             this.keliu_info.data_list = res.data.data_list;
@@ -196,7 +196,7 @@
 
     .bottom-map {
       position: absolute;
-      top: 0;
+      top: -54px;
       left: 0;
       z-index: 1;
     }

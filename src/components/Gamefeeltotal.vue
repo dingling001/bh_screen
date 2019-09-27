@@ -108,7 +108,7 @@
               interval: 0,
               show: true,
               fontSize: 8,
-              color: '#808080',
+              color: '#fff',
               formatter(val) {
                 const arr = val.split('-');
                 return `${arr[1]}/${arr[2]}`;
@@ -147,7 +147,7 @@
               showMinLabel: true,
               fontSize: 8,
               padding: [0, 20, 0, 0],
-              color: '#808080',
+              color: 'rgba(255,255,255,.72)',
             },
           },
           series: [
@@ -174,7 +174,7 @@
                   ],
                   global: false, // 缺省为 false
                 },
-                width: 4,
+                width: 5  ,
                 type: 'solid',
               },
               data: [1000, 1200, 3000, 5660, 1000, 5662, 5000],
@@ -212,7 +212,7 @@
                   ],
                   global: false, // 缺省为 false
                 },
-                width: 4,
+                width: 5,
                 type: 'solid',
               },
 

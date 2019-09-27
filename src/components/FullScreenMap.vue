@@ -1,10 +1,10 @@
 <template>
   <div class="full-screen">
     <div class="vist-number">
-      <div>今日到馆累计人数</div>
+      <div>累计到馆人数</div>
       <ul>
         <li v-for="(item,index) in innum" :key="index" v-if="innum.length">
-          <countTo :startVal='startNum' :endVal='parseInt(item)' :duration='3000'></countTo>
+          <countTo :startVal='startNum' :endVal='parseInt(item)'></countTo>
         </li>
 
       </ul>
@@ -45,6 +45,7 @@
     mounted() {
       // console.log(geoJSON);
       // console.log(s)
+      this.innum = this.vistNumber.toString().split('');
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
       var lines = [];
@@ -63,29 +64,25 @@
           }
         })
       });
-      console.log(lines)
       this.initMap(lines);
-      this.innum = this.vistNumber.toString().split('');
-      setInterval(() => {
+      var map = setInterval(() => {
         this.myEcharts.clear();
         this.initMap(lines);
-      }, 20000)
-
+      }, 10000)
     },
     methods: {
       initMap(lines) {
-
         var series = []
         echarts.registerMap('worldMap', geoJSON);
         let maxwidth = Math.max(...lines.map(o => o.width));
         lines.forEach((i, ind) => {
           var width = 0;
-          if (maxwidth > 0) {
+          if (maxwidth > 10) {
             width = Math.ceil(10 * (i.width / maxwidth));
           } else {
             width = 1;
           }
-          console.log(width)
+          // console.log(width)
           series.push(
             {
               name: '线路',
@@ -112,17 +109,17 @@
                     [
                       {
                         offset: 0,
-                        color: '#58B3CC',
+                        color: '#378eef',
                       },
                       {
                         offset: 1,
-                        color: '#378eef',
+                        color: '#58B3CC',
                       },
                     ],
                     false,
                   ),
                   width: width,
-                  opacity: 1,
+                  opacity: 0.5,
                   curveness: .1,
                 },
               },
@@ -203,7 +200,7 @@
 
     .vist-number {
       position: absolute;
-      top: 31px;
+      top: 86px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -212,7 +209,7 @@
       z-index: 8888;
 
       > div {
-        font-size: 14px;
+        font-size: 15px;
         font-weight: bold;
         color: #fff;
       }
@@ -224,7 +221,7 @@
         padding-top: 18px;
 
         > li {
-          margin-right: 12px;
+          margin-right: 6px;
           width: 25px;
           font-size: 20px;
           font-weight: bold;

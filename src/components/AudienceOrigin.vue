@@ -30,7 +30,7 @@
     mounted() {
       this.myEcharts = echarts.init(document.querySelector("#chart"));
       // console.log(this.origin);
-      var orign = this.origin.splice(0, 20);
+      var orign = this.origin
       this.initAudience(orign)
       setInterval(() => {
         this.myEcharts.clear();
@@ -157,8 +157,8 @@
     display: flex;
     flex-flow: column nowrap;
     width: 520px;
-    height: 280px;
-
+    height: 270px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0)); /* 标准的语法 */
     &_top {
       padding-top: 25px;
       padding-bottom: 20px;

@@ -48,7 +48,7 @@
               text: item.name,
               textAlign: 'center',
               textStyle: {
-                color: '#808080',
+                color: 'rgba(2555,255,255,0.72)',
                 fontSize: 11,
                 fontWeight: 'normal',
                 textAlign: 'center',
@@ -114,14 +114,15 @@
                   value: item.value,
                   label: {
                     formatter(params) {
-                      return `${Number(params.value / total).toFixed(2) * 100}%`;
+                      return `${Number((params.value/total) * 100).toFixed(2)}%`;
                     },
                     position: 'center',
                     show: true,
                     textStyle: {
-                      fontSize: '11',
+                      fontSize: '9',
                       fontWeight: 'bold',
                       color: '#fff',
+                      zIndex:2
                     },
                   },
                 },
@@ -130,6 +131,7 @@
                   itemStyle: {
                     color: '#535353',
                     borderWidth: 0,
+                    zIndex:1,
                     emphasis: {
                       show: false,
                     },
@@ -295,7 +297,7 @@
                     position: 'center',
                     show: true,
                     textStyle: {
-                      fontSize: '11',
+                      fontSize: '9',
                       fontWeight: 'bold',
                       color: '#fff',
                     },
@@ -376,7 +378,7 @@
                     position: 'center',
                     show: true,
                     textStyle: {
-                      fontSize: '11',
+                      fontSize: '9',
                       fontWeight: 'bold',
                       color: '#fff',
                     },
@@ -457,7 +459,7 @@
                     position: 'center',
                     show: true,
                     textStyle: {
-                      fontSize: '11',
+                      fontSize: '9',
                       fontWeight: 'bold',
                       color: '#fff',
                     },
@@ -538,7 +540,7 @@
                     position: 'center',
                     show: true,
                     textStyle: {
-                      fontSize: '11',
+                      fontSize: '9',
                       fontWeight: 'bold',
                       color: '#fff',
                     },
@@ -619,7 +621,7 @@
                     position: 'center',
                     show: true,
                     textStyle: {
-                      fontSize: '11',
+                      fontSize: '9',
                       fontWeight: 'bold',
                       color: '#fff',
                     },
@@ -700,7 +702,7 @@
                     position: 'center',
                     show: true,
                     textStyle: {
-                      fontSize: '11',
+                      fontSize: '9',
                       fontWeight: 'bold',
                       color: '#fff',
                     },
@@ -781,7 +783,7 @@
                     position: 'center',
                     show: true,
                     textStyle: {
-                      fontSize: '11',
+                      fontSize: '9',
                       fontWeight: 'bold',
                       color: '#fff',
                     },
@@ -819,7 +821,7 @@
     flex-flow: column nowrap;
     /*width: 1080px;*/
     /*height: 452px;*/
-    width: 367px;
+    width: 80%;
     height: 240px;
     // background-color: #0e0e20;
 

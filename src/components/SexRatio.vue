@@ -52,7 +52,7 @@
             {
               type: 'image',
               left: '43%',
-              bottom: '50%',
+              bottom: '54%',
               style: {
                 // eslint-disable-next-line global-require
                 image: require('../assets/woman.png'),
@@ -63,7 +63,7 @@
             {
               type: 'image',
               right: '43%',
-              bottom: '50%',
+              bottom: '54%',
               style: {
                 // eslint-disable-next-line global-require
                 image: require('../assets/man.png'),
@@ -131,7 +131,7 @@
                 },
                 {
                   name: '',
-                  value:0,
+                  value:2,
                 },
                 {
                   name: sexdata[0].name + '性',
@@ -163,7 +163,7 @@
                 },
                 {
                   name: '',
-                  value: 0,
+                  value: 2,
                 },
               ],
             },

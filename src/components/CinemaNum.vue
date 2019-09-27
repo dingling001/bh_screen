@@ -68,14 +68,14 @@
           grid: {
             top: 40,
             bottom: 80,
-            left: 80,
+            left: 30,
             right: 30,
           },
           legend: {
             icon: 'circle',
             textStyle: {
               color: '#ffffff',
-              fontSize: 8,
+              fontSize: 9,
               fontWeight: 'bold',
             },
             orient: 'vertical',
@@ -102,10 +102,10 @@
             },
             axisLabel: {
               show: true,
-              rotate: 45,
+              // rotate: 45,
               interval: 'auto',
-              fontSize: 8,
-              color: '#808080',
+              fontSize: 9,
+              color: '#fff',
               formatter(val) {
                 const arr = val.split('-');
                 return `${arr[1]}/${arr[2]}`;
@@ -117,10 +117,10 @@
           yAxis: {
             type: 'value',
             splitNumber: 3,
-            name: '当日预约量',
+            name: '每日预约量',
             nameTextStyle: {
               color: '#ffffff',
-              fontSize: 8,
+              fontSize: 9,
               fontWeight: 'bold',
             },
             axisLine: {
@@ -134,9 +134,9 @@
             },
             axisLabel: {
               showMinLabel: false,
-              fontSize: 8,
-              padding: [0, 20, 0, 0],
-              color: '#808080',
+              fontSize: 9,
+              padding: [0, 10, 0, 0],
+              color: 'rgba(255,255,255,0.72)',
             },
           },
           series: [
@@ -144,7 +144,7 @@
               type: 'line',
               name: '进馆人数',
               lineStyle: {
-                width: 4,
+                width: 5,
                 color: {
                   type: 'linear',
                   x: 0,

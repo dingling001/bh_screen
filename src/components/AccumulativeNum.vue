@@ -173,7 +173,7 @@
               type: 'pie',
               startAngle: -90,
               radius: [45, 50],
-              center: ['75%', '50%'],
+              center: ['76%', '52%'],
               label: {
                 normal: {
                   show: true,
@@ -229,7 +229,7 @@
                 {
                   name: '',
                   // value: this.totalcheck - this.childrencksum,
-                  value: 0
+                  value:20
                 },
                 {
                   name: '成人',
@@ -260,7 +260,7 @@
                 {
                   name: '',
                   // value: this.totalcheck - this.peopleyysum,
-                  value: 0
+                  value: 20
                 },
               ],
             },
@@ -269,12 +269,10 @@
         this.myEcharts.setOption(options);
       },
       onReady(instance, CountUp) {
-        // console.log(CountUp)
         const that = this;
         instance.update(that.total);
       },
       onReady1(instance, CountUp) {
-        // console.log(CountUp)
         const that = this;
         instance.update(that.totalcheck);
       },

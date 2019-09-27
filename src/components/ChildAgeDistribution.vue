@@ -27,25 +27,27 @@
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
-      // console.log(this.agestat)
+      console.log(this.agestat)
       this.initChildAge(this.agestat)
-      setInterval(()=>{
+      var childage = setInterval(() => {
         this.myEcharts.clear();
         this.initChildAge(this.agestat)
-      },10000)
+      }, 10000)
     },
     methods: {
       initChildAge(agestat) {
         var xdata = [];
         var values = [];
+        var total = 0
         agestat.forEach((item) => {
           xdata.push(item.name);
           values.push(item.value);
-        })
+          total += parseInt(item.value)
+        });
         const options = {
           grid: {
             top: 40,
-            bottom: 90,
+            bottom: 105,
             left: 80,
             right: 0,
           },
@@ -69,12 +71,12 @@
           },
           yAxis: {
             type: 'value',
-            minInterval:10,
+            minInterval: 0,
             axisLabel: {
-              color: '#A4A4A4',
+              color: 'rgba(255,255,255,0.72)',
               fontSize: 12,
               formatter(val) {
-                return `${val}%`;
+                return `${Number(val/total*100).toFixed(0)}%`;
               },
             },
             splitLine: {show: false},
@@ -121,6 +123,7 @@
     flex-flow: column nowrap;
     width: 100%;
     height: 300px;
+
     &_top {
       padding-top: 25px;
       /*padding-bottom: 20px;*/

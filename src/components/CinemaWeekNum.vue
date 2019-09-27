@@ -44,7 +44,7 @@
           grid: {
             top: 20,
             bottom: 80,
-            left: 50,
+            left: 40,
             right: 20,
           },
           xAxis: {
@@ -73,8 +73,8 @@
           yAxis: {
             type: 'value',
             axisLabel: {
-              color: '#A4A4A4',
-              fontSize: 11,
+              color: 'rgba(255,255,255,0.72)',
+              fontSize: 9,
               formatter(val) {
                 return `${val}%`;
               },

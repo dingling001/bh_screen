@@ -97,14 +97,17 @@
     }
 
     .mlist {
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
+      height: 100%;
       .mitem {
-        margin-bottom: 10px;
-
+        /*margin-bottom: 10px;*/
         .mname {
           font-size: 11px;
           text-align: left;
           color: #fff;
-          margin-bottom: 5px;
+          margin-bottom: 10px;
         }
 
         .imgbox {

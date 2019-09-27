@@ -8,14 +8,14 @@
     <div class="echarts-con" ref="echartsEl">
       <ul>
         <li
-          v-for="(item, index) in exhibit"
+          v-for="(item, index) in exhibition"
           :key="index"
           :class="[ index === 0?'first':'',index === 1? 'second':'' ,index === 2? 'thrid':'' ,]"
         >
 <!--          'animated slideInRight delay-'+index+'s'-->
-          <span>{{ item.exhibit_name }}</span>
+          <span>{{ item.exhibition_name }}</span>
           <div>
-            <span :style="`width: ${item.like_num / exhibit[0].like_num * 100}%`"></span>
+            <span :style="`width: ${item.total / exhibition[0].total * 100}%`"></span>
           </div>
           <span>{{ `No.${index + 1}` }}</span>
         </li>
@@ -45,15 +45,16 @@
       };
     },
     props: {
-      'exhibit': {
+      'exhibition': {
         type: Array,
         default: []
       },
     },
     created() {
-      this.exhibit.forEach((item) => {
-        this.count += parseInt(item.like_num, 10);
-      })
+      console.log(this.exhibition)
+      // this.exhibition.forEach((item) => {
+      //   this.count += parseInt(item.like_num, 10);
+      // })
     }
   };
 </script>

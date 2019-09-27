@@ -120,7 +120,6 @@
     watch: {
       'swiperindex'(val) {
         var vm = this;
-        console.log(val)
         if (val === 10) {
           setTimeout(() => {
             vm.mySwiper.slideTo(0, 2500, false)
@@ -151,7 +150,6 @@
         },
         onTransitionEnd: function (swiper) {
           swiper.update();
-          console.log(swiper.isEnd)
           if (swiper.isEnd) {
             vm.mySwiper.startAutoplay();
             // let dom = swiper.slides[0];

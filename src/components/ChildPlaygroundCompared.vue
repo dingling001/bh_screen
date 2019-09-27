@@ -38,16 +38,16 @@
         var ydata = [];
         var tdata = []
         data.forEach((item, index) => {
-          xdata.push(item.name);
-          ydata.push(item.value);
-          tdata.push(item.value_ck);
+            xdata.push(item.name);
+            ydata.push(item.value);
+            tdata.push(item.value_ck);
         });
         const options = {
           color: ['#DB5D09', '#7F55C4'],
           grid: {
             top: 50,
             bottom: 20,
-            left: 90,
+            left: 80,
             right: 50,
           },
           legend: {
@@ -104,7 +104,7 @@
           },
           yAxis: {
             type: 'value',
-            splitNumber: 3,
+            // splitNumber: 3,
             name: '人数',
             nameGap: 40,
             minInterval:1,
@@ -126,7 +126,7 @@
               showMinLabel: true,
               fontSize: 8,
               padding: [0, 20, 0, 0],
-              color: '#808080',
+              color: 'rgba(255,255,255,.72)',
             },
           },
           series: [
@@ -153,7 +153,7 @@
                   ],
                   global: false, // 缺省为 false
                 },
-                width: 8,
+                width: 5,
                 type: 'solid',
               },
               data: tdata.length ? tdata : [1000, 1200, 3000, 5660, 1000, 5662, 5000],
@@ -191,7 +191,7 @@
                   ],
                   global: false, // 缺省为 false
                 },
-                width: 8,
+                width: 5,
                 type: 'solid',
               },
 
