@@ -52,9 +52,10 @@
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
-      console.log(this.list)
+      // console.log(this.list)
       this.initFeelTotal(this.list);
-      setInterval(() => {
+      var tota = setInterval(() => {
+        this.myEcharts.clear();
         this.initFeelTotal(this.list)
       }, 10000)
     },
@@ -67,7 +68,7 @@
         const options = {
           color: ['#E5318B', '#4E65DF'],
           grid: {
-            top: 40,
+            top: 30,
             bottom: 40,
             left: 80,
             right: 40,
@@ -174,7 +175,7 @@
                   ],
                   global: false, // 缺省为 false
                 },
-                width: 5  ,
+                width: 5,
                 type: 'solid',
               },
               data: [1000, 1200, 3000, 5660, 1000, 5662, 5000],

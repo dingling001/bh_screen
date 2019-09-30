@@ -3,7 +3,6 @@
     <div class="audience-origin_top">
       <span>观众来源地TOP10</span>
     </div>
-
     <!-- echarts -->
     <div class="echarts-con" id="chart"></div>
   </div>
@@ -29,10 +28,14 @@
 
     mounted() {
       this.myEcharts = echarts.init(document.querySelector("#chart"));
-      // console.log(this.origin);
-      var orign = this.origin
+      var orign = [];
+      for (var i in this.origin) {
+        if (i < 10) {
+          orign.push(this.origin[i])
+        }
+      }
       this.initAudience(orign)
-      setInterval(() => {
+      var audience = setInterval(() => {
         this.myEcharts.clear();
         this.initAudience(orign)
       }, 10000)
@@ -47,15 +50,15 @@
         const series = [];
         const titles = [];
         data.forEach((item, index) => {
-          const obj = {
+          const names = {
             name: item.name,
             type: 'pie',
             startAngle: 45,
-            radius: [19.5, 27.5],
+            radius: [19.5, 26.5],
             label: {
               show: true,
               fontWeight: 'bold',
-              fontSize: 11,
+              fontSize: 9,
               color: '#fff',
               position: 'center',
               formatter(params) {
@@ -99,46 +102,16 @@
               textAlign: 'right',
             },
           };
-
           if (index <= 4) {
-            title.left = `${(210 * index / 1120) * 100}%`;
             title.top = 25;
-            if (index === 0) {
-              title.left = 20;
-              obj.center = [85, 30];
-            } else {
-              obj.center = [
-                `${(((120 + 84) * index + 175) / 1120) * 100}%`,
-                30,
-              ];
-            }
-          } else if (index === 5) {
-            obj.center = [85, 110];
+            title.left = item.name.length > 2 ? 10 : 20 + index * 100;
+            names.center = [80 * (index + 1) + index * 20, 30];
+          } else if (index > 4 && index <= 9) {
             title.top = 100;
-            title.left = 20;
-            // title.left = '7%';
-          } else {
-            title.left = `${((210 * (index - 5)) / 1120) * 100}%`;
-            title.top = 100;
-            obj.center = [
-              `${(((120 + 84) * (index - 5) + 175) / 1120) * 100}%`,
-              110,
-            ];
+            title.left = (item.name.length > 2 ? 10 : 20) + (index - 5) * 100;
+            names.center = [80 * ((index - 5) + 1) + (index - 5)  * 20, 110];
           }
-
-          if (index === 1) {
-            title.left = `${((250 * index) / 1120) * 100}%`;
-          }
-          if (index === 2) {
-            title.left = `${((224 * index) / 1120) * 100}%`;
-          }
-          if (index === 6) {
-            title.left = `${((250 * (index - 5)) / 1120) * 100}%`;
-          }
-          if (index === 7) {
-            title.left = `${((225 * (index - 5)) / 1120) * 100}%`;
-          }
-          series.push(obj);
+          series.push(names);
           titles.push(title);
         });
         var options = {
@@ -159,6 +132,7 @@
     width: 520px;
     height: 270px;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0)); /* 标准的语法 */
+
     &_top {
       padding-top: 25px;
       padding-bottom: 20px;

@@ -54,7 +54,7 @@
             icon: 'circle',
             textStyle: {
               color: '#ffffff',
-              fontSize: 8,
+              fontSize: 9,
               fontWeight: 'bold',
             },
             right: '10%',
@@ -85,7 +85,7 @@
             axisLabel: {
               interval: 0,
               show: true,
-              fontSize: 8,
+              fontSize: 9,
               color: '#fff',
               formatter(val) {
                 const arr = val.split('-');
@@ -110,7 +110,7 @@
             minInterval:1,
             nameTextStyle: {
               color: '#ffffff',
-              fontSize: 8,
+              fontSize: 9,
               fontWeight: 'bold',
             },
             axisLine: {
@@ -124,7 +124,7 @@
             },
             axisLabel: {
               showMinLabel: true,
-              fontSize: 8,
+              fontSize: 9,
               padding: [0, 20, 0, 0],
               color: 'rgba(255,255,255,.72)',
             },
@@ -155,6 +155,9 @@
                 },
                 width: 5,
                 type: 'solid',
+                showSymbol:false,
+                sampling:'average',
+                showAllSymbol: false,
               },
               data: tdata.length ? tdata : [1000, 1200, 3000, 5660, 1000, 5662, 5000],
               markPoint: {
@@ -193,6 +196,9 @@
                 },
                 width: 5,
                 type: 'solid',
+                showSymbol:false,
+                sampling:'average',
+                showAllSymbol: false,
               },
 
               data: ydata ? ydata : [2000, 4000, 3000, 2100, 3200, 4000, 6000],
@@ -217,7 +223,7 @@
     // background-color: #0e0e20;
     /*width: 367px;*/
     height: 240px;
-    width: 100%;
+    width: 83%;
 
     &_top {
       padding-top: 25px;

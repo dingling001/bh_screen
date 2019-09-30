@@ -4,10 +4,10 @@
       <span>会员总注册人数：</span>
       <span>
         <i-count-up :delay="delay"
-                        :endVal="m_data.total"
-                        :options="options"
-                        @ready="onReady"
-                        class="iconup"></i-count-up>
+                    :endVal="m_data.total"
+                    :options="options"
+                    @ready="onReady"
+                    class="iconup"></i-count-up>
       </span>
     </div>
 
@@ -68,7 +68,7 @@
       this.myEcharts = echarts.init(echartsEl);
       this.m_data = this.mdata;
       this.initMember(this.mdata);
-      setInterval(() => {
+      var reg = setInterval(() => {
         this.myEcharts.clear();
         this.initMember(this.mdata);
       }, 10000)
@@ -118,7 +118,7 @@
           yAxis: {
             type: 'value',
             splitNumber: 0,
-            minInterval:0.2,
+            minInterval: 0.2,
             axisLine: {
               show: true,
             },
@@ -133,7 +133,7 @@
               color: 'rgba(255,255,255,.72)',
               padding: [0, 10, 0, 0],
               formatter: function (value) {
-                return `${value*100}%`
+                return `${value * 100}%`
               }
             },
           },
@@ -294,7 +294,7 @@
               transform: translateY(-50%);
               width: 11px;
               height: 11px;
-              border: 4px solid rgba(255, 255, 255, 1);
+              border: 2px solid rgba(255, 255, 255, 1);
               border-radius: 50%;
 
               content: '';

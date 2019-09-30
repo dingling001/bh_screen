@@ -61,8 +61,8 @@
     },
     mounted() {
       this.game_data = this.gamedata;
-      console.log(this.game_data);
-      setInterval(() => {
+      // console.log(this.game_data);
+      var gatop = setInterval(() => {
         this.game_data = [];
         this.game_data = this.gamedata;
       }, 10000)
@@ -124,7 +124,7 @@
         .gametitle {
           font-size: 10px;
           color: #D8D8D8;
-          padding: 0 0 9px   0;
+          padding: 0 0 9px 0;
         }
 
         .gamename {

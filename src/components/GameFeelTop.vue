@@ -11,7 +11,7 @@
       <!--      10<hello_num <=30 高级-->
       <!--      30<hello_num  特级-->
       <div class="avataritem" v-for="(item ,index) in topfive"
-           :style="{marginTop:80-80*(item.hello_num/topfive[0].hello_num)+'px'}">
+           :style="{marginTop:70-80*(item.hello_num/topfive[0].hello_num)+'px'}">
         <div
           :class="['avatar_bg',item.hello_num>=0&&item.hello_num<=3?'bachuji':'',item.hello_num>3&&item.hello_num<=10?'zhongji':'',item.hello_num>30?'teji':'']">
           <img class="avtor" :src="item.avatar" alt="">
@@ -39,12 +39,12 @@
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
-      console.log(this.topfive)
+      // console.log(this.topfive)
       this.iniTopfive(this.topfive);
-      // setInterval(() => {
-      //   this.myEcharts.clear();
-      //   this.iniTopfive(this.topfive);
-      // }, 10000)
+     var ftop= setInterval(() => {
+        this.myEcharts.clear();
+        this.iniTopfive(this.topfive);
+      }, 10000)
     },
     methods: {
       iniTopfive(data) {
@@ -67,7 +67,7 @@
         const options = {
           colors: ['#BC15EC', '#7F16E7', '#5715EB', '#2B41F4', '#1787EB'],
           grid: {
-            top: 80,
+            top: 60,
             bottom: 30,
             left: 50,
             right: 120,
@@ -110,9 +110,9 @@
             label: {
               show: true,
               position: 'top',
-              padding: 10,
+              padding: 5,
               color: '#fff',
-              fontSize: 10,
+              fontSize: 9,
               formatter(data) {
                 // console.log(data)
                 return data.name;
@@ -130,16 +130,7 @@
             //   value: 20,
             //   name: '孙海岩',
             // }, {value: 10, name: '孙海岩'}]
-          },
-            // {
-            //   type: 'pictorialBar',
-            //   barGap: '-100%',
-            //   symbolPosition: 'end',
-            //   symbolSize: 22,
-            //   symbolOffset: [0, '-230%'],
-            //   data: ydata
-            // }
-          ],
+          }],
         };
         this.myEcharts.setOption(options);
       },
@@ -160,7 +151,7 @@
     position: relative;
 
     &_top {
-      padding-top: 14px;
+      padding-top: 18px;
       padding-bottom: 20px;
       padding-left: 30px;
       width: 100%;

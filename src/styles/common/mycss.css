@@ -22,6 +22,7 @@ html {
 
 body {
     margin: 0;
+    /*background-color: #000;*/
 }
 
 /**
@@ -62,7 +63,7 @@ hr {
  */
 
 pre {
-    font-family: monospace, monospace; /* 1 */
+    /*font-family: monospace, monospace; !* 1 *!*/
     font-size: 1em; /* 2 */
 }
 
@@ -105,7 +106,7 @@ strong {
 code,
 kbd,
 samp {
-    font-family: monospace, monospace; /* 1 */
+    /*font-family: monospace, monospace; !* 1 *!*/
     font-size: 1em; /* 2 */
 }
 
@@ -162,7 +163,7 @@ input,
 optgroup,
 select,
 textarea {
-    font-family: inherit; /* 1 */
+    /*font-family: inherit; !* 1 *!*/
     font-size: 100%; /* 1 */
     line-height: 1.15; /* 1 */
     margin: 0; /* 2 */
@@ -490,44 +491,50 @@ html, body {
 .left {
     position: absolute;
     height: 100%;
-    z-index: 1;
+    /*z-index: 1;*/
     left: 0;
     top: 0;
     width: 470px;
-    background: -webkit-linear-gradient(left, rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .01)); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .01)); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .01)); /* Firefox 3.6 - 15 */
-    background: linear-gradient(to right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .01)); /* 标准的语法 */
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, 0)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, 0)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, 0)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, 0)); /* 标准的语法 */
+    z-index: 10;
 }
 
 .right {
     position: absolute;
     height: 100%;
-    z-index: 1;
+    /*z-index: 1;*/
     right: 0;
     top: 0;
     width: 470px;
-    background: -webkit-linear-gradient(left, rgba(0, 0, 0, .01), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84)); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(right, rgba(0, 0, 0, .01), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84)); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(right, rgba(0, 0, 0, .01), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84)); /* Firefox 3.6 - 15 */
-    background: linear-gradient(to right, rgba(0, 0, 0, .01), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84)); /* 标准的语法 */
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, rgba(0, 0, 0, 0), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, rgba(0, 0, 0, 0), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84), rgba(0, 0, 0, .84)); /* 标准的语法 */
     overflow: hidden;
+    z-index: 10;
 }
 
 .left .hr {
-    width: 422px;
+    width: 379px;
     height: 11px;
     background: linear-gradient(to right, rgba(5, 20, 31, 1), rgba(5, 20, 31, .5));
     position: absolute;
     left: 0;
+    z-index: 2;
 }
+
 .right .hr {
-    width: 422px;
+    width: 379px;
     height: 11px;
     background: linear-gradient(to right, rgba(5, 20, 31, 1), rgba(5, 20, 31, .5));
     position: absolute;
     right: 0;
+    z-index: 2;
 }
+
 .top {
     top: 239px;
 }

@@ -44,7 +44,7 @@
           grid: {
             top: 20,
             bottom: 80,
-            left: 40,
+            left: 30,
             right: 20,
           },
           xAxis: {
@@ -60,12 +60,13 @@
             },
             axisLabel: {
               color: '#fff',
-              fontSize: 11,
+              fontSize: 9,
               margin: 20,
               formatter(val) {
                 const arr = val.split('-');
                 return `${arr[1]}/${arr[2]}`;
               },
+              interval:0
             },
 
             data: xdata

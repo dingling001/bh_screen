@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <hot-map class="bottom-map" :staylist="staylist" v-if="showgame"></hot-map>
+    <hot-map class="bottom-map animated fadeInUp delay-1s slow" :staylist="staylist" v-if="staylist.length"></hot-map>
     <div class="left">
-      <div class="hr top"></div>
-      <div class="hr bottom"></div>
+      <div class="hr top animated fadeIn"></div>
+      <div class="hr bottom animated fadeIn"></div>
       <gamefeeltotal class="vist-num animated fadeInLeft" v-if="list.length" :total="total"
                      :list="list"></gamefeeltotal>
       <game-feel-top class="age-distribution animated fadeInLeft delay-1s" :topfive="topfive"
@@ -11,8 +11,8 @@
       <gametop class="sex-ratio animated fadeInLeft delay-2s" :gamedata="gamedata" v-if="gamedata.length"></gametop>
     </div>
     <div class="right">
-      <div class="hr top"></div>
-      <div class="hr bottom"></div>
+      <div class="hr top animated fadeIn"></div>
+      <div class="hr bottom animated fadeIn"></div>
       <cinema-num class="register-num animated fadeInRight " :clist="clist" :ctotal="ctotal"
                   v-if="clist.length"></cinema-num>
       <cinema-week-num class="online-register animated fadeInRight delay-1s" :attendancerate="attendance_rate"
@@ -60,12 +60,13 @@
     },
     watch: {
       'sindex'() {
-        this.showgame = this.sindex == 2;
-        this.get_HelloTop();
-        this.get_hello();
-        this.get_Game();
-        this.get_CinemaStat();
-        this.get_KeliuDataStat();
+        if(this.sindex == 2){
+          this.get_HelloTop();
+          this.get_hello();
+          this.get_Game();
+          this.get_CinemaStat();
+          this.get_KeliuDataStat();
+        }
       }
     },
     props: ['sindex'],
@@ -130,7 +131,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 2;
+      z-index: 3;
       /*background-image: url('../assets/zuozhezhao.png');*/
       background-size: cover;
       background-repeat: no-repeat;
@@ -141,20 +142,20 @@
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 1;
       width: 100%;
       height: 100%;
       background-image: url("../assets/thrid_bg.png");
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
+      z-index: 2;
     }
 
     .register-num {
       position: absolute;
       top: 0;
       right: 0;
-      z-index: 2;
+      z-index: 3;
       bottom: inherit;
       /*background-image: url('../assets/youzhezhao.png');*/
       background-size: cover;
@@ -165,9 +166,9 @@
     .age-distribution {
       position: absolute;
       /*<!--top: 480 + 22px;-->*/
-      top: 240px;
+      top: 247px;
       left: 0;
-      z-index: 2;
+      z-index: 3;
 
       /*background-image: url('../assets/zuozhezhao.png');*/
       background-size: cover;
@@ -179,7 +180,7 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      z-index: 2;
+      z-index: 3;
 
       /*background-image: url('../assets/zuozhezhao.png');*/
       background-size: cover;
@@ -189,9 +190,9 @@
 
     .online-register {
       position: absolute;
-      top: 240px;
+      top: 247px;
       right: 0;
-      z-index: 2;
+      z-index: 3;
       /*background-image: url('../assets/youzhezhao.png');*/
       background-size: cover;
       background-repeat: no-repeat;
@@ -202,7 +203,7 @@
       position: absolute;
       bottom: 0;
       right: 0;
-      z-index: 2;
+      z-index: 3;
       /*background-image: url('../assets/youzhezhao.png');*/
       background-size: cover;
       background-repeat: no-repeat;
@@ -214,7 +215,7 @@
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 2;
+      z-index: 3;
       /*background-image: url('../assets/xiazhezhao.png');*/
       background-size: cover;
       background-repeat: no-repeat;
@@ -226,7 +227,7 @@
     }
 
     .right .bottom {
-      bottom: 205px;
+      bottom: 212px;
     }
   }
 </style>

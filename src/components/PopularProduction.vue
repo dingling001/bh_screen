@@ -11,8 +11,8 @@
           :key="index"
           :class="{first: index === 0, second: index === 1, thrid: index === 2, fourth: index === 3, fifth: index === 4}"
         >
-          <div :style="{borderBottomWidth:185*item.prenncent+'px'}"></div>
-          <div>{{ item.exhibit_name }}</div>
+          <div :style="{borderBottomWidth:160*item.prenncent+'px'}"></div>
+          <div><span :class="{'span':item.exhibit_name.length>5}">{{item.exhibit_name}}</span></div>
           <div>{{ `No.${index + 1}` }}</div>
         </li>
       </ul>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+
   export default {
     data() {
       return {};
@@ -32,10 +33,10 @@
       }
     },
     created() {
-      console.log(this.exhibit)
-      // for (var i in  this.exhibit) {
-      //   this.exhibit[i].prenncent = parseInt(this.exhibit[i].like_num) / parseInt(this.exhibit[0].like_num)
-      // }
+      // console.log(this.exhibit)
+      for (var i in  this.exhibit) {
+        this.exhibit[i].prenncent = parseInt(this.exhibit[i].like_num) / parseInt(this.exhibit[0].like_num)
+      }
     }
   };
 </script>
@@ -46,7 +47,7 @@
     display: flex;
     flex-flow: column nowrap;
     /*  width: 960 + 120px;*/
-    width: 100%;
+    width: 367px;
     height: 340px;
 
     &_top {
@@ -72,7 +73,7 @@
         justify-content: space-between;
         align-items: center;
         height: 235px;
-        padding: 0 0 20px 0;
+        padding: 0 34px 20px 0;
 
         li {
           height: 100%;
@@ -166,14 +167,24 @@
             }
 
             &:nth-child(2) {
-              width: 74px;
+              width: 70px;
               white-space: nowrap;
               text-overflow: ellipsis;
               overflow: hidden;
-              font-size: 11px;
+              font-size: 12px;
               color: #fff;
               font-weight: bold;
               margin: 10px 0;
+              position: relative;
+              height: 20px;
+              span {
+                &.span {
+                  position: absolute;
+                  animation: marquee 5s linear infinite;
+                  font-size: 12px;
+                  color: #fff;
+                }
+              }
             }
 
             &:last-of-type {
@@ -184,6 +195,16 @@
           }
         }
       }
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      left: 0
+    }
+
+    to {
+      left: -100%
     }
   }
 </style>

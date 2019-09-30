@@ -12,8 +12,7 @@
               <div class="c2 status1">正常</div>
             </div>
           </div>
-          <div class="heatchart bg1" id="chart4_1">
-          </div>
+          <div class="heatchart bg1" id="chart4_1"></div>
         </div>
         <div class="swiper-slide">
           <div class="heattitle">
@@ -62,7 +61,79 @@
           {map: null},
           {map: null},
         ],
-        mySwiper: null
+        mySwiper: null,
+        rData: [],//随机的两组值
+        hotdata_1f: [],
+        max_1f: 0,
+        hotdata_2f: [],
+        max_2f: 0,
+        hotdata_3f: [],
+        max_3f: 0,
+        hotdata_4f: [],
+        max_4f: 0,
+        data1: [
+          {
+            name: '4D科普影院',
+            x: 140, // x coordinate of the datapoint, a number
+            y: 150, // y coordinate of the datapoint, a number
+            value: 150, // the value at datapoint(x, y)
+          },
+          {
+            name: '4D科普影院',
+            x: 120, // x coordinate of the datapoint, a number
+            y: 150, // y coordinate of the datapoint, a number
+            value: 200, // the value at datapoint(x, y)
+          },
+          {
+            name: '儿童乐园',
+            x: 145, // x coordinate of the datapoint, a number
+            y: 110, // y coordinate of the datapoint, a number
+            value: 400, // the value at datapoint(x, y)
+          },
+          {
+            name: '儿童乐园',
+            x: 120, // x coordinate of the datapoint, a number
+            y: 110, // y coordinate of the datapoint, a number
+            value: 1000, // the value at datapoint(x, y)
+          },
+          {
+            name: '科技的脚步',
+            x: 260, // x coordinate of the datapoint, a number
+            y: 100, // y coordinate of the datapoint, a number
+            value: 300, // the value at datapoint(x, y)
+          },
+          {
+            name: '科技的脚步',
+            x: 230, // x coordinate of the datapoint, a number
+            y: 105, // y coordinate of the datapoint, a number
+            value: 300, // the value at datapoint(x, y)
+          },
+          {
+            name: '企业成果',
+            x: 300, // x coordinate of the datapoint, a number
+            y: 80, // y coordinate of the datapoint, a number
+            value: 500, // the value at datapoint(x, y)
+          },
+          {
+            name: '企业成果',
+            x: 280, // x coordinate of the datapoint, a number
+            y: 80, // y coordinate of the datapoint, a number
+            value: 500, // the value at datapoint(x, y)
+          },
+          {
+            name: '临时展区',
+            x: 380, // x coordinate of the datapoint, a number
+            y: 40, // y coordinate of the datapoint, a number
+            value: 400, // the value at datapoint(x, y)
+          },
+          {
+            name: '临时展区',
+            x: 380, // x coordinate of the datapoint, a number
+            y: 60, // y coordinate of the datapoint, a number
+            value: 400, // the value at datapoint(x, y)
+          },
+        ],
+        mapindex: 0,
       };
     },
     props: {
@@ -71,39 +142,226 @@
         default: []
       }
     },
+    watch: {
+      'mapindex'(val) {
+        var vm = this;
+        if (val === 3) {
+          setTimeout(() => {
+            vm.mySwiper.slideTo(0, 2000, false)
+          }, 10000)
+        }
+      }
+    },
     mounted() {
       console.log(this.staylist)
-      this.initHotMap();
-      setTimeout(() => {
-        this.mySwiper = new Swiper('.floor', {
-          autoplay: 10000,
-          direction: 'vertical',
-          effect: 'coverflow',
-          slidesPerView: 2,
-          speed:2000,
-          autoplayDisableOnInteraction:false,
-          // centeredSlides: true,
-          coverflow: {
-            rotate: 30,
-            stretch: 10,
-            depth: 60,
-            modifier: 2,
-            slideShadows: false
-          },
-          observer: true,
-          observeParents: true,
-        })
-      }, 50)
-
+      var vm = this;
+      this.mySwiper = new Swiper('.floor', {
+        autoplay: 10000,
+        direction: 'vertical',
+        // loop: true,
+        speed: 2000,
+        // effect: 'coverflow',
+        grabCursor: true,
+        // centeredSlides: true,
+        slidesPerView: 2.5,
+        // coverflowEffect: {
+        //   rotate: 50,
+        //   stretch: 0,
+        //   depth: 200,
+        //   modifier: 1,
+        //   slideShadows: false,
+        // },
+        observer: true,
+        observeParents: true,
+        onSlideChangeStart: swiper => {
+          vm.mapindex = swiper.realIndex
+        },
+      });
+      this.initData(this.staylist);
     },
     methods: {
-      initHotMap(dataarr) {
+      // 初始化地图数据
+      initData(staylist) {
+        staylist.forEach((item, index) => {
+          this.randomData(item);
+          if (item.title == '4D科普影院') {
+            this.hotdata_1f.push({
+                name: '4D科普影院',
+                x: 140, // x coordinate of the datapoint, a number
+                y: 150, // y coordinate of the datapoint, a number
+                value: this.rData[0], // the value at datapoint(x, y)
+              },
+              {
+                name: '4D科普影院',
+                x: 120, // x coordinate of the datapoint, a number
+                y: 150, // y coordinate of the datapoint, a number
+                value: this.rData[1], // the value at datapoint(x, y)
+              })
+          } else if (item.title == "儿童乐园") {
+            this.hotdata_1f.push({
+                name: '儿童乐园',
+                x: 145, // x coordinate of the datapoint, a number
+                y: 110, // y coordinate of the datapoint, a number
+                value: this.rData[0], // the value at datapoint(x, y)
+              },
+              {
+                name: '儿童乐园',
+                x: 120, // x coordinate of the datapoint, a number
+                y: 110, // y coordinate of the datapoint, a number
+                value: this.rData[1], // the value at datapoint(x, y)
+              })
+          } else if (item.title == "科技的脚步") {
+            this.hotdata_1f.push({
+                name: '科技的脚步',
+                x: 260, // x coordinate of the datapoint, a number
+                y: 100, // y coordinate of the datapoint, a number
+                value: this.rData[0], // the value at datapoint(x, y)
+              },
+              {
+                name: '科技的脚步',
+                x: 230, // x coordinate of the datapoint, a number
+                y: 105, // y coordinate of the datapoint, a number
+                value: this.rData[1], // the value at datapoint(x, y)
+              },)
+          } else if (item.title == "企业成果") {
+            this.hotdata_1f.push({
+                name: '企业成果',
+                x: 300, // x coordinate of the datapoint, a number
+                y: 80, // y coordinate of the datapoint, a number
+                value: this.rData[0], // the value at datapoint(x, y)
+              },
+              {
+                name: '企业成果',
+                x: 280, // x coordinate of the datapoint, a number
+                y: 80, // y coordinate of the datapoint, a number
+                value: this.rData[1], // the value at datapoint(x, y)
+              },)
+          } else if (item.title == '临时展区') {
+            this.hotdata_1f.push({
+                name: '临时展区',
+                x: 380, // x coordinate of the datapoint, a number
+                y: 40, // y coordinate of the datapoint, a number
+                value: this.rData[0], // the value at datapoint(x, y)
+              },
+              {
+                name: '临时展区',
+                x: 380, // x coordinate of the datapoint, a number
+                y: 60, // y coordinate of the datapoint, a number
+                value: this.rData[1], // the value at datapoint(x, y)
+              })
+          } else if (item.title == '数理世界＆光影天地') {
+            this.hotdata_2f.push(
+              {
+                name: '数理世界',
+                x: 160, // x coordinate of the datapoint, a number
+                y: 80, // y coordinate of the datapoint, a number
+                value: this.rData[0], // the value at datapoint(x, y)
+              },
+              {
+                name: '光影天地',
+                x: 180, // x coordinate of the datapoint, a number
+                y: 80, // y coordinate of the datapoint, a number
+                value: this.rData[1], // the value at datapoint(x, y)
+              })
+          } else if (item.title == '探秘剧场＆力量空间') {
+            this.hotdata_2f.push(
+              {
+                name: '探秘剧场',
+                x: 350, // x coordinate of the datapoint, a number
+                y: 50, // y coordinate of the datapoint, a number
+                value: this.rData[0], // the value at datapoint(x, y)
+              },
+              {
+                name: '力量空间',
+                x: 400, // x coordinate of the datapoint, a number
+                y: 40, // y coordinate of the datapoint, a number
+                value: this.rData[1], // the value at datapoint(x, y)
+              })
+          } else if (item.title == '生命健康') {
+            this.hotdata_3f.push(
+              {
+                name: '生命健康',
+                x: 110, // x coordinate of the datapoint, a number
+                y: 110, // y coordinate of the datapoint, a number
+                value: this.rData[0], // the value at datapoint(x, y)
+              },
+              {
+                name: '生命健康',
+                x: 110, // x coordinate of the datapoint, a number
+                y: 130, // y coordinate of the datapoint, a number
+                value: this.rData[0], // the value at datapoint(x, y)
+              },
+            )
+          } else if (item.title == '浩瀚宇宙＆地球家园') {
+            this.hotdata_3f.push(
+              {
+                name: '浩瀚宇宙',
+                x: 360, // x coordinate of the datapoint, a number
+                y: 50, // y coordinate of the datapoint, a number
+                value: this.rData[0], // the value at datapoint(x, y)
+              },
+              {
+                name: '地球家园',
+                x: 400, // x coordinate of the datapoint, a number
+                y: 70, // y coordinate of the datapoint, a number
+                value: this.rData[1], // the value at datapoint(x, y)
+              })
+          } else if (item.title == '智能空间') {
+            this.hotdata_4f.push(
+              {
+                name: '智能空间',
+                x: 120, // x coordinate of the datapoint, a number
+                y: 120, // y coordinate of the datapoint, a number
+                value: this.rData[0], // the value at datapoint(x, y)
+              },
+              {
+                name: '智能空间',
+                x: 130, // x coordinate of the datapoint, a number
+                y: 150, // y coordinate of the datapoint, a number
+                value: this.rData[0], // the value at datapoint(x, y)
+              },
+            )
+          } else if (item.title == '信息天地＆动力车间＆材料工坊') {
+            this.hotdata_4f.push(
+              {
+                name: '信息天地',
+                x: 250, // x coordinate of the datapoint, a number
+                y: 80, // y coordinate of the datapoint, a number
+                value: (this.rData[0] + this.rData[1]) / 3, // the value at datapoint(x, y)
+              },
+              {
+                name: '材料工坊',
+                x: 350, // x coordinate of the datapoint, a number
+                y: 80, // y coordinate of the datapoint, a number
+                value: this.rData[0], // the value at datapoint(x, y)
+              },
+              {
+                name: '动力车间',
+                x: 380, // x coordinate of the datapoint, a number
+                y: 20, // y coordinate of the datapoint, a number
+                value: this.rData[1], // the value at datapoint(x, y)
+              }
+            )
+          }
+
+
+          // console.log(this.rData);
+        });
+
+        this.max_1f = Math.max(...this.hotdata_1f.map(o => o.value));
+        this.max_2f = Math.max(...this.hotdata_2f.map(o => o.value));
+        this.max_3f = Math.max(...this.hotdata_3f.map(o => o.value));
+        this.max_4f = Math.max(...this.hotdata_4f.map(o => o.value));
+        this.initHotMap()
+      },
+      // 渲染热力图
+      initHotMap() {
         const vm = this;
         // let maxvalue = Math.max(...dataarr.map(o => o.value));
         const nuConfig = {
-          blur: 1,
-          radius: 50,
-          maxOpacity: 0.5,
+          blur: .9,
+          radius: 10,
+          maxOpacity: .7,
           minOpacity: 0,
           gradient: {
             '.5': '#8CF13A',
@@ -113,104 +371,24 @@
         };
         const data = [
           {
-            max: 200,
-            min: 0,
-            data: [
-              {
-                name:'4D科普影院',
-                x: 130, // x coordinate of the datapoint, a number
-                y: 150, // y coordinate of the datapoint, a number
-                value: 80, // the value at datapoint(x, y)
-              },
-              {
-                name:'儿童乐园',
-                x: 120, // x coordinate of the datapoint, a number
-                y: 130, // y coordinate of the datapoint, a number
-                value: 100, // the value at datapoint(x, y)
-              },
-              {
-                name:'科技的脚步',
-                x: 250, // x coordinate of the datapoint, a number
-                y: 100, // y coordinate of the datapoint, a number
-                value: 200, // the value at datapoint(x, y)
-              },
-              {
-                name:'企业成果',
-                x: 300, // x coordinate of the datapoint, a number
-                y: 80, // y coordinate of the datapoint, a number
-                value: 100, // the value at datapoint(x, y)
-              },
-              {
-                name:'临时展区',
-                x:350, // x coordinate of the datapoint, a number
-                y: 50, // y coordinate of the datapoint, a number
-                value: 40, // the value at datapoint(x, y)
-              },
-            ],
+            max: this.max_1f > 0 ? this.max_1f : 100,
+            min: 1,
+            data: this.hotdata_1f,
           },
           {
-            max: 120,
-            min: 0,
-            data: [
-              {
-                name:'数理世界',
-                x: 160, // x coordinate of the datapoint, a number
-                y: 60, // y coordinate of the datapoint, a number
-                value: 90, // the value at datapoint(x, y)
-              },
-              {
-                x: 250, // x coordinate of the datapoint, a number
-                y: 80, // y coordinate of the datapoint, a number
-                value: 40, // the value at datapoint(x, y)
-              },
-              {
-                x: 350, // x coordinate of the datapoint, a number
-                y: 80, // y coordinate of the datapoint, a number
-                value: 100, // the value at datapoint(x, y)
-              },
-            ],
+            max: this.max_2f > 0 ? this.max_2f : 100,
+            min: 1,
+            data: this.hotdata_2f,
           },
           {
-            max: 200,
-            min: 0,
-            data: [
-              {
-                x: 200, // x coordinate of the datapoint, a number
-                y: 120, // y coordinate of the datapoint, a number
-                value: 180, // the value at datapoint(x, y)
-              },
-              {
-                x: 250, // x coordinate of the datapoint, a number
-                y: 80, // y coordinate of the datapoint, a number
-                value: 40, // the value at datapoint(x, y)
-              },
-              {
-                x: 350, // x coordinate of the datapoint, a number
-                y: 80, // y coordinate of the datapoint, a number
-                value: 100, // the value at datapoint(x, y)
-              },
-            ],
+            max: this.max_3f > 0 ? this.max_3f : 100,
+            min: 1,
+            data: this.hotdata_3f,
           },
           {
-            max: 300,
-            min: 0,
-            data: [
-              {
-                x: 200, // x coordinate of the datapoint, a number
-                y: 120, // y coordinate of the datapoint, a number
-                value: 10, // the value at datapoint(x, y)
-              },
-              {
-                x: 250, // x coordinate of the datapoint, a number
-                y: 80, // y coordinate of the datapoint, a number
-                value: 140, // the value at datapoint(x, y)
-              },
-              {
-                x: 350, // x coordinate of the datapoint, a number
-                y: 80, // y coordinate of the datapoint, a number
-                value: 100, // the value at datapoint(x, y)
-              },
-            ],
+            max: this.max_4f > 0 ? this.max_4f : 100,
+            min: 1,
+            data: this.hotdata_4f,
           },
         ];
         // 热力图
@@ -226,7 +404,12 @@
           ).configure(nuConfig).setData(data[i]);
         });
       },
-
+      // 随机生成数据
+      randomData(data) {
+        var d = data.stay_num;
+        var r = Math.floor(Math.random() * 6 + 1) / 10;
+        this.rData = [d * r, d - d * r];
+      }
     },
   };
 </script>
@@ -261,7 +444,7 @@
 
     .heat-type {
       width: 200px;
-      height: 3.5rem;
+      height: 350px;
       position: absolute;
       background-size: 100% 100%;
       margin-top: 1rem;
@@ -274,16 +457,49 @@
     height: 714px;
     width: 900px;
 
+    .swiper_box {
+      width: 100%;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /deep/ .swiper-slide {
+      /*height: 300px!important;*/
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .swiper-slide-shadow-top {
+        display: none;
+      }
+
+      .swiper-slide-shadow-bottom {
+        display: none;
+      }
+    }
+
+    /deep/ .swiper-slide {
+      /*&.swiper-slide-prev {*/
+      /*  .heattitle {*/
+      /*    transform: translate3d(0px, 0px, 100px) rotateX(50deg) rotateY(0deg) !important;*/
+      /*  }*/
+      /*}*/
+
+    }
+
     .heattitle {
       width: 518px;
       height: auto;
       position: absolute;
-      top: 50%;
-      left: 0;
+      bottom: 26%;
+      left: -15px;
       right: 0;
       margin: 0 auto;
       margin-left: 19%;
-      transform: none;
+      z-index: 5;
+
 
       .r1 {
         width: 100%;
@@ -374,11 +590,11 @@
     .heatchart {
       width: 477px;
       height: 183px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
+      position: relative;
+      /*top: 0;*/
+      /*left: 0;*/
+      /*right: 0;*/
+      /*margin: 0 auto;*/
       background-size: 100% 100%;
 
       &.bg1 {

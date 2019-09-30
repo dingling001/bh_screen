@@ -27,7 +27,7 @@
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
-      console.log(this.agestat)
+      // console.log(this.agestat)
       this.initChildAge(this.agestat)
       var childage = setInterval(() => {
         this.myEcharts.clear();
@@ -41,15 +41,15 @@
         var total = 0
         agestat.forEach((item) => {
           xdata.push(item.name);
-          values.push(item.value);
-          total += parseInt(item.value)
+          values.push(item.value>1?item.value:item.value+1);
+          total += parseInt(item.value>1?item.value:item.value+1)
         });
         const options = {
           grid: {
-            top: 40,
+            top: 50,
             bottom: 105,
-            left: 80,
-            right: 0,
+            left: 60,
+            right: 50,
           },
           xAxis: {
             type: 'category',
@@ -64,8 +64,9 @@
             },
             axisLabel: {
               color: '#fff',
-              fontSize: 12,
-              margin: 20,
+              fontSize: 9,
+              margin: 10,
+              interval:0
             },
             data: xdata.length ? xdata : ['3-4岁', '5-6岁', '7-8岁', '9-10岁', '11-12岁', '13(岁)'],
           },
@@ -74,7 +75,7 @@
             minInterval: 0,
             axisLabel: {
               color: 'rgba(255,255,255,0.72)',
-              fontSize: 12,
+              fontSize: 9,
               formatter(val) {
                 return `${Number(val/total*100).toFixed(0)}%`;
               },
@@ -86,7 +87,8 @@
           series: [
             {
               type: 'bar',
-              barWidth: 25,
+              barWidth: 24,
+              // barCategoryGap:20,
               itemStyle: {
                 color: {
                   type: 'linear',
@@ -121,7 +123,7 @@
   .child-age {
     display: flex;
     flex-flow: column nowrap;
-    width: 100%;
+    width: 83%;
     height: 300px;
 
     &_top {

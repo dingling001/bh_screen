@@ -29,13 +29,13 @@
          :style="{height:swiperindex>2?'768px':'714px'}">
       <div class="swiper-wrapper">
         <div class="swiper-slide imgbox">
-          <Home :sindex="swiperindex"></Home>
+          <Home :sindex="swiperindex" v-show="swiperindex==0"></Home>
         </div>
         <div class="swiper-slide imgbox">
-          <Second :sindex="swiperindex"></Second>
+          <Second :sindex="swiperindex" v-show="swiperindex==1"></Second>
         </div>
         <div class="swiper-slide imgbox">
-          <Thrid :sindex="swiperindex"></Thrid>
+          <Thrid :sindex="swiperindex" v-show="swiperindex==2"></Thrid>
         </div>
         <!--<div class="swiper-slide imgbox">-->
         <!--<Imgview></Imgview>-->
@@ -97,12 +97,12 @@
       Imgview,
       Home,
       Second,
-      Thrid
+      Thrid,
     },
     created() {
       var vm = this;
       // this.headershow=this.$route.meta.headers
-      setInterval(function () {
+      var time = setInterval(function () {
         var date = new Date();
         var options = {
           year: 'numeric',
@@ -120,8 +120,14 @@
     watch: {
       'swiperindex'(val) {
         var vm = this;
+        // if (val === 10) {
+        //   setTimeout(() => {
+        //     vm.mySwiper.slideTo(0, 2500, false)
+        //   }, 30000)
+        // }
         if (val === 10) {
-          setTimeout(() => {
+          var s = setTimeout(() => {
+            vm.swiperindex = 0;
             vm.mySwiper.slideTo(0, 2500, false)
           }, 30000)
         }
@@ -133,14 +139,14 @@
         autoplay: 30000,
         // loop: true,
         effect: 'fade',
-        speed: 2500,
+        speed: 1000,
         autoplayDisableOnInteraction: false,
         lazyLoading: true,
         lazyLoadingInPrevNext: true,
         lazyLoadingInPrevNextAmount: 2,
-        preloadImages: false,
-        fade: {
-          crossFade: false,
+        preloadImages: true,
+        fadeEffect: {
+          crossFade: true,
         },
         onSlideChangeStart: swiper => {
           // console.log(swiper.activeIndex)
@@ -150,6 +156,7 @@
         },
         onTransitionEnd: function (swiper) {
           swiper.update();
+          vm.swiperindex = swiper.realIndex;
           if (swiper.isEnd) {
             vm.mySwiper.startAutoplay();
             // let dom = swiper.slides[0];
@@ -167,6 +174,7 @@
         },
         onSlideChangeEnd: swiper => {
           vm.headershow = swiper.realIndex <= 2;
+          vm.swiperindex = swiper.realIndex;
           // if (swiper.isEnd) {
           //   // let dom = swiper.slides[0];
           //   // swiper.removeSlide(0);
@@ -231,7 +239,7 @@
   /** @format */
 
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -239,7 +247,7 @@
     height: 768px;
     overflow: hidden;
     background-color: #000;
-    font-size: 18px;
+    font-size: 16px;
     width: 1366PX;
     margin: 0 auto;
 
@@ -277,7 +285,7 @@
     z-index: 9999;
 
     > .wether {
-      font-size: 22px;
+      font-size: 16px;
       flex: 1;
     }
 
@@ -290,10 +298,16 @@
 
     .time {
       flex: 1;
-      font-size: 22px;
+      font-size: 16px;
       font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       .time-con {
+        display: flex;
+        align-items: center;
+
         .iconfont {
           font-size: 23px;
           color: #56B1E4;
@@ -318,18 +332,19 @@
   }
 
   .head_left span {
-    font-size: .18rem;
+    font-size: 16px;
     font-weight: bold;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
 
     .iconwendu {
       color: #FDB201;
-      font-size: .3rem;
+      font-size: 20px;
     }
 
     .iconshuye {
       color: #0FDA00;
-      font-size: .3rem;
+      font-size: 20px;
       font-weight: normal;
       transition: .3s all;
     }
@@ -360,8 +375,8 @@
     }
 
     .l1 {
-      margin-right: .36rem;
-      font-size: .18rem;
+      margin-right: 36px;
+      font-size: 16px;
     }
 
     .wcolor0 span {
@@ -370,26 +385,33 @@
 
     .l2 {
       color: #3ACE74;
-      font-size: .18rem;
-      margin-right: .36rem;
+      font-size: 16px;
+      margin-right: 36px;
+      height: 25px;
     }
 
     .l3 {
       color: #AAE9FF;
+      display: inline-flex;
+      align-items: center;
+      height: 25px;
 
       .cloudy {
-        width: .39rem;
-        height: .39rem;
+        width: 25px;
+        height: 25px;
         position: relative;
         margin-right: .05rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
 
         img {
           width: 100%;
-          position: absolute;
-          left: 0;
-          right: 0;
-          margin: 0 auto;
-          top: .1rem;
+          /*position: absolute;*/
+          /*left: 0;*/
+          /*right: 0;*/
+          /*margin: 0 auto;*/
+          /*top: .1rem;*/
         }
       }
     }

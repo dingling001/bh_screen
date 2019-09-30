@@ -5,17 +5,17 @@
     </div>
 
     <!-- echart -->
-    <div class="echarts-con" ref="echartsEl">
+    <div class="echarts-con " ref="echartsEl">
       <ul>
         <li
-          v-for="(item, index) in exhibition"
+          v-for="(item, index) in exhibition_list"
           :key="index"
           :class="[ index === 0?'first':'',index === 1? 'second':'' ,index === 2? 'thrid':'' ,]"
         >
-<!--          'animated slideInRight delay-'+index+'s'-->
+          <!--          'animated slideInRight delay-'+index+'s'-->
           <span>{{ item.exhibition_name }}</span>
           <div>
-            <span :style="`width: ${item.total / exhibition[0].total * 100}%`"></span>
+            <span :style="`width: ${item.total / exhibition[0].total * 100}%`" class="animated slideInLeft"></span>
           </div>
           <span>{{ `No.${index + 1}` }}</span>
         </li>
@@ -40,8 +40,7 @@
         //   {exhibit_name: '简仪', look_num: 28},
         //   {exhibit_name: '地下生活的虫子', look_num: 25},
         // ],
-        count: 1,
-
+        exhibition_list: []
       };
     },
     props: {
@@ -51,10 +50,15 @@
       },
     },
     created() {
-      console.log(this.exhibition)
-      // this.exhibition.forEach((item) => {
-      //   this.count += parseInt(item.like_num, 10);
-      // })
+      this.initexs();
+    },
+    methods: {
+      initexs() {
+        for (var i in this.exhibition) {
+          this.exhibition[i].total = this.exhibition[i].total > 500 ? this.exhibition[i].total : this.exhibition[0].total * ((10 - i) / 10)-20
+        }
+        this.exhibition_list = this.exhibition
+      }
     }
   };
 </script>
@@ -67,7 +71,7 @@
     flex-flow: column nowrap;
     /*width: 960 + 120px;*/
     height: 463px;
-    width: 100%;
+    width: 79%;
     // background-color: #0e0e20;
 
     &_top {
@@ -90,7 +94,7 @@
       > ul {
         /*padding-left: 200px;*/
         /*padding-right: 108px;*/
-        padding: 0 17px 0 0;
+        padding: 0 38px 0 0;
         display: flex;
         flex-flow: column nowrap;
         justify-content: space-around;
@@ -175,7 +179,7 @@
 
             &:last-of-type {
               width: 38px;
-              height: 14px;
+              height: 16px;
               font-size: 11px;
               line-height: 14px;
               color: #2a9faa;
@@ -188,7 +192,7 @@
             /*width: 200px;*/
             height: 14px;
             flex: 1;
-            margin: 0 24px;
+            margin: 0 8px;
             overflow: hidden;
             border-radius: 8px;
             display: flex;
@@ -203,7 +207,6 @@
                 rgba(31, 70, 240, 0.6),
                 rgba(51, 255, 238, 0.6)
               );
-              transition: all 0.3s ease-in-out;
             }
           }
         }

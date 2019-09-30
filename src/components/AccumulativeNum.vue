@@ -71,6 +71,7 @@
       this.adultprecent = this.totalcheck == 0 ? 0 : (this.peopleyysum / this.totalcheck).toFixed(2) * 100;
       this.initChildtotal();
       var initChildtotal = setInterval(() => {
+        this.myEcharts.clear();
         this.initChildtotal()
       }, 10000);
     },
@@ -98,6 +99,9 @@
     methods: {
       initChildtotal() {
         const options = {
+          showSymbol:false,
+          sampling:'average',
+          showAllSymbol: false,
           series: [
             {
               type: 'pie',
@@ -229,7 +233,7 @@
                 {
                   name: '',
                   // value: this.totalcheck - this.childrencksum,
-                  value:20
+                  value: 20
                 },
                 {
                   name: '成人',
@@ -289,7 +293,7 @@
     flex-flow: column nowrap;
     /*width: 367px;*/
     height: 169px;
-    width: 100%;
+    width: 83%;
 
     &-top {
       /*padding-top: 50px;*/
@@ -332,32 +336,33 @@
 
       .pbprenct {
         color: #E62473;
+        font-weight: bold;
       }
     }
 
     .tiyan {
       position: absolute;
       top: 45%;
-      right: 18%;
+      right: 17%;
       font-size: 14px;
       line-height: 22px;
 
       .child {
         color: #FFB400;
-
+font-weight: bold;
         span {
-          &:first-child {
-            font-size: 9px;
+          &:last-child {
+            font-size: 12px;
           }
         }
       }
 
       .adult {
         color: #FF2045;
-
+font-weight: bold;
         span {
           &:first-child {
-            font-size: 9px;
+            font-size: 12px;
           }
         }
       }

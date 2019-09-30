@@ -2,14 +2,14 @@
   <div class="home">
     <!--    <transition enter-active-class="animated" leave-active-class="animated zoomOut">-->
     <full-screen-map :class="['bottom-map animated', area_top.length?'zoomIn':'zoomOut']"
-                     :vistNumber="keliu_info.in_num"
+                     :vistNumber="keliu_info.total_in_num"
                      :areatop="area_top"
-                     v-if="area_top.length&&keliu_info.in_num>=0">
+                     v-if="area_top.length&&keliu_info.total_in_num>=0">
     </full-screen-map>
     <!--    </transition>-->
     <div class="left animated slideInLeft">
-      <div class="hr top"></div>
-      <div class="hr bottom"></div>
+      <div class="hr top animated fadeIn"></div>
+      <div class="hr bottom  animated fadeIn"></div>
       <current-person-num class="vist-num  animated fadeInLeft" :stay_num="keliu_info.stay_num"
                           :datalist="keliu_info.data_list"
                           v-if="keliu_info.data_list.length"></current-person-num>
@@ -62,7 +62,7 @@
         people_ck_sum: 0,
         keliu_info: {
           data_list: [],//当前在馆人数
-          in_num: -1
+          total_in_num: -1
         },
         mdata: {},
         count: 0,
@@ -148,6 +148,7 @@
         this.$api.KeliuInfo().then(res => {
           // console.log(res)
           this.keliu_info = res.data;
+          this.keliu_info.total_in_num = Number(res.data.total_in_num);
           if (res.data.data_list.length > 0) {
             this.keliu_info.data_list = res.data.data_list;
           } else {
@@ -187,7 +188,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 2;
+      z-index: 1;
       /*background-image: url('../assets/zuozhezhao.png');*/
       /*background-size: cover;*/
       /*background-repeat: no-repeat;*/
@@ -195,7 +196,7 @@
     }
 
     .bottom-map {
-      position: absolute;
+      position: fixed;
       top: -54px;
       left: 0;
       z-index: 1;
@@ -205,7 +206,7 @@
       position: absolute;
       top: 0;
       right: 0;
-      z-index: 2;
+      z-index: 1;
 
       /*background-image: url('../assets/youzhezhao.png');*/
       /*background-size: cover;*/
@@ -218,7 +219,7 @@
       /*top: 480 + 22px;*/
       top: 240px;
       left: 0;
-      z-index: 2;
+      z-index: 1;
 
       /*background-image: url('../assets/zuozhezhao.png');*/
       background-size: cover;
@@ -230,7 +231,7 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      z-index: 2;
+      z-index: 1;
 
       /*background-image: url('../assets/zuozhezhao.png');*/
       background-size: cover;
@@ -243,7 +244,7 @@
       /*    top: 480 + 22px;*/
       top: 240px;
       right: 0;
-      z-index: 2;
+      z-index: 1;
 
       /*background-image: url('../assets/youzhezhao.png');*/
       background-size: cover;
@@ -255,7 +256,7 @@
       position: absolute;
       bottom: 0;
       right: 0;
-      z-index: 2;
+      z-index: 1;
 
       /*background-image: url('../assets/youzhezhao.png');*/
       /*background-size: cover;*/
@@ -269,7 +270,7 @@
       left: 0;
       right: 0;
       margin: 0 auto;
-      z-index: 2;
+      z-index: 1;
       /*background-image: url('../assets/xiazhezhao.png');*/
       /*background-size: cover;*/
       /*background-repeat: no-repeat;*/

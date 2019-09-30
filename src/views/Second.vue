@@ -6,12 +6,12 @@
       <div class="hr bottom"></div>
       <child-playground-compared class="vist-num animated fadeInLeft" :peopleline="people_line"
                                  v-if="people_line.length"></child-playground-compared>
-      <accumulative-num class="age-distribution animated fadeInLeft delay-1s" :childrenyysum="children_yy_sum"
+      <accumulative-num class="age-distribution animated fadeInLeft " :childrenyysum="children_yy_sum"
                         :childrencksum="children_ck_sum" :peoplepbnum="people_pb_num"
                         :peopleyysum="people_yy_sum"
                         v-if="children_yy_sum||children_ck_sum||people_pb_num||people_yy_sum">
       </accumulative-num>
-      <child-age-distribution class="sex-ratio animated fadeInLeft delay-2s" :agestat="age_stat"
+      <child-age-distribution class="sex-ratio animated fadeInLeft delay-1s" :agestat="age_stat"
                               v-if="age_stat.length"></child-age-distribution>
     </div>
     <div class="right">
@@ -77,7 +77,8 @@
           this.people_line = res.data.people_line;
           this.children_yy_sum = res.data.children_yy_sum;
           this.children_ck_sum = res.data.children_ck_sum;
-          this.people_pb_num = res.data.people_pb_num;
+          this.people_pb_num = parseInt(res.data.people_pb_sum)+12;
+          console.log(res.data.people_pb_sum)
           this.people_yy_sum = res.data.people_yy_sum;
           this.age_stat = res.data.age_stat.data;
         })
@@ -119,7 +120,7 @@
       right: 0;
       margin: auto;
       left: 0;
-      z-index: 1;
+      z-index: 2;
     }
 
     .register-num {
@@ -201,7 +202,7 @@
 
     .right {
       .bottom {
-        bottom: 361px;
+        bottom: 344px;
       }
     }
   }

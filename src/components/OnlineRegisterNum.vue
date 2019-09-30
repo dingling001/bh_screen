@@ -71,7 +71,7 @@
             {
               type: 'image',
               left: '15%',
-              top: '35%',
+              top: '32%',
               style: {
                 // eslint-disable-next-line global-require
                 image: require('../assets/PC.png'),
@@ -82,20 +82,20 @@
             },
             {
               type: 'image',
-              left: '45%',
-              top: '35%',
+              left: '46%',
+              top: '33%',
               style: {
                 // eslint-disable-next-line global-require
                 image: require('../assets/Other.png'),
-                width: 35,
-                height: 35,
+                width: 30,
+                height: 30,
                 y: 55,
               },
             },
             {
               type: 'image',
               left: '75%',
-              top: '35%',
+              top: '31%',
               style: {
                 // eslint-disable-next-line global-require
                 image: require('../assets/Mobile.png'),

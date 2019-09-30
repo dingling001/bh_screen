@@ -52,7 +52,7 @@
             {
               type: 'image',
               left: '43%',
-              bottom: '54%',
+              bottom: '58%',
               style: {
                 // eslint-disable-next-line global-require
                 image: require('../assets/woman.png'),
@@ -63,7 +63,7 @@
             {
               type: 'image',
               right: '43%',
-              bottom: '54%',
+              bottom: '58%',
               style: {
                 // eslint-disable-next-line global-require
                 image: require('../assets/man.png'),
@@ -77,7 +77,7 @@
               type: 'pie',
               startAngle: -90,
               radius: [90 / 2, 106 / 2],
-              center: ['50%', '40%'],
+              center: ['50%', '35%'],
               label: {
                 normal: {
                   show: true,
@@ -205,25 +205,29 @@
 
     .woman {
       position: absolute;
-      top: 58px;
-      left: 80px;
+      left: 50px;
       color: #D81271;
+      bottom: 80px;
+
       font-size: 16px;
+      font-weight: bold;
       span{
         &:first-child{
-          font-size: 10px;
+          font-size: 14px;
         }
       }
     }
 
     .man {
       position: absolute;
-      bottom: 80px;
-      right: 20px;
+      top: 58px;
+      right: 40px;
       color: #2A7EC2;
+      font-size: 16px;
+      font-weight: bold;
       span{
         &:first-child{
-          font-size: 10px;
+          font-size: 14px;
         }
       }
     }

@@ -116,6 +116,7 @@
           },
           yAxis: {
             type: 'value',
+            minInterval:1,
             splitNumber: 3,
             name: '每日预约量',
             nameTextStyle: {
@@ -180,9 +181,10 @@
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
       this.initCdata(this.clist)
-      setInterval(()=>{
+      var cnum = setInterval(() => {
+        this.myEcharts.clear()
         this.initCdata(this.clist)
-      },10000)
+      }, 10000)
     },
   };
 </script>

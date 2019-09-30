@@ -101,8 +101,10 @@
       justify-content: space-around;
       flex-direction: column;
       height: 100%;
+
       .mitem {
         /*margin-bottom: 10px;*/
+
         .mname {
           font-size: 11px;
           text-align: left;
@@ -113,6 +115,7 @@
         .imgbox {
           display: flex;
           align-items: center;
+          font-weight: bold;
 
           .imgitem {
             width: 300px;

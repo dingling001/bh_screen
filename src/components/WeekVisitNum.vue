@@ -26,10 +26,10 @@
     },
     mounted() {
       const {echartsEl} = this.$refs;
-      console.log(this.people_line)
+      // console.log(this.people_line)
       this.myEcharts = echarts.init(echartsEl);
       this.initPeople(this.people_line)
-      setInterval(() => {
+      var pep = setInterval(() => {
         this.myEcharts.clear();
         this.initPeople(this.people_line)
       }, 10000)
@@ -54,10 +54,11 @@
           },
           legend: {
             icon: 'circle',
+            itemWidth: 12,
             textStyle: {
               color: '#ffffff',
-              fontSize: 9,
-              fontWeight: 'bold',
+              fontSize: 10,
+              // fontWeight: 'bold',
             },
             orient: 'vertical',
 
@@ -122,7 +123,7 @@
             },
             axisLabel: {
               showMinLabel: false,
-              fontSize: 8,
+              fontSize: 9,
               padding: [0, 20, 0, 0],
               color: 'rgba(255,255,255,0.72)',
             },

@@ -65,6 +65,9 @@
           ydata.push(item.num);
         })
         const options = {
+          showSymbol:false,
+          sampling:'average',
+          showAllSymbol: false,
           grid: {
             left: 50,
             top: 20,
