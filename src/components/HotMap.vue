@@ -391,6 +391,7 @@
             data: this.hotdata_4f,
           },
         ];
+        console.log(data)
         // 热力图
         vm.heatmap.forEach((a, i) => {
           const heatmapDom = document.querySelector(`#chart4_${i + 1}`);

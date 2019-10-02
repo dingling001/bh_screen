@@ -104,7 +104,7 @@
           };
           if (index <= 4) {
             title.top = 25;
-            title.left = item.name.length > 2 ? 10 : 20 + index * 100;
+            title.left = (item.name.length > 2 ? 10 : 20 )+ index * 100;
             names.center = [80 * (index + 1) + index * 20, 30];
           } else if (index > 4 && index <= 9) {
             title.top = 100;

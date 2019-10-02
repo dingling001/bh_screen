@@ -52,7 +52,6 @@
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
-      // console.log(this.list)
       this.initFeelTotal(this.list);
       var tota = setInterval(() => {
         this.myEcharts.clear();
@@ -65,6 +64,15 @@
         instance.update(that.total);
       },
       initFeelTotal(list) {
+        var xlist=[];
+        var ylist=[];
+        var ylist1=[];
+        list.forEach((item,index)=>{
+          xlist.push(item.t_date);
+          ylist.push(item.total);
+          ylist1.push(item.temp)
+        })
+        console.log(ylist)
         const options = {
           color: ['#E5318B', '#4E65DF'],
           grid: {
@@ -115,15 +123,7 @@
                 return `${arr[1]}/${arr[2]}`;
               },
             },
-            data: [
-              '2019-08-25',
-              '2019-08-28',
-              '2019-08-29',
-              '2019-08-30',
-              '2019-08-31',
-              '2019-09-01',
-              '2019-09-04',
-            ],
+            data:xlist.reverse(),
           },
           yAxis: {
             type: 'value',
@@ -178,7 +178,7 @@
                 width: 5,
                 type: 'solid',
               },
-              data: [1000, 1200, 3000, 5660, 1000, 5662, 5000],
+              data: ylist,
               markPoint: {
                 data: [
                   {
@@ -217,7 +217,7 @@
                 type: 'solid',
               },
 
-              data: [2000, 4000, 3000, 2100, 3200, 4000, 6000],
+              data:ylist1,
             },
           ],
         };

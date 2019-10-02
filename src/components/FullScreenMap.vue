@@ -20,7 +20,6 @@
   import geoJSON from '@/assets/word.json';
   import s from '../assets/china_geo'
   import countTo from 'vue-count-to';
-
   export default {
     data() {
       return {
@@ -82,7 +81,6 @@
           } else {
             width = 1;
           }
-          // console.log(width)
           series.push(
             {
               name: '线路',

@@ -62,7 +62,8 @@
         people_ck_sum: 0,
         keliu_info: {
           data_list: [],//当前在馆人数
-          total_in_num: -1
+          total_in_num: -1,
+          stay_num:0
         },
         mdata: {},
         count: 0,
