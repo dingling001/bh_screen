@@ -72,7 +72,7 @@
           ylist.push(item.total);
           ylist1.push(item.temp)
         })
-        console.log(ylist)
+        // console.log(ylist)
         const options = {
           color: ['#E5318B', '#4E65DF'],
           grid: {

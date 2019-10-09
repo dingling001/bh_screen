@@ -63,7 +63,7 @@
         keliu_info: {
           data_list: [],//当前在馆人数
           total_in_num: -1,
-          stay_num:0
+          stay_num: 0
         },
         mdata: {},
         count: 0,
@@ -104,16 +104,15 @@
       'sindex'() {
         // console.log(this.sindex)
         if (this.sindex == 0) {
-          this.showmap = true;
-          this.showdata = Object.keys(this.mdata).length && Object.keys(this.onlinedata).length && this.people_line.length
-          this.get_UserAttr();
-          this.get_KeliuInfo();
-          this.get_Member();
-          this.get_StatUserNum();
-          this.get_YyCkData();
-        } else {
-          this.showmap = false;
-          this.showdata = false;
+          this.$nextTick(() => {
+            // this.showmap = true;
+            this.showdata = Object.keys(this.mdata).length && Object.keys(this.onlinedata).length && this.people_line.length
+            this.get_UserAttr();
+            this.get_KeliuInfo();
+            this.get_Member();
+            this.get_StatUserNum();
+            this.get_YyCkData();
+          })
         }
       }
     },

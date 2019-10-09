@@ -60,12 +60,21 @@
     },
     watch: {
       'sindex'() {
-        if(this.sindex == 2){
-          this.get_HelloTop();
-          this.get_hello();
-          this.get_Game();
-          this.get_CinemaStat();
-          this.get_KeliuDataStat();
+        if (this.sindex == 2) {
+          this.$nextTick(() => {
+            this.get_HelloTop();
+            this.get_hello();
+            this.get_Game();
+            this.get_CinemaStat();
+            this.get_KeliuDataStat();
+          })
+        } else {
+          this.staylist = [];
+          this.list = [];
+          this.gamedata = [];
+          this.clist = [];
+          this.attendance_rate = [];
+          this.mlist = [];
         }
       }
     },

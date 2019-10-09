@@ -16,7 +16,8 @@
     </div>
     <div class="right">
       <div class="hr bottom"></div>
-      <popular-exs class="register-num animated  fadeInRight" :exhibition="exhibition" v-if="exhibition.length"></popular-exs>
+      <popular-exs class="register-num animated  fadeInRight" :exhibition="exhibition"
+                   v-if="exhibition.length"></popular-exs>
       <popular-production class="week-visit animated fadeInRight delay-1s" :exhibit="exhibit"
                           v-if="exhibit.length"></popular-production>
     </div>
@@ -62,11 +63,21 @@
     watch: {
       'sindex'() {
         if (this.sindex == 1) {
-          this.autoplay = true;
-          this.get_ChildrenYyCkData();
-          this.get_ExhibitStat();
+          this.$nextTick(() => {
+            this.autoplay = true;
+            this.get_ChildrenYyCkData();
+            this.get_ExhibitStat();
+          })
         } else {
-          this.autoplay = false
+          this.autoplay = false;
+          this.people_line = [];
+          this.children_yy_sum = 0;
+          this.children_ck_sum = 0;
+          this.people_pb_num = 0;
+          this.people_yy_sum = 0;
+          this.age_stat = [];
+          this.exhibition = [];
+          this.exhibit = [];
         }
       }
     },
@@ -77,7 +88,7 @@
           this.people_line = res.data.people_line;
           this.children_yy_sum = res.data.children_yy_sum;
           this.children_ck_sum = res.data.children_ck_sum;
-          this.people_pb_num = parseInt(res.data.people_pb_sum)+12;
+          this.people_pb_num = parseInt(res.data.people_pb_sum) + 12;
           console.log(res.data.people_pb_sum)
           this.people_yy_sum = res.data.people_yy_sum;
           this.age_stat = res.data.age_stat.data;

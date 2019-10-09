@@ -66,14 +66,17 @@
       this.total = this.childrenyysum + this.peopleyysum;
       this.totalcheck = this.childrencksum + this.peopleyysum;
       this.pbprenct = this.total == 0 ? 0 : (this.peoplepbnum / this.total).toFixed(2) * 100;
-      // console.log(this.total)
-      this.childprecent = this.totalcheck == 0 ? 0 : (this.childrencksum / this.totalcheck).toFixed(2) * 100;
-      this.adultprecent = this.totalcheck == 0 ? 0 : (this.peopleyysum / this.totalcheck).toFixed(2) * 100;
+
+      this.childprecent = this.totalcheck == 0 ? 0 :(this.childrencksum / this.totalcheck * 100).toFixed(1);
+      this.adultprecent = this.totalcheck == 0 ? 0 : ((this.peopleyysum / this.totalcheck) * 100).toFixed(1);
       this.initChildtotal();
       var initChildtotal = setInterval(() => {
         this.myEcharts.clear();
         this.initChildtotal()
       }, 10000);
+    },
+    created(){
+
     },
     components: {
       ICountUp,
@@ -99,8 +102,8 @@
     methods: {
       initChildtotal() {
         const options = {
-          showSymbol:false,
-          sampling:'average',
+          showSymbol: false,
+          sampling: 'average',
           showAllSymbol: false,
           series: [
             {
@@ -343,13 +346,14 @@
     .tiyan {
       position: absolute;
       top: 45%;
-      right: 17%;
+      right: 15%;
       font-size: 14px;
       line-height: 22px;
 
       .child {
         color: #FFB400;
-font-weight: bold;
+        font-weight: bold;
+
         span {
           &:last-child {
             font-size: 12px;
@@ -359,7 +363,8 @@ font-weight: bold;
 
       .adult {
         color: #FF2045;
-font-weight: bold;
+        font-weight: bold;
+
         span {
           &:first-child {
             font-size: 12px;
