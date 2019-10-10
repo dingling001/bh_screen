@@ -39,6 +39,17 @@
         list: []
       };
     },
+    watch: {
+      'mlist'(newValue, oldValue) {
+        if (newValue.length) {
+          for (let i = 0; i < newValue.length; i++) {
+            if (oldValue[i] != newValue[i]) {
+              this.initCrank(newValue)
+            }
+          }
+        }
+      },
+    },
     props: {
       'mlist': {
         type: Array,

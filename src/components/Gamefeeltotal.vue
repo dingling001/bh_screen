@@ -4,7 +4,7 @@
       <span>“你好智能”累计体验人数：</span><span>
       <ICountUp
         :delay="delay"
-        :endVal="total"
+        :endVal="totaldata"
         :options="options"
         @ready="onReady"
         class="iconup"
@@ -33,8 +33,26 @@
           prefix: '',
           suffix: '',
         },
-        myEcharts: null
+        myEcharts: null,
+        totaldata: 0,
+        listdata: []
       };
+    },
+    watch: {
+      'total': {
+        handler(val) {
+          this.totaldata = val;
+        },
+        immediate: true
+      },
+      'list'(newValue, oldValue) {
+        for (let i = 0; i < newValue.length; i++) {
+          if (oldValue[i] != newValue[i]) {
+            this.myEcharts.clear();
+            this.initFeelTotal(newValue)
+          }
+        }
+      },
     },
     props: {
       'total': {
@@ -52,22 +70,23 @@
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
-      this.initFeelTotal(this.list);
+      this.listdata = this.list;
+      this.initFeelTotal(this.listdata);
       var tota = setInterval(() => {
         this.myEcharts.clear();
-        this.initFeelTotal(this.list)
+        this.initFeelTotal(this.listdata)
       }, 10000)
     },
     methods: {
       onReady(instance, CountUp) {
         const that = this;
-        instance.update(that.total);
+        instance.update(that.totaldata);
       },
       initFeelTotal(list) {
-        var xlist=[];
-        var ylist=[];
-        var ylist1=[];
-        list.forEach((item,index)=>{
+        var xlist = [];
+        var ylist = [];
+        var ylist1 = [];
+        list.forEach((item, index) => {
           xlist.push(item.t_date);
           ylist.push(item.total);
           ylist1.push(item.temp)
@@ -123,7 +142,7 @@
                 return `${arr[1]}/${arr[2]}`;
               },
             },
-            data:xlist.reverse(),
+            data: xlist.reverse(),
           },
           yAxis: {
             type: 'value',
@@ -217,7 +236,7 @@
                 type: 'solid',
               },
 
-              data:ylist1,
+              data: ylist1,
             },
           ],
         };

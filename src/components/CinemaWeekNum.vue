@@ -18,6 +18,18 @@
         myEcharts: null
       }
     },
+    watch: {
+      'attendancerate'(newValue, oldValue) {
+        if (newValue.length) {
+          for (let i = 0; i < newValue.length; i++) {
+            if (oldValue[i] != newValue[i]) {
+              this.myEcharts.clear();
+              this.initCrank(newValue)
+            }
+          }
+        }
+      },
+    },
     props: {
       'attendancerate': {
         type: Array,
@@ -27,8 +39,9 @@
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
-      this.initCrank(this.attendancerate)
+      this.initCrank(this.attendancerate);
       setInterval(() => {
+        this.myEcharts.clear();
         this.initCrank(this.attendancerate)
       }, 10000)
     },
@@ -66,7 +79,7 @@
                 const arr = val.split('-');
                 return `${arr[1]}/${arr[2]}`;
               },
-              interval:0
+              interval: 0
             },
 
             data: xdata

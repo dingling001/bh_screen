@@ -10,7 +10,7 @@
     <div class="left animated slideInLeft">
       <div class="hr top animated fadeIn"></div>
       <div class="hr bottom  animated fadeIn"></div>
-      <current-person-num class="vist-num  animated fadeInLeft" :stay_num="keliu_info.stay_num"
+      <current-person-num class="vist-num  animated fadeInLeft" :stay_num="keliu_info.in_num"
                           :datalist="keliu_info.data_list"
                           v-if="keliu_info.data_list.length"></current-person-num>
       <age-distribution class="age-distribution animated fadeInLeft  delay-1s" :age_user="age_user"
@@ -63,7 +63,7 @@
         keliu_info: {
           data_list: [],//当前在馆人数
           total_in_num: -1,
-          stay_num: 0
+          innum: 0
         },
         mdata: {},
         count: 0,
@@ -73,28 +73,6 @@
         area_top: [],
         origin: [],
         people_line: [],
-        testKeLiu: [
-          {
-            time: '10:00',
-            num: 100
-          },
-          {
-            time: '11:00',
-            num: 200
-          },
-          {
-            time: '12:00',
-            num: 500
-          },
-          {
-            time: '13:00',
-            num: 1500
-          },
-          {
-            time: '14:00',
-            num: 1120
-          }
-        ]
       };
     },
     created() {
@@ -152,7 +130,7 @@
           if (res.data.data_list.length > 0) {
             this.keliu_info.data_list = res.data.data_list;
           } else {
-            this.keliu_info.data_list = this.testKeLiu;
+            // this.keliu_info.data_list = this.testKeLiu;
           }
         })
       },

@@ -53,6 +53,15 @@
     components: {
       ICountUp,
     },
+    watch: {
+      'gamedata'(newValue, oldValue) {
+        for (let i = 0; i < newValue.length; i++) {
+          if (oldValue[i] != newValue[i]) {
+            this.game_data = newValue
+          }
+        }
+      },
+    },
     props: {
       'gamedata': {
         type: Array,
@@ -61,7 +70,6 @@
     },
     mounted() {
       this.game_data = this.gamedata;
-      // console.log(this.game_data);
       var gatop = setInterval(() => {
         this.game_data = [];
         this.game_data = this.gamedata;

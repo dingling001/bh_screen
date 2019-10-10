@@ -24,7 +24,21 @@
 
   export default {
     data() {
-      return {};
+      return {
+        exhibit_list: []
+      };
+    },
+    watch: {
+      'exhibit'(newValue, oldValue) {
+        for (let i = 0; i < newValue.length; i++) {
+          if (oldValue[i] != newValue[i]) {
+            this.exhibit_list = newValue;
+          }
+        }
+        for (var j in  this.exhibit_list) {
+          this.exhibit_list[j].prenncent = parseInt(this.exhibit_list[j].like_num) / parseInt(this.exhibit_list[0].like_num)
+        }
+      },
     },
     props: {
       'exhibit': {
@@ -34,8 +48,9 @@
     },
     created() {
       // console.log(this.exhibit)
-      for (var i in  this.exhibit) {
-        this.exhibit[i].prenncent = parseInt(this.exhibit[i].like_num) / parseInt(this.exhibit[0].like_num)
+      this.exhibit_list = this.exhibit;
+      for (var i in  this.exhibit_list) {
+        this.exhibit_list[i].prenncent = parseInt(this.exhibit_list[i].like_num) / parseInt(this.exhibit_list[0].like_num)
       }
     }
   };
@@ -177,6 +192,7 @@
               margin: 10px 0;
               position: relative;
               height: 20px;
+
               span {
                 &.span {
                   position: absolute;

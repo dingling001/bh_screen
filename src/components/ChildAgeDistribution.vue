@@ -15,8 +15,21 @@
   export default {
     data() {
       return {
-        myEcharts: null
+        myEcharts: null,
+        agestatdata: []
       }
+    },
+    watch: {
+      'agestat'(newValue, oldValue) {
+        if (newValue.length) {
+          for (let i = 0; i < newValue.length; i++) {
+            if (oldValue[i] != newValue[i]) {
+              this.myEcharts.clear();
+              this.initChildAge(newValue)
+            }
+          }
+        }
+      },
     },
     props: {
       'agestat': {
@@ -28,10 +41,11 @@
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
       // console.log(this.agestat)
-      this.initChildAge(this.agestat)
+      this.agestatdata = this.agestat;
+      this.initChildAge(this.agestatdata)
       var childage = setInterval(() => {
         this.myEcharts.clear();
-        this.initChildAge(this.agestat)
+        this.initChildAge(this.agestatdata)
       }, 10000)
     },
     methods: {
@@ -41,8 +55,8 @@
         var total = 0
         agestat.forEach((item) => {
           xdata.push(item.name);
-          values.push(item.value>1?item.value:item.value+1);
-          total += parseInt(item.value>1?item.value:item.value+1)
+          values.push(item.value > 1 ? item.value : item.value + 1);
+          total += parseInt(item.value > 1 ? item.value : item.value + 1)
         });
         const options = {
           grid: {
@@ -66,7 +80,7 @@
               color: '#fff',
               fontSize: 9,
               margin: 10,
-              interval:0
+              interval: 0
             },
             data: xdata.length ? xdata : ['3-4岁', '5-6岁', '7-8岁', '9-10岁', '11-12岁', '13(岁)'],
           },
@@ -77,7 +91,7 @@
               color: 'rgba(255,255,255,0.72)',
               fontSize: 9,
               formatter(val) {
-                return `${Number(val/total*100).toFixed(0)}%`;
+                return `${Number(val / total * 100).toFixed(0)}%`;
               },
             },
             splitLine: {show: false},

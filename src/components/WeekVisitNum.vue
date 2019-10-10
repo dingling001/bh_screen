@@ -13,6 +13,17 @@
   import echarts from 'echarts';
 
   export default {
+
+    watch: {
+      'people_line'(newValue, oldValue) {
+        for (let i = 0; i < newValue.length; i++) {
+          if (oldValue[i] != newValue[i]) {
+            this.myEcharts.clear();
+            this.initPeople(newValue)
+          }
+        }
+      },
+    },
     props: {
       'people_line': {
         type: Array,
@@ -21,17 +32,18 @@
     },
     data() {
       return {
-        myEcharts: null
+        myEcharts: null,
+        peopledata: []
       }
     },
     mounted() {
       const {echartsEl} = this.$refs;
-      // console.log(this.people_line)
       this.myEcharts = echarts.init(echartsEl);
-      this.initPeople(this.people_line)
+      this.peopledata = this.people_line;
+      this.initPeople(this.peopledata)
       var pep = setInterval(() => {
         this.myEcharts.clear();
-        this.initPeople(this.people_line)
+        this.initPeople(this.peopledata)
       }, 10000)
     },
     methods: {

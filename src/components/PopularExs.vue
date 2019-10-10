@@ -15,7 +15,7 @@
           <!--          'animated slideInRight delay-'+index+'s'-->
           <span>{{ item.exhibition_name }}</span>
           <div>
-            <span :style="`width: ${item.total / exhibition[0].total * 100}%`" class="animated slideInLeft"></span>
+            <span :style="`width: ${item.total / exhibition_list[0].total * 100}%`" class="animated slideInLeft"></span>
           </div>
           <span>{{ `No.${index + 1}` }}</span>
         </li>
@@ -43,6 +43,18 @@
         exhibition_list: []
       };
     },
+    watch: {
+      'exhibition'(newValue, oldValue) {
+        for (let i = 0; i < newValue.length; i++) {
+          if (oldValue[i] != newValue[i]) {
+            this.exhibition_list = newValue;
+          }
+        }
+        for (var j in this.exhibition_list) {
+          this.exhibition_list[j].total = this.exhibition_list[j].total > 500 ? this.exhibition_list[j].total : this.exhibition_list[0].total * ((10 - j) / 10) - 20
+        }
+      },
+    },
     props: {
       'exhibition': {
         type: Array,
@@ -50,16 +62,13 @@
       },
     },
     created() {
-      this.initexs();
-    },
-    methods: {
-      initexs() {
-        for (var i in this.exhibition) {
-          this.exhibition[i].total = this.exhibition[i].total > 500 ? this.exhibition[i].total : this.exhibition[0].total * ((10 - i) / 10)-20
-        }
-        this.exhibition_list = this.exhibition
+      // this.initexs();
+      this.exhibition_list = this.exhibition;
+      for (var i in this.exhibition_list) {
+        this.exhibition_list[i].total = this.exhibition_list[i].total > 500 ? this.exhibition_list[i].total : this.exhibition_list[0].total * ((10 - i) / 10) - 20
       }
-    }
+    },
+
   };
 </script>
 

@@ -4,6 +4,7 @@
       <div>累计到馆人数</div>
       <ul>
         <li v-for="(item,index) in innum" :key="index" v-if="innum.length">
+          <!--            :class="'animated bounceInDown faster delay-'+index+'s'">-->
           <countTo :startVal='startNum' :endVal='parseInt(item)'></countTo>
         </li>
 
@@ -20,16 +21,57 @@
   import geoJSON from '@/assets/word.json';
   import s from '../assets/china_geo'
   import countTo from 'vue-count-to';
+
   export default {
     data() {
       return {
-        innum: 0,
+        // innum: 0,
         startNum: 0,
-        myEcharts: null
+        myEcharts: null,
+        areatopdata: [],
+        innumdata: 0,
+        linesdata: []
       };
     },
     components: {
       countTo,
+    },
+
+    computed: {
+      innum() {
+        return this.innumdata.toString().split('');
+      },
+      lines() {
+        this.areatopdata.forEach((c, d) => {
+          s.features.forEach((item, index) => {
+            if (item.properties.name == c.name) {
+              this.linesdata.push({
+                coords: [item.properties.cp, [117.802248, 39.4189]],
+                fromName: item.properties.name,
+                toName: "天津市",
+                name: item.properties.name,
+                width: c.value == 0 ? 1 : c.value
+              })
+            }
+          })
+        });
+        return this.linesdata
+      }
+    },
+    watch: {
+      'vistNumber': {
+        handler(val) {
+          this.innumdata = val
+        },
+        immediate: true
+      },
+      'areatop'(newValue, oldValue) {
+        for (let i = 0; i < newValue.length; i++) {
+          if (oldValue[i] != newValue[i]) {
+            this.areatopdata = newValue;
+          }
+        }
+      },
     },
     props: {
       'vistNumber': {
@@ -44,29 +86,13 @@
     mounted() {
       // console.log(geoJSON);
       // console.log(s)
-      this.innum = this.vistNumber.toString().split('');
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
-      var lines = [];
-      // let list = this.areatop.find(item => s.features.findIndex(o => o.properties.name == item.name) === -1)
-      // console.log(list)
-      this.areatop.forEach((c, d) => {
-        s.features.forEach((item, index) => {
-          if (item.properties.name == c.name) {
-            lines.push({
-              coords: [item.properties.cp, [117.802248, 39.4189]],
-              fromName: item.properties.name,
-              toName: "天津市",
-              name: item.properties.name,
-              width: c.value == 0 ? 1 : c.value
-            })
-          }
-        })
-      });
-      this.initMap(lines);
+      this.areatopdata = this.areatop;
+      this.initMap(this.lines);
       var map = setInterval(() => {
         this.myEcharts.clear();
-        this.initMap(lines);
+        this.initMap(this.lines);
       }, 10000)
     },
     methods: {

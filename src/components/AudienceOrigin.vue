@@ -17,27 +17,37 @@
     data() {
       return {
         myEcharts: null,
+        data: []
       };
+    },
+    watch: {
+      'origin'(newValue, oldValue) {
+        for (let i = 0; i < newValue.length; i++) {
+          if (oldValue[i] != newValue[i]) {
+            this.data = newValue;
+          }
+        }
+      }
+    },
+    computed: {
+      origindata() {
+        return this.data.slice(0, 10)
+      }
     },
     props: {
       'origin': {
         type: Array,
-        default: []
+        default: [],
       }
     },
 
     mounted() {
       this.myEcharts = echarts.init(document.querySelector("#chart"));
-      var orign = [];
-      for (var i in this.origin) {
-        if (i < 10) {
-          orign.push(this.origin[i])
-        }
-      }
-      this.initAudience(orign)
+      this.data = this.origin;
+      this.initAudience(this.origindata)
       var audience = setInterval(() => {
         this.myEcharts.clear();
-        this.initAudience(orign)
+        this.initAudience(this.origindata)
       }, 10000)
     },
     methods: {
@@ -104,12 +114,12 @@
           };
           if (index <= 4) {
             title.top = 25;
-            title.left = (item.name.length > 2 ? 10 : 20 )+ index * 100;
+            title.left = (item.name.length > 2 ? 10 : 20) + index * 100;
             names.center = [80 * (index + 1) + index * 20, 30];
           } else if (index > 4 && index <= 9) {
             title.top = 100;
             title.left = (item.name.length > 2 ? 10 : 20) + (index - 5) * 100;
-            names.center = [80 * ((index - 5) + 1) + (index - 5)  * 20, 110];
+            names.center = [80 * ((index - 5) + 1) + (index - 5) * 20, 110];
           }
           series.push(names);
           titles.push(title);

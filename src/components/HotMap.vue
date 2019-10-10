@@ -71,69 +71,8 @@
         max_3f: 0,
         hotdata_4f: [],
         max_4f: 0,
-        data1: [
-          {
-            name: '4D科普影院',
-            x: 140, // x coordinate of the datapoint, a number
-            y: 150, // y coordinate of the datapoint, a number
-            value: 150, // the value at datapoint(x, y)
-          },
-          {
-            name: '4D科普影院',
-            x: 120, // x coordinate of the datapoint, a number
-            y: 150, // y coordinate of the datapoint, a number
-            value: 200, // the value at datapoint(x, y)
-          },
-          {
-            name: '儿童乐园',
-            x: 145, // x coordinate of the datapoint, a number
-            y: 110, // y coordinate of the datapoint, a number
-            value: 400, // the value at datapoint(x, y)
-          },
-          {
-            name: '儿童乐园',
-            x: 120, // x coordinate of the datapoint, a number
-            y: 110, // y coordinate of the datapoint, a number
-            value: 1000, // the value at datapoint(x, y)
-          },
-          {
-            name: '科技的脚步',
-            x: 260, // x coordinate of the datapoint, a number
-            y: 100, // y coordinate of the datapoint, a number
-            value: 300, // the value at datapoint(x, y)
-          },
-          {
-            name: '科技的脚步',
-            x: 230, // x coordinate of the datapoint, a number
-            y: 105, // y coordinate of the datapoint, a number
-            value: 300, // the value at datapoint(x, y)
-          },
-          {
-            name: '企业成果',
-            x: 300, // x coordinate of the datapoint, a number
-            y: 80, // y coordinate of the datapoint, a number
-            value: 500, // the value at datapoint(x, y)
-          },
-          {
-            name: '企业成果',
-            x: 280, // x coordinate of the datapoint, a number
-            y: 80, // y coordinate of the datapoint, a number
-            value: 500, // the value at datapoint(x, y)
-          },
-          {
-            name: '临时展区',
-            x: 380, // x coordinate of the datapoint, a number
-            y: 40, // y coordinate of the datapoint, a number
-            value: 400, // the value at datapoint(x, y)
-          },
-          {
-            name: '临时展区',
-            x: 380, // x coordinate of the datapoint, a number
-            y: 60, // y coordinate of the datapoint, a number
-            value: 400, // the value at datapoint(x, y)
-          },
-        ],
         mapindex: 0,
+        staylistdata: []
       };
     },
     props: {
@@ -150,10 +89,18 @@
             vm.mySwiper.slideTo(0, 2000, false)
           }, 10000)
         }
-      }
+      },
+      'staylist'(newValue, oldValue) {
+        for (let i = 0; i < newValue.length; i++) {
+          if (oldValue[i] != newValue[i]) {
+            this.mySwiper.update();
+            this.mySwiper.slideTo(0, 2000, false);
+            this.staylistdata = newValue;
+          }
+        }
+      },
     },
     mounted() {
-      console.log(this.staylist)
       var vm = this;
       this.mySwiper = new Swiper('.floor', {
         autoplay: 10000,
@@ -177,11 +124,20 @@
           vm.mapindex = swiper.realIndex
         },
       });
-      this.initData(this.staylist);
+      this.staylistdata = this.staylist;
+      this.initData(this.staylistdata);
     },
     methods: {
       // 初始化地图数据
       initData(staylist) {
+        this.hotdata_1f = [];
+        this.max_1f = 0;
+        this.hotdata_2f = [];
+        this.max_2f = 0;
+        this.hotdata_3f = [];
+        this.max_3f = 0;
+        this.hotdata_4f = [];
+        this.max_4f = 0;
         staylist.forEach((item, index) => {
           this.randomData(item);
           if (item.title == '4D科普影院') {
@@ -343,11 +299,8 @@
               }
             )
           }
-
-
           // console.log(this.rData);
         });
-
         this.max_1f = Math.max(...this.hotdata_1f.map(o => o.value));
         this.max_2f = Math.max(...this.hotdata_2f.map(o => o.value));
         this.max_3f = Math.max(...this.hotdata_3f.map(o => o.value));
@@ -391,7 +344,6 @@
             data: this.hotdata_4f,
           },
         ];
-        console.log(data)
         // 热力图
         vm.heatmap.forEach((a, i) => {
           const heatmapDom = document.querySelector(`#chart4_${i + 1}`);

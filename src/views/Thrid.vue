@@ -69,12 +69,12 @@
             this.get_KeliuDataStat();
           })
         } else {
-          this.staylist = [];
-          this.list = [];
-          this.gamedata = [];
-          this.clist = [];
-          this.attendance_rate = [];
-          this.mlist = [];
+          // this.staylist = [];
+          // this.list = [];
+          // this.gamedata = [];
+          // this.clist = [];
+          // this.attendance_rate = [];
+          // this.mlist = [];
         }
       }
     },

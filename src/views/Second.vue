@@ -70,14 +70,14 @@
           })
         } else {
           this.autoplay = false;
-          this.people_line = [];
-          this.children_yy_sum = 0;
-          this.children_ck_sum = 0;
-          this.people_pb_num = 0;
-          this.people_yy_sum = 0;
-          this.age_stat = [];
-          this.exhibition = [];
-          this.exhibit = [];
+          // this.people_line = [];
+          // this.children_yy_sum = 0;
+          // this.children_ck_sum = 0;
+          // this.people_pb_num = 0;
+          // this.people_yy_sum = 0;
+          // this.age_stat = [];
+          // this.exhibition = [];
+          // this.exhibit = [];
         }
       }
     },

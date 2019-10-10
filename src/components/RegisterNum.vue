@@ -54,6 +54,15 @@
         },
       }
     },
+    watch: {
+      'mdata': {
+        handler(newValue, oldValue) {
+          this.myEcharts.clear();
+          this.initMember(newValue);
+        },
+        deep: true
+      }
+    },
     props: {
       'mdata': {
         type: Object,
@@ -67,15 +76,14 @@
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
       this.m_data = this.mdata;
-      this.initMember(this.mdata);
+      this.initMember(this.m_data);
       var reg = setInterval(() => {
         this.myEcharts.clear();
-        this.initMember(this.mdata);
+        this.initMember(this.m_data);
       }, 10000)
     },
     methods: {
       onReady(instance, CountUp) {
-        // console.log(CountUp)
         const that = this;
         instance.update(that.m_data.total);
       },

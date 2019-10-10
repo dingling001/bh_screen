@@ -27,8 +27,19 @@
   export default {
     data() {
       return {
-        myEcharts: null
+        myEcharts: null,
+        topfivedata: []
       }
+    },
+    watch: {
+      'topfive'(newValue, oldValue) {
+        for (let i = 0; i < newValue.length; i++) {
+          if (oldValue[i] != newValue[i]) {
+            this.myEcharts.clear();
+            this.iniTopfive(newValue);
+          }
+        }
+      },
     },
     props: {
       'topfive': {
@@ -40,10 +51,11 @@
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
       // console.log(this.topfive)
-      this.iniTopfive(this.topfive);
-     var ftop= setInterval(() => {
+      this.topfivedata = this.topfive;
+      this.iniTopfive(this.topfivedata);
+      var ftop = setInterval(() => {
         this.myEcharts.clear();
-        this.iniTopfive(this.topfive);
+        this.iniTopfive(this.topfivedata);
       }, 10000)
     },
     methods: {

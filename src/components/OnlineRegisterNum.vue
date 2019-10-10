@@ -16,11 +16,11 @@
     <!-- echarts -->
     <div class="echarts-con" ref="echartsEl"></div>
     <div class="onlinedata">
-      <div class="onlineitem item0"><span>{{onlinedata.w_count}}</span><span>{{((onlinedata.w_count/onlinedata.count)*100).toFixed(2)}}%</span>
+      <div class="onlineitem item0"><span>{{online.w_count}}</span><span>{{((online.w_count/online.count)*100).toFixed(2)}}%</span>
       </div>
-      <div class="onlineitem item1"><span>{{onlinedata.d_count}}</span><span>{{((onlinedata.d_count/onlinedata.count)*100).toFixed(2)}}%</span>
+      <div class="onlineitem item1"><span>{{online.d_count}}</span><span>{{((online.d_count/online.count)*100).toFixed(2)}}%</span>
       </div>
-      <div class="onlineitem item2"><span>{{onlinedata.m_count}}</span><span>{{((onlinedata.m_count/onlinedata.count)*100).toFixed(2)}}%</span>
+      <div class="onlineitem item2"><span>{{online.m_count}}</span><span>{{((online.m_count/online.count)*100).toFixed(2)}}%</span>
       </div>
     </div>
   </div>
@@ -43,13 +43,23 @@
           prefix: '',
           suffix: '',
         },
+        online: {}
       }
     },
     components: {
       ICountUp
     },
+    watch: {
+      'onlinedata': {
+        handler(newValue, oldValue) {
+          this.myEcharts.clear();
+          this.initOnline(newValue)
+        },
+        deep: true,
+      }
+    },
     props: {
-      onlinedata: {
+      'onlinedata': {
         type: Object,
         default: {}
       }
@@ -57,10 +67,11 @@
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
-      this.initOnline(this.onlinedata);
+      this.online = this.onlinedata;
+      this.initOnline(this.online);
       var online = setInterval(() => {
         this.myEcharts.clear();
-        this.initOnline(this.onlinedata);
+        this.initOnline(this.online);
       }, 10000)
       // console.log(this.onlinedata)
     },

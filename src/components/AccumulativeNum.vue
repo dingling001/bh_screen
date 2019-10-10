@@ -26,7 +26,7 @@
     <div class="echarts-con" ref="echartsEl"></div>
     <div class="peiban">
       <div><span>陪伴票:</span><span class="pbprenct"> {{pbprenct}}%</span></div>
-      <div>{{peoplepbnum}}</div>
+      <div>{{people_pbnum}}</div>
     </div>
     <div class="tiyan">
       <div class="child"><span>儿童 </span><span> {{childprecent}}%</span></div>
@@ -53,33 +53,75 @@
           suffix: '',
         },
         myEcharts: null,
-        total: 0,
-        totalcheck: 0,
-        pbprenct: 0,
-        childprecent: 0,
-        adultprecent: 0
+        // total: 0,
+        // totalcheck: 0,
+        // pbprenct: 0,
+        // childprecent: 0,
+        // adultprecent: 0,
+
+        children_yysum: 0,
+        children_cksum: 0,
+        people_pbnum: 0,
+        people_yysum: 0
       }
     },
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
-      this.total = this.childrenyysum + this.peopleyysum;
-      this.totalcheck = this.childrencksum + this.peopleyysum;
-      this.pbprenct = this.total == 0 ? 0 : (this.peoplepbnum / this.total).toFixed(2) * 100;
-
-      this.childprecent = this.totalcheck == 0 ? 0 :(this.childrencksum / this.totalcheck * 100).toFixed(1);
-      this.adultprecent = this.totalcheck == 0 ? 0 : ((this.peopleyysum / this.totalcheck) * 100).toFixed(1);
       this.initChildtotal();
       var initChildtotal = setInterval(() => {
         this.myEcharts.clear();
         this.initChildtotal()
       }, 10000);
     },
-    created(){
 
-    },
     components: {
       ICountUp,
+    },
+    computed: {
+      total() {
+        // this.children_yysum=this.childrenyysum;
+        // this.peoplepbnum=this.people_yysum;
+        return this.children_yysum + this.people_yysum;
+      },
+      totalcheck() {
+        return this.children_cksum + this.people_yysum;
+      },
+      pbprenct() {
+        return this.total == 0 ? 0 : (this.people_pbnum / this.total).toFixed(2) * 100;
+      },
+      childprecent() {
+        return this.totalcheck == 0 ? 0 : (this.children_cksum / this.totalcheck * 100).toFixed(1);
+      },
+      adultprecent() {
+        return this.totalcheck == 0 ? 0 : ((this.people_yysum / this.totalcheck) * 100).toFixed(1);
+      }
+    },
+    watch: {
+      'childrenyysum': {
+        handler(val) {
+          this.children_yysum = val;
+        },
+        immediate: true
+      },
+      'childrencksum': {
+        handler(val) {
+          this.children_cksum = val;
+        },
+        immediate: true
+      },
+      'peoplepbnum': {
+        handler(val) {
+          this.people_pbnum = val;
+        },
+        immediate: true
+      },
+      'peopleyysum': {
+        handler(val) {
+          this.people_yysum = val;
+        },
+        immediate: true
+      }
     },
     props: {
       'childrenyysum': {

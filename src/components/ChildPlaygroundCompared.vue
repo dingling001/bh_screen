@@ -14,8 +14,21 @@
   export default {
     data() {
       return {
-        myEcharts: null
+        myEcharts: null,
+        pepledata:[]
       }
+    },
+    watch:{
+      'peopleline'(newValue, oldValue) {
+        if (newValue.length) {
+          for (let i = 0; i < newValue.length; i++) {
+            if (oldValue[i] != newValue[i]) {
+              this.myEcharts.clear();
+              this.initChild(newValue)
+            }
+          }
+        }
+      },
     },
     props: {
       'peopleline': {

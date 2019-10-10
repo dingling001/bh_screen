@@ -4,13 +4,12 @@
       <span>4D影院预约量：</span>
       <span><ICountUp
         :delay="delay"
-        :endVal="ctotal"
+        :endVal="totaldata"
         :options="options"
         @ready="onReady"
         class="iconup"
       /></span>
     </div>
-
     <!-- echarts -->
     <div class="echarts-con" ref="echartsEl"></div>
   </div>
@@ -33,8 +32,27 @@
           prefix: '',
           suffix: '',
         },
-        myEcharts: null
+        myEcharts: null,
+        totaldata: 0
       };
+    },
+    watch: {
+      'clist'(newValue, oldValue) {
+        if (newValue.length) {
+          for (let i = 0; i < newValue.length; i++) {
+            if (oldValue[i] != newValue[i]) {
+              this.myEcharts.clear();
+              this.initCdata(newValue)
+            }
+          }
+        }
+      },
+      'ctotal': {
+        handler(val) {
+          this.totaldata = val;
+        },
+        immediate: true
+      }
     },
     props: {
       'clist': {
@@ -45,7 +63,6 @@
         type: Number,
         default: 0
       }
-
     },
     components: {
       ICountUp,
@@ -54,7 +71,7 @@
       onReady(instance, CountUp) {
         // console.log(CountUp)
         const that = this;
-        instance.update(that.ctotal);
+        instance.update(that.totaldata);
       },
       initCdata(clist) {
         var xdata = [];
@@ -116,7 +133,7 @@
           },
           yAxis: {
             type: 'value',
-            minInterval:1,
+            minInterval: 1,
             splitNumber: 3,
             name: '每日预约量',
             nameTextStyle: {

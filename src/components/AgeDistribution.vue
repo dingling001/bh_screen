@@ -16,7 +16,21 @@
     data() {
       return {
         myEcharts: null,
+        ageuser: []
       }
+    },
+    watch: {
+      'age_user'(newValue, oldValue) {
+        this.ageuser = newValue;
+        if (newValue.length) {
+          for (let i = 0; i < newValue.length; i++) {
+            if (oldValue[i] != newValue[i]) {
+              this.myEcharts.clear();
+              this.initData(newValue)
+            }
+          }
+        }
+      },
     },
     props: {
       'age_user': {
@@ -27,10 +41,11 @@
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
-      this.initData(this.age_user)
+      this.ageuser = this.age_user;
+      this.initData(this.ageuser)
       var initData = setInterval(() => {
         this.myEcharts.clear();
-        this.initData(this.age_user)
+        this.initData(this.ageuser)
       }, 10000)
     },
     methods: {
@@ -114,7 +129,7 @@
                   value: item.value,
                   label: {
                     formatter(params) {
-                      return `${Number((params.value/total) * 100).toFixed(2)}%`;
+                      return `${Number((params.value / total) * 100).toFixed(2)}%`;
                     },
                     position: 'center',
                     show: true,
@@ -122,7 +137,7 @@
                       fontSize: '9',
                       fontWeight: 'bold',
                       color: '#fff',
-                      zIndex:2
+                      zIndex: 2
                     },
                   },
                 },
@@ -131,7 +146,7 @@
                   itemStyle: {
                     color: '#535353',
                     borderWidth: 0,
-                    zIndex:1,
+                    zIndex: 1,
                     emphasis: {
                       show: false,
                     },

@@ -6,9 +6,11 @@
 
     <!-- echarts -->
     <div class="echarts-con" ref="echartsEl"></div>
-    <div class="man"><span>男性 </span><span>{{((sex_user[0].value/sextotal)*100).toFixed(2)}}%</span></div>
+    <div class="man" v-if="sexuser.length">
+      <span>男性 </span><span>{{manp}}%</span></div>
 
-    <div class="woman"><span>女性 </span><span>{{((sex_user[1].value/sextotal)*100).toFixed(2)}}%</span></div>
+    <div class="woman" v-if="sexuser.length">
+      <span>女性 </span><span>{{womanp}}%</span></div>
   </div>
 </template>
 
@@ -20,8 +22,25 @@
       return {
         // image: require('../assets/logo.png'),
         myEcharts: null,
-        sextotal: 0
+        sextotal: 0,
+        sexuser: [],
       };
+    },
+
+    watch: {
+      'sex_user'(newValue, oldValue) {
+        for (let i = 0; i < newValue.length; i++) {
+          if (oldValue[i] != newValue[i]) {
+            this.sexuser = newValue;
+          }
+        }
+        this.sextotal = 0;
+        for (var i in this.sexuser) {
+          this.sextotal += this.sexuser[i].value
+        }
+        this.myEcharts.clear();
+        this.initSex(this.sexuser)
+      },
     },
     props: {
       'sex_user': {
@@ -29,16 +48,27 @@
         default: []
       }
     },
+    computed: {
+      manp() {
+        var m = ((this.sexuser[0].value / this.sextotal) * 100).toFixed(2);
+        return m
+      },
+      womanp() {
+        var n = ((this.sexuser[1].value / this.sextotal) * 100).toFixed(2);
+        return n
+      },
+    },
     mounted() {
       const {echartsEl} = this.$refs;
       this.myEcharts = echarts.init(echartsEl);
-      for (var i in this.sex_user) {
-        this.sextotal += this.sex_user[i].value
+      this.sexuser = this.sex_user;
+      for (var i in this.sexuser) {
+        this.sextotal += this.sexuser[i].value
       }
-      this.initSex(this.sex_user);
+      this.initSex(this.sexuser);
       setInterval(() => {
         this.myEcharts.clear();
-        this.initSex(this.sex_user)
+        this.initSex(this.sexuser)
       }, 10000)
     },
     methods: {
@@ -131,7 +161,7 @@
                 },
                 {
                   name: '',
-                  value:2,
+                  value: 2,
                 },
                 {
                   name: sexdata[0].name + '性',
@@ -211,8 +241,9 @@
 
       font-size: 16px;
       font-weight: bold;
-      span{
-        &:first-child{
+
+      span {
+        &:first-child {
           font-size: 14px;
         }
       }
@@ -225,8 +256,9 @@
       color: #2A7EC2;
       font-size: 16px;
       font-weight: bold;
-      span{
-        &:first-child{
+
+      span {
+        &:first-child {
           font-size: 14px;
         }
       }
