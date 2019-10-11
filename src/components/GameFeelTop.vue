@@ -13,7 +13,7 @@
       <div class="avataritem" v-for="(item ,index) in topfive"
            :style="{marginTop:70-80*(item.hello_num/topfive[0].hello_num)+'px'}">
         <div
-          :class="['avatar_bg',item.hello_num>=0&&item.hello_num<=3?'bachuji':'',item.hello_num>3&&item.hello_num<=10?'zhongji':'',item.hello_num>30?'teji':'']">
+          :class="['avatar_bg',item.hello_num>=0&&item.hello_num<=3?'bachuji':'',item.hello_num>3&&item.hello_num<=10?'zhongji':'',item.hello_num>10&&item.hello_num<=30?'gaoji':'',item.hello_num>30?'teji':'']">
           <img class="avtor" :src="item.avatar" alt="">
         </div>
       </div>

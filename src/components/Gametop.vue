@@ -11,7 +11,7 @@
         </div>
         <div class="gleft mid">
           <div
-            :class="['gamehead',item.score>=0&&item.score<=3?'chuji':'',item.score>3&&item.score<=10?'zhongji':'',item.score>30?'teji':'']">
+            :class="['gamehead',item.score>=0&&item.score<=3?'chuji':'',item.score>3&&item.score<=10?'zhongji':'',item.score>10&&item.score<=30?'gaoji':'',item.score>30?'teji':'']">
             <img :src="item.avatar" alt="" v-if="item.avatar">
           </div>
           <div class="gameperson">
