@@ -5,12 +5,10 @@
       <ul>
         <li v-for="(item,index) in innum" :key="index" v-if="innum.length">
           <!--            :class="'animated bounceInDown faster delay-'+index+'s'">-->
-          <countTo :startVal='startNum' :endVal='parseInt(item)'></countTo>
+          <countTo :startVal='0' :endVal='parseInt(item)' :duration="3000" ></countTo>
         </li>
-
       </ul>
     </div>
-
     <div class="echarts-con" ref="echartsEl"></div>
     <div class="mapline"><img src="../assets/bianjie.png" alt=""></div>
   </div>
@@ -39,7 +37,7 @@
 
     computed: {
       innum() {
-        return this.innumdata.toString().split('');
+          return this.innumdata.toString().split('');
       },
       lines() {
         this.areatopdata.forEach((c, d) => {

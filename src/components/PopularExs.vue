@@ -178,9 +178,9 @@
 
           > span {
             &:first-of-type {
-              width: 90px;
+              width: 86px;
               line-height: 1.5;
-              font-size: 8px;
+              font-size: 12px;
               font-weight: bold;
               color: #6272b6;
               text-align: left;

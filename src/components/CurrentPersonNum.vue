@@ -1,7 +1,7 @@
 <template>
   <div class="current-inner">
     <div class="current-inner_top">
-      <span>实时入馆人数：</span>
+      <span>今日入馆累积人数：</span>
       <span><ICountUp :delay="delay" :endVal="staynum" :options="options" @ready="onReady" class="iconup"/></span>
     </div>
     <!-- echart -->
