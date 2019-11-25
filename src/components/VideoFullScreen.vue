@@ -1,7 +1,8 @@
 <template>
   <div class="video-bg">
     <video loop preload="auto" muted="muted" :autoplay="auto" id="video">
-      <source src="../video/i.mp4" type="video/mp4">
+<!--      <source src="../video/i.mp4" type="video/mp4">-->
+      <source src="../video/v.ogg" type="video/ogg">
     </video>
   </div>
 </template>

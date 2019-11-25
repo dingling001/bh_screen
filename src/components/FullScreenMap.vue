@@ -98,6 +98,8 @@
         var series = []
         echarts.registerMap('worldMap', geoJSON);
         let maxwidth = Math.max(...lines.map(o => o.width));
+        // let list = this.areatop.find(item => s.features.findIndex(o => o.properties.name == item.name) === -1)
+        // console.log(list)
         lines.forEach((i, ind) => {
           var width = 0;
           if (maxwidth > 10) {
@@ -148,6 +150,19 @@
               data: [i],
               // data:mapData.moveLines
             },
+            {
+              type: 'map',
+              map: '',
+              itemStyle:{
+                normal:{label:{show:true}},
+                emphasis:{label:{show:true}}
+              },
+              data:[
+                {name: '地区1', value: 10},
+                {name: '地区2', value: 20},
+                {name: '地区3', value: 30}
+              ]
+            }
           )
         });
         const option = {
@@ -176,6 +191,9 @@
                 color: 'rgba(0, 0, 0, 0.84)', // 地图背景色
                 borderColor: '#516a89', // 省市边界线00fcff 516a89
                 borderWidth: 1,
+                formatter:function (val) {
+
+                }
               },
               emphasis: {
                 color: 'rgba(37, 43, 61, .5)', // 悬浮背景

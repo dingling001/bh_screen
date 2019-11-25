@@ -94,7 +94,6 @@
             right: 15,
             bottom: 40,
           },
-
           xAxis: {
             type: 'category',
             boundaryGap: false,
@@ -144,6 +143,9 @@
                 width: 2,
                 color: '#1DBC9D',
               },
+              showSymbol: false,
+              sampling: 'average',
+              showAllSymbol: false,
               itemStyle: {
                 color: '#1DBC9D',
                 borderWidth: 2,
